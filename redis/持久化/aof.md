@@ -2,7 +2,7 @@
 除了RDB持久化功能以外，Redis还提供了AOF(Append Only File)持久化功能。与RDB持久化通过保存数据库中的键值对来记录数据库状态不同，AOF持久化是通过保存Redis所执行的写命令来记录数据库状态的。
 
 大致流程
-![1](https://pic.imgdb.cn/item/61052c3b5132923bf8a22356.png)
+![623378-bcabcd38e2b747b9.png](https://pic.imgdb.cn/item/61052c3b5132923bf8a22356.png)
 
 ###  AOF持久化
 **AOF持久化功能的实现可以分为命令追加、文件写入、文件同步三个步骤**。
@@ -62,7 +62,7 @@ AOF 功能被关闭
 
 可以用流程图表示这四种情况：
 
-![1](https://pic.imgdb.cn/item/61051b0f5132923bf871421e.png)
+![11772383-e2517a5a90bfd170.webp](https://pic.imgdb.cn/item/61051b0f5132923bf871421e.png)
 
 
 根据以上说明可以知道， 在“每一秒钟保存一次”模式下， 如果在情况 1 中发生故障停机， 那么用户最多损失小于 2 秒内所产生的所有数据。
@@ -110,7 +110,7 @@ AOF 保存模式对性能和安全性的影响
 
 ### AOF 文件的读取和数据还原
 大致流程
-![1](https://pic.imgdb.cn/item/61052cab5132923bf8a349f5.png)
+![623378-7b17a4463deec765.png](https://pic.imgdb.cn/item/61052cab5132923bf8a349f5.png)
 
 AOF 文件保存了 Redis 的数据库状态， 而文件里面包含的都是符合 Redis 通讯协议格式的命令文本。
 
@@ -158,7 +158,7 @@ AOF重写程序aof_rewrite函数可以很好完成创建一个新AOF文件的任
 2. 子进程带有数据库进程的数据副本，使用子进程而不是线程，可以避免使用锁的情况下保证数据安全。
 
 #####  整个流程
-![1](https://pic.imgdb.cn/item/6105eecb5132923bf8331643.png)
+![1174710-20180605092001589-1724580361.png](https://pic.imgdb.cn/item/6105eecb5132923bf8331643.png)
 
 * Redis父进程首先判断当前是否存在正在执行 bgsave/bgrewriteaof的子进程，如果存在则bgrewriteaof命令直接返回，如果存在bgsave命令则等bgsave执行完成后再执行。这个主要是基于性能方面的考虑。
 
@@ -175,7 +175,7 @@ AOF重写程序aof_rewrite函数可以很好完成创建一个新AOF文件的任
 * 使用新的AOF文件替换老文件，完成AOF重写。
 
 ##### AOF重写缓冲区流程
-![1](https://pic.imgdb.cn/item/61052e555132923bf8a7d2e0.png)
+![623378-6c78b84c7c03cd57.png](https://pic.imgdb.cn/item/61052e555132923bf8a7d2e0.png)
 
 这个信号函数执行完毕以后，父进程就可以继续像往常一样接受命令请求了，在整个AOF后台重写过程中，只有**信号处理函数执行时会对服务器进程造成阻塞**，其他时候都可以继续处理请求，这样AOF重写对服务器性能造成的影响降到了最低。
 
