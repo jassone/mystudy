@@ -1,0 +1,8 @@
+### 添加第三方库的代码自动补全
+比如swoole
+* 先 git clone https://github.com/eaglewu/swoole-ide-helper.git 
+* 然后在Configure PHP Include Path配置中带入即可
+
+
+
+ 
