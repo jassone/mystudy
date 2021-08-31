@@ -8,10 +8,12 @@
 ###  5 apache模块运行模式(细分两种)
 ##### 第一种： mod_php
 在Apache的配置文件(httpd.conf)中添加如下配置：
-```
+```ini
 LoadModule php7_module /usr/local/opt/php@7.4/lib/httpd/modules/libphp7.so
-``` 
-其实原理都是，用LoadModule来加载php7_module，就是把php作为apache的一个内置的子模块来运行。让apache http服务器本身能够支持php语言，不需要每一个请求就启动php解释器来解释php。
+```
+其实原理都是，用LoadModule来加载php7_module，就是把php作为apache的一个内置的子模块来运行(自带php解释器)。让apache http服务器本身能够支持php语言，不需要每一个请求就启动php解释器来解释php。
+
+缺点是每次修改php.ini后，都要重启apache才能生效。
 
 那么，php7_module是如何将数据传给php的解析器来解析php代码的呢？
 答案是：sapi
@@ -32,7 +34,7 @@ httpd是Apache超文本传输协议(HTTP)服务器的主程序。被设计为一
 apache -> httpd -> php7_module -> SAPI -> php
 这种模式将php模块安装到apache中，每一次apache请求，都会产生一条进程，这个进程就完整的包括php的各种运算计算等操作。
 
-在上图中，我们很清晰的可以看到，apache每接收一个请求，都会产生一个进程来连接php通过sapi来完成请求，可想而知，如果一旦用户过多，并发数过多，服务器就会承受不住了。而且，把php当做一个模块加载到apache中，出问题时很难定位是php的问题还是apache的问题。 
+在上图中，我们很清晰的可以看到，apache每接收一个请求，都会产生一个进程来连接php通过sapi来完成请求，可想而知，如果一旦用户过多，并发数过多，服务器就会承受不住了。而且，把php当做一个模块加载到apache中，出问题时很难定位是php的问题还是apache的问题。 而且一旦修改了php.ini,需要重启apache。
 
 ##### 第二种：mod_fastcgi模块（mod_cgi基本很少了）
 

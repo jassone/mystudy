@@ -22,33 +22,33 @@ OPcache 通过将 PHP 脚本预编译的字节码存储到共享内存中来提�
 ### 相关函数
 * 清空缓存
 
-```
+```php
 opcache_reset();
 ```
 
 * 预先为某个文件生成缓存
 
-```
+```php
 opcache_compile_file('test2.php');
 ```
 
 * 检查某个文件是否已经生成了缓存
 
-```
+```php
 var_dump(opcache_is_script_cached('test2.php'));
 // 打印true/false
 ```
 
 * 只想清空某个文件的缓存
 
-```
+```php
 var_dump(opcache_invalidate('test2.php', true));
 // 该函数的作用是使得指定脚本的字节码缓存失效。 如果 第二个参数 force 没有设置或者传入的是 false，那么只有当脚本的修改时间 比对应字节码的时间更新，脚本的缓存才会失效。
 ```
 
 * 获取opcache相关信息
 
-```
+```php
 //获取缓存的状态信息
 var_dump(opcache_get_status());
 
@@ -64,7 +64,7 @@ var_dump(opcache_get_configuration());
 
 php.ini加入
 
-```
+```sh
 zend_extension="/usr/local/opt/php@7.4/lib/php/20190902/opcache.so";
 ```
 
@@ -133,7 +133,7 @@ opcache_invalidate()
 
 相关实现如下(框架:laravel):
 
-```
+```php
 Route::any('cache-reset', function () {
   //重置整个Opcode缓存
   dd(opcache_reset());

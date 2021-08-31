@@ -42,8 +42,7 @@ LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so
 </VirtualHost> 
 ```
 
-其作用大致是 所有以 .php 结尾的请求都转发给 127.0.0.1:9000 ，php-fpm 会一直监听127.0.0.1:9000，并解析.php 文件。
-
+**其作用大致是 所有以 .php 结尾的请求都转发给 127.0.0.1:9000 ，fastcig 会一直监听127.0.0.1:9000。**
 
 ## php-fpm 配置
 /usr/local/etc/php/7.4（本人）

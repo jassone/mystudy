@@ -55,9 +55,3 @@ php -c ./custom-php.ini my_script.php
 * --re <name> 显示某拓展的信息
 * --rz <name> 显示某zend拓展的信息
 * --ri <name> 显示某拓展的配置信息
-
-
-## php-cgi 
-
-* php-cgi -f 解析并运行给定的文件名,不能直接执行PHP语句 
-* php-cgi -i  和代码中打印的phpinfo()一样 

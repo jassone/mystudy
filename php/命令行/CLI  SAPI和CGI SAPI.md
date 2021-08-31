@@ -1,12 +1,21 @@
-## PHP的命令行模式-CLI SAPI
-CLI SAPI（Server Application Programming Interface，服务端应用编程端口），名为 CLI，意为 Command Line Interface，即命令行接口。
+## CLI SAPI 和 CGI SAPI 
+### 有两种
+
+1 CLI SAPI（Server Application Programming Interface，服务端应用编程端口），名为 CLI，意为 Command Line Interface，即命令行接口。
 
 > 即常用的命令’php‘ 
 
-CGI(Common Gateway Interface) SAPI 公共网关接口
+2 CGI(Common Gateway Interface) SAPI 公共网关接口
 > 即命令’php-cgi‘
 
-对比CGI SAPI，CLI SAPI有很多不同的特性：
+### 相同点
+Linux下安装好php，会有“php”和“php-cgi”这两个可执行程序(在win下是php.exe和php-cgi.exe)，这两个程序其实基本上是一样的，都是“php解释器”(就是php的核心)，就是能把你写的php代码进行解释最后输出代码的结果。
+
+### 不同点
+
+* php属于cli接口(client客户端接口)，只能用命令去调用，而php-cgi则提供了fastCGI接口，fastCGI接口是一种“网络接口”，你可以通过网络的方式去调用它。
+
+    比如nginx调用php-cgi可以用“fastcgi_pass 127.0.0.1:9000;”这样调用，或者换成其他机子地址，这样去调用其他服务器的php-fpm。
 
 * 与 CGI SAPI 不同，CLI SAPI输出没有任何头信息
 
@@ -41,6 +50,11 @@ php -r 'echo 123;'
 // 报错
 php -r "var_dump($argv);" app 
 ```
+
+### CGI SAPI运行PHP代码
+* php-cgi -f 解析并运行给定的文件名,不能直接执行PHP语句 
+* php-cgi -i  和代码中打印的phpinfo()一样 
+
 
 ### PHP获取命令行参数的方法
 1 脚本中直接访问\$argv, \$argc两个全局变量：
