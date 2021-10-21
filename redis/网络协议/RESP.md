@@ -1,4 +1,4 @@
-## RESP
+## redis通信协议-RESP
 Redis客户端和服务端之间使用一种名为RESP(REdis Serialization Protocol)的**二进制安全文本协议**进行通信。RESP在位于TCP之上，而网络模型上客户端和服务器是保持的**双工**的连接。虽然该协议是<font color="red">专为Redis设计的</font>，但它可以用于其他客户端-服务器软件项目。
 
 ### 高性能 Redis 协议分析器

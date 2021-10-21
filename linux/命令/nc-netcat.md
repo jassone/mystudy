@@ -18,9 +18,56 @@
 * -v: 显示错误提示信息
 * -w secs:设置连接超时秒数
 * -z:设置扫描模式，表示发送的数据包中不包含任何payload
-*  
 
-### 连接到远程主机
+
+### 使用nc发送get和post请求
+##### GET
+
+get请求头文件header.txt
+```sh
+GET / HTTP/1.0
+Host: baidu.com
+```
+
+```sh
+nc baidu.com 80 < header.txt
+```
+
+或者nc**_连接服务器_**后，再输入内容发送请求
+
+```sh
+➜  / nc www.baidu.com 80
+GET / HTTP/1.1
+
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 14615
+ ...
+```
+
+或者多行一起
+```sh
+echo -e "GET / HTTP/1.0\r\nHost: www.baidu.com\r\n\r\n" | nc www.baidu.com 80
+```
+##### POST
+post请求头文件header.txt，参数site=zixuephp.net test=test
+
+```sh
+POST / HTTP/1.0
+Host: baidu.com
+Content-Type: application/x-www-form-urlencoded;charset=utf-8
+Content-Length: 27
+ 
+site=zixuephp.net&test=test
+```
+
+```sh
+nc baidu.com 80 < header.txt
+```
+
+### 连接到远程主机后再进行通信
 ```
 nc  -nvv Targert_IP  Targert_Port
 
@@ -28,8 +75,18 @@ nc  -nvv Targert_IP  Targert_Port
 Connection to 127.0.0.1 port 9501 [tcp/*] succeeded!
 ```
 
-### 监听本地主机 ???
+然后后面就可以发送对应的内容来和服务器进行交互，比如http请求(上面已介绍)，redis请求等
 
+```
+//比如发送redis请求(keys *)
+➜  / nc localhost 6379
+keys *
+*3
+$2
+...
+```
+
+### 监听本地主机 ???
 ```
 nc  -l  -p  Local_Port
 ```
@@ -48,8 +105,6 @@ Connection to 127.0.0.1 port 80 [tcp/http] succeeded!
 
 ```
 nc  -v  -z  Target_IP   Target_Port_Start  -  Target_Port_End
-
-
 ```
 
 
@@ -57,8 +112,6 @@ nc  -v  -z  Target_IP   Target_Port_Start  -  Target_Port_End
 
 ```
 nc -v   -z  -u  Target_IP  Target_Port_Start   -   Target_Port_End
-
-
 ```
 
 * 扫描指定主机的端口段信息，并且设置超时时间为3秒
@@ -81,12 +134,10 @@ nc  -l  -p  local_Port
 
 ```
 nc -l  -p local_Port > target_File
-
 ```
 
 
 ### 连接远程系统
-
 ```
 nc Target_IP  Target_Port
 ```

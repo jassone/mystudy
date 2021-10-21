@@ -1,6 +1,6 @@
 ## PHP-FPM(Fast CGI Process Manager)
 是一个PHPFast CGI管理器。全称是PHP FastCGI Process Manager。
-通俗来讲，就是用来管理启动一个master进程和多个worker进程的程序。即提供了进程管理的功能。
+通俗来讲，就是用来管理启动一个master进程和多个worker进程的程序。即提供了进程管理的功能。php-fpm在php5.3以后不再作为第三方的模块而是集成到了php中。
 
 **FastCGI进程包含master进程和worker进程两种进程。master进程只有一个，只负责监听端口，接收apache/Nginx的请求，而worker进程则一般有多个(可配置)，每个进程内部都嵌入了一个PHP解释器(php-cgi)，是PHP代码真正执行的地方。** 
 
