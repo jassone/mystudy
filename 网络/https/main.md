@@ -39,9 +39,11 @@ SSL协议两个重要概念，SSL会话，SSL连接；SSL连接是点到点的�
 
 ## 三、HTTPS
 ![v2-54ff04e1b0cc698f08f76d6356f59fac_1440w.png](https://pic.imgdb.cn/item/616ec5e62ab3f51d91f151b1.png)
-如上图所示 HTTPS 相比 HTTP 多了一层 SSL/TLS。
+如上图所示 HTTPS 相比 HTTP 多了一层 SSL/TLS。即HTTPS是HTTP的加密版，底层使用的加密协议是SSL。
 
 HTTPS并非是应用层的一种新协议，只是http通信接口部分用SSL/TLS协议代替而已。通常HTTP直接和TCP通信，当用SSL时，就变成了先和SSL通信，再由SSL和TCP通信。
+
+HTTPS=非对称加密+对称加密+HASH+CA.
 
 ### 1、加密方式的选择
 共享密钥加密 + 对称密钥加密
@@ -188,7 +190,7 @@ Application Data             <------->               Application Data
 5. 客户端。
 客户端计算所有接收信息的hash值，并采用协商密钥解密 encrypted_handshake_message，验证服务器发送的数据和密钥，验证通过则握手完成;
  
-6. 加密通信。开始使用协商密钥与算法进行加密通信。
+6. 加密通信。开始使用协商密钥与算法进行加密通信(**后面和服务器80端口交互，只加密报体**)。
 
     client/server皆是通过该master secret来产生对称加密的session key，故client知道server端的session key，server端也知道client端的session key，为此能够发送/接收加密的信息。
 
@@ -212,7 +214,7 @@ Application Data             <------->               Application Data
 1. HTTPS解决了什么问题
 
     1）内容加密，防止中间人攻击（man-in-the-middle attacks）
-    2）身份认证，防止DNS劫持
+    2）身份认证(防止钓鱼网站)，防止DNS劫持
     3）数据完整性检查，防止内容被第三方冒充或者篡改
 
 1. 中间人有可能篡改该证书吗？
@@ -248,7 +250,7 @@ Application Data             <------->               Application Data
 
 1. CA机构认证的作用？
 
-    可以作为全球有限的权威认证，经过其签名的证书都可以视为可信任的，所以他们的私钥必须要保证不被泄露，如果泄露的话需要及时的进行吊销，
+    可以作为全球有限的权威认证，经过其签名的证书都可以视为可信任的，所以他们的私钥必须要保证不被泄露，如果泄露的话需要及时的进行吊销。
     
 1. 为什么要有随机数，为什么在客户端生成？
 

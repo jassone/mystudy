@@ -63,6 +63,12 @@ lo    Link encap:Local Loopback
 # ifconfig eth0 up
 ```
 
+给网卡增加一个虚拟(子)IP地址
+```sh
+ifconfig eth0:8 192.168.9.9/24  
+##然后再通过route -n 就会发现多出一条映射管理。
+```
+
 为网卡配置和删除IPv6地址
 ```sh
 # ifconfig eth0 add 33ffe:3240:800:1005::2/ 64 //为网卡设置IPv6地址
