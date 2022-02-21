@@ -1,5 +1,3 @@
-
-
 ### 配置
 
 ```
@@ -18,7 +16,4 @@ LoadModule php7_module /usr/local/opt/php@7.4/lib/httpd/modules/libphp7.so
 
 //host
 ServerName localhost:80
-
-
-
 ```

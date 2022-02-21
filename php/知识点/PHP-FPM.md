@@ -10,7 +10,9 @@
 ```sh
 php-fpm
 ```
-> php 5.3.3 以后的php-fpm 不再支持 php-fpm start|stop|reload
+
+* php 5.3.3 以后的php-fpm 不再支持 php-fpm start|stop|reload
+* 不能关闭窗口，否则则关闭服务
 
 2 其他
 master进程可以理解以下信号
@@ -82,6 +84,8 @@ kill -USR2 'cat /usr/local/php/var/run/php-fpm.pid'
 php.ini里面max_execution_time 可以设置 PHP 脚本的最大执行时间，但是，在 php-cgi(php-fpm)中，该参数不会起效。真正能够控制 PHP 脚本最大执行时间的是 php-fpm.conf配置文件中的request_terminate_timeout参数。
 
 ##### <font color="red">listen.backlog = -1</font>
+backlog是完成三次握手即处于established状态的用户连接队列的长度,就通过listen第二个参数指定.
+
 backlog数，-1表示无限制，由操作系统决定，此行注释掉就行。
 
 有时候机子性能差是由于php-fpm backlog参数设置为-1，导致fpm没能及时取出完成连接队列的socket，出现SYN 超时，最终导致压不上去，表现出性能差。

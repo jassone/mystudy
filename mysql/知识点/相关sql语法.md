@@ -84,6 +84,16 @@ exists后面的子查询不返回任何实际数据，只返回真或假，当�
 
 ```sql
 select * from msg force index(src_des) where src = '13' 
+```
 
+### 7、any/some
+只要存在一个t2.m2<t1.m1的情况，整个布尔表达式就返回true
+```sql
+select * from t1 where m1 > any(select m2 from t2)
+```
 
+### 8、all
+要求t2.m2 都小于 t1.m1时，整个布尔表达式才返回true
+```sql
+select * from t1 where m1 > all(select m2 from t2)
 ```

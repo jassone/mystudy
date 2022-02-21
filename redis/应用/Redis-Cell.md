@@ -1,6 +1,5 @@
 ## Redis-Cell
-
-redis-cell将这个过程`原子化`，完美解决了分布式环境下数据的一致性问题。
+redis4.0以后开始支持扩展模块，redis-cell是一个用rust语言编写的基于令牌桶算法的的限流模块，提供`原子性`的限流功能，并允许突发流量，可以很方便的应用于分布式环境中。
 
 ### 相关wiki
 http://researchlab.github.io/2018/10/05/redis-08-redis-cell/
