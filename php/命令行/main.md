@@ -2,7 +2,7 @@
 * php -i 查看php信息
 
 * php -m 查看php模块信息
-* php --ri XXX  查看扩展的版本信息
+* **php --ri XXX  查看扩展的版本信息**
 ```
 php --ri swoole
 ``` 

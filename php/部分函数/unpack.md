@@ -1,6 +1,21 @@
+## unpack
 
-
+```php
+$data = "中国";
+$bitmap = unpack('C*', $data);
+输出
+Array
+(
+    [1] => 228
+    [2] => 184
+    [3] => 173
+    [4] => 229
+    [5] => 155
+    [6] => 189
+)
 ```
+
+```php
 $data = "a";
  
 $bitmap = unpack('C*', $data);
