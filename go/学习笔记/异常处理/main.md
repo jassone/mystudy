@@ -37,5 +37,11 @@ func test() {
 * 利用recover处理panic指令，**defer 必须放在 panic 之前定义，另外 recover 只有在 defer 调用的函数中才有效。**否则当panic时，recover无法捕获到panic，无法防止panic扩散。
 * **recover 处理异常后，逻辑并不会恢复到 panic 那个点去，函数跑到 defer 之后的那个点。**
 
-### 2、如何区别使用 panic 和 error 两种方式?
+### 2、如何区别使用 panic 和 error 两种方式
 惯例是导致关键流程出现不可修复性错误的使用 panic，其他使用 error。
+
+## 三、嵌套的情况
+先panic的先打印。
+
+todo
+* https://www.bilibili.com/video/BV155411Y7XT?spm_id_from=333.999.0.0

@@ -36,13 +36,45 @@ pkg中的文件是Go编译生成的。（一般文件后缀.a）
 ## 三、细节
 ### 1、引用类型和值类型 
 * 值类型 ：array  struct
-* 引用类型： map slice channel
+* 引用类型： map slice channel interface
 
 **引用类型数据类型使用前必须初始化。**
 
-## 四、wiki
-### 教程1
-* https://www.topgoer.com/
+go 中没有引用类型 ？？todo，c++中有，比如
+```c++
+int n = 4;
+int & r = n;        //r引用了n，从此r和n是一回事
+```
 
-### 相关文章
+### 2、字面量
+字面量在编译期间是未分配地址的，不能通过编译，不能直接使用。
+```go
+A{Name:"jack"}.get()
+```
+
+### 3、Function Value
+函数作为变量、参数和返回值时，都是以Function Value的形式存在的。闭包只是捕获列表的Function Value而已。
+将一个函数赋值给一个变量，则这个变量叫做函数表达式，
+
+方法也是同样的道理，**最终都以方法表达式执行**。
+```go
+func (p P) get() {}
+p := P{}
+
+f1 := P.get
+f1(p) // 方法表达式
+
+f := p.get // 方法变量
+f() // 底层会默认转换为方法表达式，即P.get(f)
+```
+本质上来说，函数表达式，方法表达式，方法变量，都是Function Value。
+
+### 4、自增自减
+```go
+i := 1
+j = i++ // i++ 和 i– 在 Go 语言中是语句，不是表达式，因此不能赋值给另外的变量。
+```
+## 四、wiki
+ 
+### 1、相关文章
 * 经典 https://blog.csdn.net/wohu1104/article/details/106391649

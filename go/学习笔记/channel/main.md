@@ -33,7 +33,9 @@ ch = make(chan int)
 ### 3、channel操作
 通道有发送（send）、接收(receive）和关闭（close）三种操作。
 
-##### close
+* ch <-  // **写 channel 是必须带上值**
+
+##### a) close
 通道是可以被垃圾回收机制回收的，关闭通道不是必须的。
 
 但是管道不往里存值或者取值的时候一定记得关闭管道。
@@ -113,21 +115,27 @@ func main() {
 range用的比较多。
 
 ### 7、单向通道
+有方向的 channel 不可以被关闭。
+```go
+func Stop(stop <-chan bool) {
+	close(stop) // panic
+}
+```
 
-
-
-### 特性
+### 8、特性
 * 不要通过共享内存来通信，而是通过通信来共享内存
 
 * 声明的通道后需要使用make函数初始化之后才能使用
 
-### 异常情况总结
+### 9、异常情况总结
  ![channel01.png](https://pic.imgdb.cn/item/622d3d555baa1a80ab00ec67.png)
 
 * 关闭已经关闭的channel会引发panic。
 * 对一个关闭的通道再发送值会导致panic。
 
-### select
+口诀：nil读写阻塞，写关闭异常，读关闭空零
+
+## 二、select
+* select会尝试执行每个case, 如果都可以执行，那么随机选一个执行
 * 可处理一个或多个channel的发送/接收操作。
-* 如果多个case同时满足，select会随机选择一个。
 * 对于没有case的select{}会一直等待，可用于阻塞main函数。

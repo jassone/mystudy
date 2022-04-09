@@ -1,8 +1,8 @@
-## 说明
+## brew
 各个软件安装目录
 /usr/local/Cellar
 
-## 命令
+## 一、命令
 更新 Homebrew
 brew update
 
@@ -15,9 +15,9 @@ brew info nginx
 安装软件
 brew install nginx
 
+## 二、资源
+* https://brew.sh/index_zh-cn
 
-
-
-
-
-https://www.jianshu.com/p/631e63dab0a0
+## 三、相关问题
+### 1、brew update 无响应
+*  https://www.jianshu.com/p/631e63dab0a0

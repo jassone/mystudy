@@ -13,15 +13,17 @@ var 变量名 []类型，
 ### 2、切片内部结构
 ```go 
 type slice struct { 
-    array unsafe.Pointer  // 内存地址，即指向一个数组的指针
+    array unsafe.Pointer  // 内存地址，即指向切片的数组的指针, 注意这里是指针
     len  int
     cap  int
 }
+var str []string  
+// 这时候存放的内存地址为nil，len=0,cap=0
 ```
 ![reereedfd.jpeg](https://pic.imgdb.cn/item/6230b25b5baa1a80ab82ab03.jpg)
 
 ### 3、创建切片的各种方式
- 见slice学习笔记
+ 见slice学习代码
  
 ### 4、切片初始化
 
@@ -53,10 +55,10 @@ slice9 := arr[:len(arr)-1] //去掉切片的最后一个元素
 这里对y里的两个原始进行修改，x也会一起发生变化。
 
 ## 二、特性
-* 切片（slice）是对数组一个连续片段的引用，所以切片是**引用类型**(占用资源很小)。但自身是结构体，值拷贝传递。
+* 切片（slice）是对数组一个连续片段的引用，所以切片是**引用类型**(占用资源很小)。**但自身是结构体，值拷贝传递。**
 * 切片是对数组的一个连续‘片段’的引用
 * 切片的长度可以改变，因此，切片是一个可变的数组。
-* 切片遍历方式和数组一样，可以用len()求长度。表示可用元素数量，读写操作不能超过该限制。 
+* 切片遍历方式和数组一样，可以用len()求长度。表示可用元素数量，**读写操作不能超过该限制。** 
 * mcap可以求出slice最大扩张容量，不能超出数组限制。0 <= len(slice) <= len(array)，其中array是slice引用的数组。
 * 切片只能和nil比较，因为是引用类型，值类型可以比较(比如数组)
 * 如果 slice == nil，那么 len、cap 结果都等于 0。
@@ -86,7 +88,12 @@ c）还有一种简单的字面量创建切片的方法。如下图，就 Slice 
 
 d) **空切片**
 ![slice-8.png](https://pic.imgdb.cn/item/6231b3cd5baa1a80abfaae34.png)
-
+	
+空切片不能直接赋值
+```go
+	slice := make([]int,0)
+	slice[0] = 1
+```
 ### 2、nil 和空切片
 a）**nil 切片**被用在很多标准库和内置函数中，描述一个不存在的切片的时候，就需要用到 nil 切片。比如函数在发生异常的时候，返回的切片就是 nil 切片。nil 切片的指针指向 nil。
 ![dfghjk.png](https://pic.imgdb.cn/item/6231b2f05baa1a80abfa0548.png)
@@ -137,7 +144,13 @@ copy 方法会把源切片值中的元素复制到目标切片中，**并返回�
 
 ![slice-11.png](https://pic.imgdb.cn/item/6231cc2b5baa1a80ab18a4af.png)
 
-### 6、切片value的值拷贝
+### 6、append
+**对于空切片，nil切片，此时如果用append添加元素，则可以分配底层数据，可以正常操作。**
+
+一个扩容后需要空间大小估算
+![5AEF610B-9780-4610-B10D-122EFE608A0D.png](https://pic.imgdb.cn/item/623d69ff27f86abb2aa7a995.png)
+
+### 7、切片value的值拷贝
 
 ```
 func main() {
