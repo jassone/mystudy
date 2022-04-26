@@ -2,4 +2,4 @@
 redis4.0以后开始支持扩展模块，redis-cell是一个用rust语言编写的基于令牌桶算法的的限流模块，提供`原子性`的限流功能，并允许突发流量，可以很方便的应用于分布式环境中。
 
 ### 相关wiki
-http://researchlab.github.io/2018/10/05/redis-08-redis-cell/
+* redis分布式限流之redis-cell http://researchlab.github.io/2018/10/05/redis-08-redis-cell/

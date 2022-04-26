@@ -2,7 +2,6 @@
 
 异步非阻塞模型 Reactor
 
-
 ## 特性
 Reactor有4个核心的操作：
 * add 添加socket监听到reactor

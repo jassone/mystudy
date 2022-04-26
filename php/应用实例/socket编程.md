@@ -1,5 +1,11 @@
 ## socket编程
-## 一、示例
+## 一、socket_* 类型函数
+
+### 1、wiki
+* https://www.php.net/manual/zh/book.sockets.php
+* https://zhuanlan.zhihu.com/p/98649613
+
+## 二、其他实现方式示例
 ```php
 <?php
 
@@ -44,6 +50,6 @@ printf("%d / %d, Quo is %d, Rem is %d\n", $args['A'], $args['B'], $r['result']['
 
 ```
 
-## 二、相关wiki
-https://www.cnblogs.com/7qin/p/13296254.html
+### 1、相关wiki
+* https://www.cnblogs.com/7qin/p/13296254.html
 

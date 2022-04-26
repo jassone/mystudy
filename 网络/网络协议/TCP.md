@@ -168,3 +168,10 @@ TCP传输数据的过程中，每次接收方收到数据后，都会对传输�
 ### 8、拥塞控制-TODO
 ### 9、窗口大小与吞吐量
 ![332323324.jpg](https://pic.imgdb.cn/item/617527262ab3f51d91137a83.jpg)
+
+
+
+todo  
+
+请问如何提升TCP三次握手的性能？
+https://zhuanlan.zhihu.com/p/198089844
