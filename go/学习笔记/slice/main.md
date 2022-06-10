@@ -130,6 +130,27 @@ slice := array[1:2:3]
 
 建议用字面量创建切片的时候，cap 的值一定要保持清醒，避免共享原数组导致的 bug。
 
+// 比如下面这个例子
+```go
+func test(arr []int) []int {
+	fmt.Printf("res2: %p\n", &arr)
+	arr[0] = 2
+	fmt.Printf("res3: %p\n", &arr)
+	return arr
+}
+func main() {
+	var arr []int
+	arr = []int{1}
+	fmt.Printf("res1: %p\n", &arr)
+
+	fmt.Println(test(arr))
+	fmt.Printf("res4: %p\n", &arr)
+	fmt.Println((arr))
+}
+```
+res1和res4一样，res2和res3一样，但是res2和res1不一样。
+因为切片是值拷贝(其实这里说是引用拷贝会更好点)，所以会新开个切片，但是初始时底层数组是一样的，所以修改底层数组时，会影响到原来的。看起来像是引用传递
+
 b) 超过cap
 ![slice-9.png](https://pic.imgdb.cn/item/6231c3b85baa1a80ab091b35.png)
 
@@ -138,6 +159,28 @@ b) 超过cap
 新切片指向的数组是一个全新的数组。并且 cap 容量也发生了变化。
 
 > 建议尽量避免情况一，尽量使用情况二，避免 bug 产生。
+
+// 比如下面这个例子
+```go
+ func test(arr []int) []int {
+   arr[0] = 999 //但是这行会影响到原来的
+	fmt.Printf("res2: %p\n", &arr)
+	arr = append(arr, 888)
+	fmt.Printf("res3: %p\n", &arr)
+	return arr
+}
+func main() {
+	var arr []int
+	arr = []int{1}
+	fmt.Printf("res1: %p\n", &arr)
+
+	fmt.Println(test(arr))
+	fmt.Printf("res4: %p\n", &arr)
+	fmt.Println((arr))
+}
+```
+同上，res1和res4一样，res2和res3一样，但是res2和res1不一样。
+修改底层数组时，因为会扩容，底层数组会新开，会影响到原来的。所以不会修改到原来的数组。
 
 ### 5、切片拷贝
 copy 方法会把源切片值中的元素复制到目标切片中，**并返回被复制的元素个数**，copy 的两个类型必须一致。最终的复制结果取决于较短的那个切片，当较短的切片复制完成，整个复制过程就全部完成了。

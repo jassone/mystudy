@@ -35,12 +35,20 @@ var b  float64 = math.Pi
 ```go
 // T(表达式) T表示要转换的类型。表达式包括变量、复杂算子和函数返回值等.
 int64(1000)
+
+// 注意这两个不一样
+fmt.Println(int('0')) //48
+fmt.Println(strconv.Atoi("0")) // 0
 ```
 
-### 2、打印数据类型
+### 2、打印数据类型等
 ```go
+//打印数据类型
 fmt.Printf("%T", s1) 
 fmt.Println(reflect.TypeOf(arr2))
+
+//打印指针地址
+fmt.Printf("ptr的指针地址为: %p\n", ptr)  
 ```
 
 ### 3、int 和 int64的区别 

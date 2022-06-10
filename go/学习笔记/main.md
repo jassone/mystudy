@@ -74,7 +74,10 @@ f() // 底层会默认转换为方法表达式，即P.get(f)
 i := 1
 j = i++ // i++ 和 i– 在 Go 语言中是语句，不是表达式，因此不能赋值给另外的变量。
 ```
+
 ## 四、wiki
- 
 ### 1、相关文章
-* 经典 https://blog.csdn.net/wohu1104/article/details/106391649
+* 经典-Golang 要注意的陷阱和常见错误 https://blog.csdn.net/wohu1104/article/details/106391649
+
+### 2、相关资源
+* 很多demo https://github.com/zc2638/go-standard
