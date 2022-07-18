@@ -8,5 +8,10 @@ RPC (Remote Procedure Call)即远程过程调用，是分布式系统常见的�
 
 **主要是解决分布式系统中服务与服务直接的调用问题。**
 
-## wiki
+## 二、主流产品
+
+[phprpc](http://www.phprpc.org/zh_CN/)，[yar](https://github.com/laruence/yar), [thrift](http://thrift.apache.org/), [gRPC](http://www.grpc.io/), [swoole](http://www.swoole.com/), [hprose](https://github.com/hprose/hprose-php)
+
+## 三、相关wiki
+
 * https://zhuanlan.zhihu.com/p/280122318

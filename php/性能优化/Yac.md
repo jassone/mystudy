@@ -1,0 +1,14 @@
+## Yac
+
+## 一、基础知识
+
+### 1、注意事项
+
+- 因为是php进程之间共享，所以它是单机的缓存，多台机器时还是用memcached或者redis更好。但是它可以和redis等形成互补，比如当缓存key比较大，使用又频繁，将缓存迁移到yac降低redis的压力。
+- yac是无锁的缓存，所以要尽量避免多个进程设置相同key。同时它还意味着有可能获取cache的时候拿到错误的数据，取决于分配了多少密钥槽和存储了多少密钥， 1/10000000（千万分之一）的概率会发生。
+- Yac使用部分crc校验，最好重新安排你的缓存内容，把最易变的字节放在头或尾。
+
+## 二、相关wiki
+
+- Yac (Yet Another Cache) - 无锁共享内存Cach https://www.laruence.com/2013/03/18/2846.html
+- [PHP无锁内存nosql---*Yac*的实战 http://t.zoukankan.com/sunsky303-p-6554888.html

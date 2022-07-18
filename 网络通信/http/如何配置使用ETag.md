@@ -96,3 +96,7 @@ Header unset ETag
 
 3) 重新启动 httpd，就启用 ETag 了。
 
+## 三、相关wiki
+
+- 在 Apache/Nginx/IIS 启用ETag，提高访问速度 https://www.moewah.com/archives/593.html
+
