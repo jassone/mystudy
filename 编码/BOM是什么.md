@@ -12,7 +12,7 @@ BOM在Unicode编码中的应用：
 
 记事本也不甘心这样，所以它要支持Unicode，但是有一个问题，一段二进制编码，如何确定它是GBK还是BIG5还是UTF-16/UTF-8？
 
-记事本的做法是在TXT文件的最前面保存一个标签，如果记事本打开一个TXT，发现这个标签，就说明是unicode。标签叫BOM。
+记事本的做法是在TXT文件的最前面保存一个标签，如果记事本打开一个TXT，发现这个标签，就说明是unicode。**标签叫BOM。**
 * 如果是0xFF 0xFE，是UTF16LE。
 * 如果是0xFE 0xFF则UTF16BE。
 * 如果是0xEF 0xBB 0xBF，则是UTF-8。

@@ -1,4 +1,6 @@
-## 几个概念 
+## PHP-FPM+Nginx通信原理
+
+## 一、几个概念
 
 ### PHP-FPM
 PHP-FPM的全称是PHP FastCGI Process Manager，PHP-FPM是FastCGI的实现，并提供了进程管理的功能。 
@@ -7,6 +9,7 @@ PHP-FPM的全称是PHP FastCGI Process Manager，PHP-FPM是FastCGI的实现，�
 Nginx (“engine x”) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。这里介绍一下什么是正向代理和反向代理，这个对于我们理解Nginx很重要。
 
 ### 正向代理
+
 以我们访问国外的网站为例，比如访问Google、Facebook。我们需要借助vpn才能访问，我们借助vpn访问国外的网站，其实就是个正向代理的过程，上图： 
 
 ![gaitubao_640_png.png](https://pic.imgdb.cn/item/61243ab944eaada73948fded.png)
@@ -20,8 +23,9 @@ vpn对于Users来说，是可以感知到的（因为用户需要配置连接）
 
 当用户访问百度时，所有的请求会到达一个反向代理服务器，这个反向代理服务器会将请求分发给后边的某一台服务器去处理我们的请求。此时，这个代理服务器其实对用户来说是不可感知的，用户感知到的是百度的服务器给自己返回了结果，并不知道代理服务器的存在。也就是说，对于用户来说不可感知，对于服务器来说是可以感知的，就叫反向代理服务器（Nginx） 
 
-### PHP-FPM+Nginx通信 
-nginx 不能直接执行外部可执行程序，并且cgi是接收到请求时才会启动cgi进程，不像fastcgi会在一开就启动好，这样nginx天生是不支持 cgi 的。nginx 虽然不支持cgi，但它支持 fastCGI。
+## 二、PHP-FPM+Nginx通信
+
+nginx 不能直接执行外部可执行程序，并且cgi是接收到请求时才会启动cgi进程，不像fastcgi会在一开始就启动好，这样nginx天生是不支持 cgi 的。nginx 虽然不支持cgi，但它支持 fastCGI。而Nginx不负责管理php-cgi进程,所以Nginx一般配合能够自行管理工作进程(子进程)的php-fpm使用。
 
 FastCGI致力于减少Web服务器与CGI程序之间互动的开销，从而使服务器可以同时处理更多的Web请求。与CGI这种为每个请求创建一个新的进程不同，FastCGI使用持续的进程来处理一连串的请求，这些进程由FastCGI进程管理器管理，而不是web服务器。 
 
@@ -62,8 +66,9 @@ fastcgi_pass  unix:/tmp/php-cgi.sock;
 
 4、当需要处理php请求时，nginx的worker进程会将请求移交给php-fpm的worker进程进行处理，也就是最开头所说的nginx调用了php，其实严格的讲是nginx间接调用php（反向代理的方式）。
 
-##### fastcgi_pass 
-Nginx和PHP-FPM的进程间通信有两种方式,一种是TCP Socket,一种是Unix Socket
+##### fastcgi_pass
+
+Nginx和PHP-FPM的进程间通信有两种方式,一种是TCP Socket(**默认监听方式**),一种是Unix Socket
 
 Tcp Socket方式是IP加端口,可以跨服务器.而UNIX Socket不经过网络,只能用于Nginx跟PHP-FPM都在同一服务器的场景，用哪种取决于你的PHP-FPM配置
 
@@ -115,7 +120,7 @@ http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html
 
 ##### php-fpm.conf配置 
 熟悉php-fpm的配置，能帮助我们优化服务器性能 
- 
+
 ##### PHP-FPM进程池 
 
 php-fpm.conf中默认配置了一个进程池，我们可以打开我们的php-fpm.conf看一下，下边是我的：
@@ -135,7 +140,8 @@ php-fpm.conf中默认配置了一个进程池，我们可以打开我们的php-f
 在nginx中fastcgi_pass这个地方配置使用哪个进程池即可 
 
 ### nginx和php交互流程
-##### 1 使用php-fpm方式
+
+##### 1 使用php-fpm方式---重要重要重要
 
 ```
 www.example.com        |

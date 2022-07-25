@@ -12,13 +12,17 @@
     
 * **双向流式 RPC（Bidirectional streaming RPC）**，其中双方使用读写流发送一系列消息。这两个流独立运行，因此客户端和服务器可以按照他们喜欢的任何顺序进行读写：例如，服务器可以在写入响应之前等待接收所有客户端消息，或者它可以交替读取消息然后写入消息，或其他一些读取和写入的组合。保留每个流中消息的顺序；
 
+### 2、为什么能支持流模式，双向流模式
+
+因为是建立在http2基础上的，http2天生支持。
+
 ## 二、安装protoc
 protoc是Protobuf编译器。
 ### 1、官网下载
 下载地址：https://github.com/protocolbuffers/protobuf/releases。
 
 wiki:https://www.cnblogs.com/niuben/p/14212878.html
- 
+
 ### 2、brew安装
 ```sh
 brew install protobuf

@@ -3,8 +3,9 @@
 
 “ANSI编码”只存在于Windows系统。微软就统一把你们的默认编码都显示成ANSI。
 
-具体请参考：
-https://blog.csdn.net/imxiangzi/article/details/77370160
+## 相关wiki
+
+- ANSI是什么编码？https://blog.csdn.net/imxiangzi/article/details/77370160
 
 
 

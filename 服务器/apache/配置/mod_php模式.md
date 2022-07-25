@@ -1,6 +1,6 @@
-### 配置
+## mod_php配置
 
-```
+```ini
 // 引入mod_php模块
 LoadModule php7_module /usr/local/opt/php@7.4/lib/httpd/modules/libphp7.so
 

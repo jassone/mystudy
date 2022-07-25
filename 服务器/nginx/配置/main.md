@@ -1,9 +1,9 @@
 ## 配置
->  nginx配置可查看配置文档，里面有详细demo说明
+nginx配置可查看配置文档，里面有详细demo说明。
 
-### 普通配置
+### 1、普通配置
 
-```sh
+```ini
 http {
     server {
         listen       8080;
@@ -31,9 +31,9 @@ http {
 }
 ```
 
-###配置https ???
+### 2、配置https ???
 
-```sh
+```ini
 server {
         listen 443;
         server_name xx.name.com;
@@ -66,10 +66,9 @@ server {
    }
 ```
 
+### 3、其他demo配置
 
-其他demo配置
-
-```sh
+```ini
 # For more information on configuration, see:
 
 #   * Official English Documentation: http://nginx.org/en/docs/

@@ -1,10 +1,8 @@
-##
+## 网络IO各种应用
+
 ![20220227103619.jpg](https://pic.imgdb.cn/item/621ae3da2ab3f51d91ec811e.jpg)
 
 
-todo***
-
-异步IO： 比如AIO 
 IO异步操作：
 
 异步：多个线程会公用fd，多个线程同时对fd读与写(造成会有脏数据), 解决：只能加锁
@@ -23,13 +21,16 @@ memcached中有加锁操作，是一种负担
 
 而如果类似mysql这种需要读取磁盘的操作，单线程肯定是不行的，因为并发上不去
 
-
 多进程-典型例子nginx，为什么？
 因为是web服务器，每一个请求时独立，session是独立的
 
+同步阻塞(blocking-IO)，简称BIO。
 
+- 阻塞IO模型。
+- 经典的应用：**阻塞socket、Java BIO**。
 
-##### IO
-BIO
-NIO
-epoll
+同步非阻塞(non-blocking-IO)，简称NIO。
+
+- 非阻塞IO模型。
+
+异步非阻塞(asynchronous-non-blocking-IO)，简称AIO。

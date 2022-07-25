@@ -5,5 +5,5 @@ Apache Bench是Apache附带的一个工具，也叫ab压力测试。
 ab -c 10 -n 100 http://www.baidu.com/
 #注意这里最后的斜杠一定要加
 ```
-## wiki
-* https://juejin.cn/post/6845166890109796359
+## 相关wiki
+* Apache Bench测试 https://juejin.cn/post/6845166890109796359

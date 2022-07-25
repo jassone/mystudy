@@ -1,11 +1,34 @@
 ## PHP-FPM(Fast CGI Process Manager)
-是一个PHPFast CGI管理器。全称是PHP FastCGI Process Manager。
+是一个PHP FastCGI管理器。全称是PHP FastCGI Process Manager。
 通俗来讲，就是用来管理启动一个master进程和多个worker进程的程序。即提供了进程管理的功能。php-fpm在php5.3以后不再作为第三方的模块而是集成到了php中。
 
 **FastCGI进程包含master进程和worker进程两种进程。master进程只有一个，只负责监听端口，接收apache/Nginx的请求，而worker进程则一般有多个(可配置)，每个进程内部都嵌入了一个PHP解释器(php-cgi)，是PHP代码真正执行的地方。** 
 
-### 使用
-1 启动
+### 特点:
+
+- **支持平滑启动-停止的高级进程管理功能**
+
+- 可以工作于不同的UID，gid，chroot环境下，并监听不同的端口和使用不同的php.ini配置文件（可取代 safe_mode 的设置）；
+
+- stdout 和 stderr日志记录
+
+- 在发生意外情况的时候，能够重新启动并缓存被破坏的opcode
+
+- 文件上传优化
+
+- **“慢日志”-记录脚本**（不仅记录文件名，还记录PHP backtrace信息，可以使用ptrace或类似工具读取和分析远程进程的运行数据）运行所导致的异常缓慢；
+
+- fastcgi_finish_request() - 特殊功能，用于请求完成和刷新数据后，继续在后台执行耗时的工作（录入视频转换、统计处理等）；
+
+- 动态/静态 子经常产生
+
+- 基本SAPI运行状态信息（类似Apache的 mod_status）
+
+- 基于php.ini的配置
+
+## 一、使用
+
+### 1、启动
 
 ```sh
 php-fpm
@@ -14,7 +37,7 @@ php-fpm
 * php 5.3.3 以后的php-fpm 不再支持 php-fpm start|stop|reload
 * 不能关闭窗口，否则则关闭服务
 
-2 其他
+### 2、其他
 master进程可以理解以下信号
 
 * INT, TERM 立刻终止
@@ -57,8 +80,7 @@ php-fpm 重启：
 kill -USR2 'cat /usr/local/php/var/run/php-fpm.pid'
 ```
 
-
-### php-fpm 命令
+### 3、php-fpm 命令
 
 ```sh
 测试php-fpm配置文件
@@ -66,7 +88,8 @@ kill -USR2 'cat /usr/local/php/var/run/php-fpm.pid'
 [18-Aug-2021 18:05:19] NOTICE: configuration file /usr/local/etc/php/7.4/php-fpm.conf test is successful
 ```
 
-### 配置
+### 4、 配置
+
 /usr/local/etc/php/7.4（本人）
 ├── php-fpm.conf
 ├── php-fpm.d
@@ -96,8 +119,7 @@ backlog数，-1表示无限制，由操作系统决定，此行注释掉就行�
 当一个请求该设置的超时时间后，就会将对应的PHP调用堆栈信息完整写入到慢日志中. 设置为 '0' 表示 'Off'
 
 ##### slowlog = log/$pool.log.slow
-慢请求的记录日志,配合request_slowlog_timeout使用
- 。
+慢请求的记录日志,配合request_slowlog_timeout使用 。
 
 ##### pm相（三种运行模式）
 * pm = static
@@ -106,7 +128,7 @@ backlog数，-1表示无限制，由操作系统决定，此行注释掉就行�
 
     对于专用服务器,可以设置为static。
 
-    pm.max_children：静态方式下，子进程最大数
+    pm.max_children：静态方式下，子进程配置的最大数。
 
 * pm = dynamic
 
@@ -136,10 +158,10 @@ pid设置，默认在安装目录中的var/run/php-fpm.pid，用于重启和关�
 
 ##### error_log = log/php-fpm.log
 错误日志，默认在安装目录中的var/log/php-fpm.log
- 
+
 ##### log_level = notice
 错误级别. 可用级别为: alert（必须立即处理）, error（错误情况）, warning（警告情况）, notice（一般重要信息）, debug（调试信息）. 默认: notice.
- 
+
 
 ##### emergency_restart_threshold = 60; emergency_restart_interval = 60s
 表示在emergency_restart_interval所设值内出现SIGSEGV或者SIGBUS错误的php-cgi进程数如果超过 emergency_restart_threshold个，php-fpm就会优雅重启。这两个选项一般保持默认值。
@@ -172,17 +194,17 @@ unix socket设置选项，如果使用tcp方式访问，这里注释即可。
 ##### user = www;group = www
 启动进程的帐户和组
 
+#####   配置详见wiki：  https://www.php.net/manual/zh/install.fpm.configuration.php
 
-#####   配置详见wiki
-  https://www.php.net/manual/zh/install.fpm.configuration.php
-  
-  
-### 优化
-##### php-fpm优化参数
+## 二、优化
+
+### 1、php-fpm优化参数
+
 pm、pm.max_children、pm.start_servers、pm.min_spare_servers、pm.max_spare_servers。
 pm.max_requests
 
-##### 配置优化demo
+### 2、配置优化demo
+
 1 配置运行方式和进程数
 
 对于我们的服务器，选择哪种执行方式比较好呢？事实上，跟Apache一样，运行的PHP程序在执行完成后，或多或少会有内存泄露的问题。
@@ -213,5 +235,3 @@ pm.max_requests是为了重启服务，但是为什么要重启进程呢？
 
 目前我们的解决方法是，把这个值尽量设置大些，尽可能减少 PHP-CGI 重新 SPAWN 的次数，同时也能提高总体性能。在我们自己实际的生产环境中发现，内存泄漏并不明显，因此我们将这个值设置得非常大（204800）。大家要根据自己的实际情况设置这个值，不能盲目地加大。
 
-
-  
