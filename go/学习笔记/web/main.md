@@ -1,6 +1,6 @@
 ### 启动
 两步
-1. HandleFunc() 注册路由
+1. HandleFunc() 注册路由。这一步需要放在最开始。
 2. ListenAndServer() 开启对客户端的监控
 
 ```	
@@ -32,5 +32,4 @@ fmt.Fprintf(w, "hello, let's go!")
 
 
 
- 
 

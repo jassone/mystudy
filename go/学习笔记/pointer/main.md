@@ -68,6 +68,7 @@ p的值是<nil>
 ```
 
 ## 二、new和make
+
 ```go
 var a *int
 *a = 100 // panic
@@ -112,10 +113,10 @@ fmt.Printf("%T\n", a) // *int
 fmt.Printf("%T\n", b) // *bool
 fmt.Println(*a)       // 0
 fmt.Println(*b)       // false
-fmt.Println(*p)       // &{}
+fmt.Println(*c)       // {a}
 ```
 
-* Type表示类型，new函数只接受一个参数，这个参数是一个类型
+* Type表示类型，new函数只接受一个参数，这个**参数是一个类型**
 * \*Type表示类型指针，new函数返回一个指向该类型内存地址的指针。
 
 示例代码中var a *int只是声明了一个指针变量a但是没有初始化。

@@ -9,14 +9,14 @@ Golang 没有结构化异常，使用 panic 抛出错误，recover 捕获错误�
 * 假如函数F中书写了panic语句，会终止其后要执行的代码，在panic所在函数F内如果存在要执行的defer函数列表，按照defer的逆序执行
 * **返回函数F的调用者G，在G中，调用函数F语句之后的代码不会执行，假如函数G中存在要执行的defer函数列表，按照defer的逆序执行**
 * **直到goroutine整个退出，并报告错误**
-    
+  
 ### 2、recover：
 * 内置函数
 * 用来控制一个goroutine的**panicking**行为，捕获panic，从而影响应用的行为
 * 一般的调用建议
     a) 在defer函数中，通过recever来终止一个goroutine的panicking过程，从而恢复正常代码的执行
     b) 可以获取通过panic传递的error
- 
+
 ## 二、示例
 ### 1、基本使用
 ```go
@@ -31,6 +31,28 @@ func test() {
 // 输出 panic error!
 ```
 由于 panic、recover 参数类型为 interface{}，因此可抛出任何类型对象。
+
+### 2、recover类型判断
+
+```go
+defer func() {
+   message := recover()
+   switch message.(type) {
+   case string :
+      fmt.Println("string panic :", message)
+      break
+   case error :
+      fmt.Println("errro panic :", message)
+      break
+   default:
+      fmt.Println("unknown panic :", message)
+      break
+   }
+}()
+//panic("I am panic ")
+//panic(errors.New("I am panic"))
+panic(12)
+```
 
 ## 三、其他
 ### 1、注意

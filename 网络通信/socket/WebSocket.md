@@ -28,7 +28,7 @@ WebSocket同样是HTML 5规范的组成部分之一，现标准版本为 RFC 645
 **WebSocket 是一种全新的协议。它将 TCP 的 Socket（套接字）应用在了web page上，从而使通信双方建立起一个保持在活动状态连接通道，是全双工协议
 （双方同时进行双向通信）**。
 
-其实是这样的，WebSocket 协议是借用 HTTP协议 的 101 switch protocol 来达到协议转换的，**从HTTP协议切换成WebSocket通信协议**。
+其实是这样的，WebSocket 协议是借用 HTTP协议 的 101 switch protocol 来达到协议转换的，**从HTTP协议切换成WebSocket通信协议（即websocke是通过http upgrade而来的）**。
 
 它的最大特点就是，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于服务器推送技术的一种。其他特点包括：
 
@@ -63,7 +63,7 @@ Sec-WebSocket-Version: 13
 ```
 
 重点请求首部意义如下：
-* Connection: Upgrade：表示要升级协议
+* Connection: Upgrade：表示要申请升级协议
 * Upgrade: websocket：表示要升级到 websocket 协议。
 * Sec-WebSocket-Version: 13：表示 websocket 的版本。如果服务端不支持该版本，需要返回一个 Sec-WebSocket-Versionheader ，里面包含服务端支持的版本号。
 * Sec-WebSocket-Key：与后面服务端响应首部的 Sec-WebSocket-Accept 是配套的，提供基本的防护，比如恶意的连接，或者无意的连接。
@@ -81,6 +81,7 @@ Sec-WebSocket-Protocol: chat
 
 重点请求首部意义如下：
 * Sec-WebSocket-Accept 根据客户端请求首部的 Sec-WebSocket-Key 计算出来。
+* Upgrade: websocket 表示允许升级为websocket
 
 ##### 数据传递
 一旦 WebSocket 客户端、服务端建立连接后，后续的操作都是基于数据帧的传递。
@@ -141,7 +142,7 @@ WebSocket 为了保持客户端、服务端的实时双向通信，需要确保�
     WebSocket协议试图在现有的 HTTP 基础设施上下文中解决现有的双向HTTP技术目标；同样，它被设计工作在HTTP端口80和443，也支持HTTP代理和中间件，
     
     HTTP服务器需要发送一个“Upgrade”请求，即101 Switching Protocol到HTTP服务器，然后由服务器进行协议转换。
-     
+    
 2. Sec-WebSocket-Key/Accept 的作用
     前面提到了，Sec-WebSocket-Key/Sec-WebSocket-Accept 在主要作用在于提供基础的防护，减少恶意连接、意外连接。
     

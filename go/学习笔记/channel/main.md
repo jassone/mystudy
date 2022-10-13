@@ -10,6 +10,7 @@ Go语言的并发模型是CSP（Communicating Sequential Processes），**提倡
 Go 语言中的通道（channel）是一种特殊的类型。通道像一个传送带或者队列，总是**遵循先入先出（First In First Out）的规则，保证收发数据的顺序。**每一个通道都是一个具体类型的导管，也就是声明channel的时候需要为其指定元素类型。
 
 ## 一、基础知识
+
 ### 1、channel声明
 channel是一种类型，一种引用类型，通道类型的空值是nil。声明通道类型的格式如下：
 ```go
@@ -40,15 +41,17 @@ ch = make(chan int)
 
 但是管道不往里存值或者取值的时候一定记得关闭管道。
 
-* 对一个关闭的通道进行接收会一直获取值直到通道为空。
+*   对一个关闭的通道进行接收会一直获取值直到通道为空。
 * 对一个关闭的并且没有值的通道执行接收操作会得到对应类型的零值。
+
+**注意：对于已经明确知道不需要的channel，需要关闭，否则当前goroutine执行完后，只剩下main函数中接受channel，会报死锁。**
 
 ### 4、无缓冲的通道
 ```go
 ch := make(chan int)
 ch <- 10
 fmt.Println("发送成功")
-``` 
+```
 上面这段代码能够通过编译，但是执行的时候会出现以下错误：
 ```sh
 fatal error: all goroutines are asleep - deadlock!
@@ -115,6 +118,20 @@ func main() {
 range用的比较多。
 
 ### 7、单向通道
+
+chan<- 表示数据进入通道    <-chan 表示数据从通道出来。
+
+```go
+func demo()  <-chan int {
+   out := make(chan int)
+   go func() {
+      out <- 1
+   }()
+   
+   return out // 这里的out还是双向的，只是赋值给返回值后，就是单向的了
+}
+```
+
 有方向的 channel 不可以被关闭。
 ```go
 func Stop(stop <-chan bool) {
@@ -135,7 +152,29 @@ func Stop(stop <-chan bool) {
 
 口诀：nil读写阻塞，写关闭异常，读关闭空零
 
+### 10、channel的妙用
+
+- 传递方面：消息传递，任务发送，事件广播
+- 控制方面：资源争抢，并发控制，流程开关
+
+### 11、如何利用channel阻塞
+
+- 实现资源争抢，谁抢到就是谁的
+- 实现多协程锁，变相的‘锁’
+- 实现消息定额消费，生产者和消费者的关系
+
 ## 二、select
 * select会尝试执行每个case, 如果都可以执行，那么随机选一个执行
 * 可处理一个或多个channel的发送/接收操作。
-* 对于没有case的select{}会一直等待，可用于阻塞main函数。
+* **对于没有case的select{}会一直等待，可用于阻塞main函数。**
+
+```go
+select {
+    case <-ch1:
+        // 如果从 ch1 信道成功接收数据，则执行该分支代码
+    case ch2 <- 1:
+        // 如果成功向 ch2 信道成功发送数据，则执行该分支代码
+    default:
+        // 如果上面都没有成功，则进入 default 分支处理流程
+}
+```

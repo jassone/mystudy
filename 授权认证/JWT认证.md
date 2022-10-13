@@ -149,11 +149,20 @@ JWT校验无感知，验签过程无侵入，执行效率低，适用于低并�
 
 第三步向真实接口发起请求。
 
-### 2、方案2：网关统一校验应用认证方案
-控制更加灵活，有一定代码侵入，代码可以灵活控制，适用于追求性能互联网应用![jhgfdfghjk.png](https://pic.imgdb.cn/item/61dd9f802ab3f51d91d755ca.png)
+### 2、方案2：业务层统一校验应用认证方案
+
+控制更加灵活，有一定代码侵入，代码可以灵活控制，适用于追求性能互联网应用
+
+![jhgfdfghjk.png](https://pic.imgdb.cn/item/61dd9f802ab3f51d91d755ca.png)
 
 校验可以用注解来完成
-```java@GetMapping("/xxx")//自定义注解，利用AOP做验签@CheckJwt public void xxx(){    //Controller代码}
+```java
+@GetMapping("/xxx")
+//自定义注解，利用AOP做验签
+@CheckJwt 
+public void xxx(){
+    //Controller代码
+}
 ```
 
 ## 六、如何实现续签功能
@@ -161,7 +170,10 @@ token如果没有过期时间，会留下”太空垃圾”，后患无穷，续
 
 ### 1、不允许改变Token令牌实现续签
 ![khgfdfghj.png](https://pic.imgdb.cn/item/61de42b22ab3f51d912a1562.png)
-* 过期时间的被放到后端Redis存储，可以灵活控制* 同时在生成MD5时加入环境特征，尽量避免人为盗取* 但这也意味着JWT是有状态的，也是一种折中方案
+
+* 过期时间的被放到后端Redis存储，可以灵活控制
+* 同时在生成MD5时加入环境特征，尽量避免人为盗取
+* 但这也意味着JWT是有状态的，也是一种折中方案
 
 ### 2、允许改变JWT实现续签
 ![lkjhgfdszxcvbn.png](https://pic.imgdb.cn/item/61de44022ab3f51d912b1c08.png)
@@ -170,20 +182,26 @@ token如果没有过期时间，会留下”太空垃圾”，后患无穷，续
 
 超过60分钟后，两个token都过期了，就提示用户进行登陆。
 
-##### 问：为什么必须要两个refresh_token?为什么不直接设置token一个小时过期，判断还有10分钟过期的时候，生成新的token进行替换？
+##### 问：为什么必须要两个token?为什么不直接设置token一个小时过期，判断还有10分钟过期的时候，生成新的token进行替换？
+
 答：这两个token的职责不一样：
 * access_token用于业务系统交互，是最核心的数据。
 * refresh_token只用于向认证中心获取新的access_token与refresh_token。
 * refresh_token的出现本质解决了在用户超过30分钟后，access_token已经失效，此时access_token被送给认证中心是无法解析的，而refresh_token因为生存时间更长，且主体内容与access_token一致，因此被送达认证中心后可以被正确解析，进而重新生成新的access_token与refresh_token。
 
 ### 3、续约时的重发JWT问题解决
-* 认证中心设计一个计时Map数据结构* 只记录过去n秒内的原始jwt刷新所生成新jwt数据* 几秒内如果发现同样的jwt在再次请求刷新，就返回相同的新jwt数据。
+* 认证中心设计一个计时Map数据结构
+* 只记录过去n秒内的原始jwt刷新所生成新jwt数据
+* 几秒内如果发现同样的jwt在再次请求刷新，就返回相同的新jwt数据。
 
 ## 七、项目中使用JWT
 目前官网(https://jwt.io/)已经提供了很多语言的SDK，按需下载使用即可。
 
 ## 八、其他
 ### 1、工具
+
 * 解密：https://www.box3.cn/tools/jwt.html
 
-TODO:php实现：https://www.jianshu.com/p/a2efb2c8dcde
+### 2、php实现
+
+- https://www.jianshu.com/p/a2efb2c8dcde

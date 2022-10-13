@@ -31,8 +31,6 @@ unixsocketperm 700
 ```
 
 然后运行redis,创建redis连接时用redis.new (:path =>"/tmp/redis.sock")，即可
- 
-
 
 ## 五、其他
 todo

@@ -2,22 +2,22 @@
 ## 短连接
 模拟一种TCP短连接的情况:
 
-* client 向 server 发起连接请求
-* server 接到请求，双方建立连接
-* client 向 server 发送消息
-* server 回应 client
-* 一次读写完成，此时双方任何一个都可以发起 close 操作
-* 在步骤5中，一般都是 client 先发起 close 操作。当然也不排除有特殊的情况。
+1. client 向 server 发起连接请求
+2. server 接到请求，双方建立连接
+3. client 向 server 发送消息
+4. server 回应 client
+5. 一次读写完成，此时双方任何一个都可以发起 close 操作
+6. 在步骤5中，一般都是 client 先发起 close 操作。当然也不排除有特殊的情况。
 
 从上面的描述看，短连接一般只会在 client/server 间传递一次读写操作！
 ## 二、TCP 长连接
 长连接的情况:
-* client 向 server 发起连接
-* server 接到请求，双方建立连接
-* client 向 server 发送消息
-* server 回应 client
-* 一次读写完成，连接不关闭
-* 后续读写操作...
+1. client 向 server 发起连接
+2. server 接到请求，双方建立连接
+3. client 向 server 发送消息
+4. server 回应 client
+5. 一次读写完成，连接不关闭
+6. 后续读写操作...
 
 长时间操作之后client或server发起关闭请求
 
@@ -25,9 +25,10 @@
 * 应用层面的心跳机制
     自定义心跳消息头.，一般客户端主动发送到服务端，服务器接收后进行回应(也可以不回应)，以便能够侦测连接是否异常断开。
 
-* TCP协议自带的保活功能：TCP Keep Alive
+* **TCP协议自带的保活功能：TCP Keep Alive**
 
-## 
+##### 何为Keep Alive
+
 TCP长连接(Keep Alive) 是一种保持 TCP 连接的机制。当一个 TCP 连接建立之后，启用 TCP Keep Alive 的一端便会启动一个计时器，当这个计时器到达 0 之后，一个 TCP 探测包便会被发出。这个 TCP 探测包是一个纯 ACK 包，但是其 Seq 与上一个包是重复的。
 
 打个比喻：
@@ -40,7 +41,7 @@ TCP 连接两端好比两个人，这两个人之间保持通信往来（建立 
 
 * 对于非正常断开的连接系统并不能侦测到，比如防火墙关闭端口、网线被拔掉、电脑突然奔掉、未关闭应用程序直接关机(服务端无法释放资源)。(调用close(fd)为正常断开，连接对端可以侦测到)
 
- 
+
 ## 二、配置
 ### 1、linux 配置
 在 Linux 操作系统中，TCP Keep Alive 相关的配置可以在 /proc/sys/net/ipv4/ 目录中找到，具体有下面三个（括号中的是默认值）：
@@ -62,7 +63,8 @@ tcp_keepalive_intvl = 10
 tcp_keepalive_probes = 6
 那将在 60 + 10 * 6 = 120s，即两分钟之后发现一个失效的 TCP 连接。
 
-### 2、Nginx Keep Alive 配置
+### 2、Nginx Keep Alive 配置（客户端和nginx,nginx和server ？ todo）
+
 ```ini
 events {
     use                 epoll;
@@ -98,10 +100,8 @@ http {
 除了要将 HTTP 协议设置为 1.1 以外，还要清空 Connection header 中的值。如果不配置 proxy_set_header Connection ""，则发往 upstream servers 的请求中，Connection header 的值将为 close，导致无法建立长连接。
 
 同 proxy_http_version 一样，这项配置也可以放在 http 和 server 这两级中。
- 
+
 ## 三、其他
 ### 1、实际使用
 实际使用上接口平均响应时间方面差距不大，但是在服务器负载方面，应用长连接对降低服务器CPU的负载还可以。
 
-
- 

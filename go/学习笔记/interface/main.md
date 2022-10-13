@@ -70,12 +70,13 @@ type error interface {
 ### 5、接口组合(interface 3.go)
 
 ## 二、空接口
-空接口是指没有定义任何方法的接口。因此任何类型都实现了空接口。
+
+空接口是指不包含任何方法定义的、空的接口类型。因此任何类型都实现了空接口。
 
 空接口类型的变量可以存储任意类型的变量。
 ```go
 // 定义一个空接口x，注意这里不是用type 
-var x interface{}
+var x interface{} //interface{} 空接口类型， {}表示不包含任何内容的数据结构（或者说数据类型）。
 s := "pprof.cn"
 x = s
 fmt.Printf("type:%T value:%v\n", x, x)
@@ -94,7 +95,14 @@ studentInfo["name"] = "李白"
 studentInfo["age"] = 18
 ```
 
+### 2、转换为空接口值
+
+```go
+interface{}(container)
+```
+
 ## 三、类型断言
+
 ### 1、接口值(接口类型变量)
 
 **<font color="red">接口值能够存储所有实现了该接口的实例(即对象)</font>**。
@@ -120,6 +128,7 @@ w = nil
 * 接口动态值
 
 ### 2、类型断言方法
+
 **判断是否是某种动态类型。**
 
 类型断言的关键是明确**接口的动态类型**，以及**对应的类型实现了哪些方法**。而明确这些的关键，还是类型元数据，以及空接口与非空接口的数据结构。
@@ -128,7 +137,7 @@ w = nil
 ```go
 x.(T)
 
-x：表示类型为interface{}的变量
+x：表示类型为interface{}的变量，即必须为接口类型。
 T：表示断言x可能是的类型。
 ```
 
@@ -138,13 +147,25 @@ var x interface{}
 x = "pprof.cn"
 v, ok := x.(string)
 if ok {
-    fmt.Println(v)
+    fmt.Println(v) // pprof.cn
 } else {
     fmt.Println("类型断言失败")
 }
+
+// 或者明确知道了类型, 但是如果类型判断错误会panic
+v := x.(string) // 仅接口类型支持
+fmt.Println(v) // pprof.cn
+
+// 还有一种是把变量的值转换为空接口值，然后再断言
+container := []string{}
+value, ok := interface{}(container).([]string) 
+fmt.Println(value,ok) // [] true
 ```
 
+![23114324.png](https://pic.imgdb.cn/item/63197fbc16f2c2beb1f551c1.png)
+
 ##### b) switch
+
 ```go
 switch v := x.(type) {
     case string:
@@ -152,7 +173,26 @@ switch v := x.(type) {
 }
 ```
 
+### 3、接口值转换
+
+```go
+var x interface{}
+x = "pprof.cn"
+v, ok := x.(string)  // 仅接口类型支持
+if ok {
+    fmt.Println(v)
+} else {
+    fmt.Println("类型断言失败")
+}
+
+// 或者知道了具体类型后，直接转换
+v := x.(string) // 仅接口类型支持
+
+// 或者用x.(type)，结合 switch case 判断枚举转换
+```
+
 ## 四、接口的意义
+
 实际上接口的最大的意义就是**实现多态的思想**，就是我们可以根据interface类型来设计API接口，那么这种API接口的适应能力不仅能适应当下所实现的全部模块，也适应未来实现的模块来进行调用。
 
 调用未来可能就是接口的最大意义所在吧，这也是为什么架构师那么值钱，因为良好的架构师是可以针对interface设计一套框架，在未来许多年却依然适用。

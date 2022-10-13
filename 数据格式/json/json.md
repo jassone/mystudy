@@ -153,25 +153,54 @@ if ($validator->isValid()) {
 JSON does not validate. Violations:
 [age] Must have a maximum value of 100 
 
-## 最后贴几个好用的在线工具网站
+## 五、其他细节
+
+### 1、精度问题
+
+```js
+JSON.stringify({"数字": 12345678901234567890})
+//会得到 '{"数字":12345678901234567000}'
+```
+
+形成这个数字的原因是 JavaScript 在 IEEE 754中使用double-precision floating-point format numbers 作为规定。在这个规定中能安全的表示数字的范围在**-(2^53 - 1) 到 2^53 - 1**之间。
+
+解决方案
+
+###### a) 后端之间传递
+
+无需特殊处理。
+
+##### b) 前后端之间传递
+
+转换为字符串。
+
+## 六、相关wiki
+
+- JSON实战拾遗之数字精度 https://www.jianshu.com/p/50fb2a0305a7
+
+## 七、最后贴几个好用的在线工具网站
 
 在线语法验证解析
-[https://jsoneditoronline.org/](https://jsoneditoronline.org/)
-[https://jsonlint.com](https://jsonlint.com/)
-[https://jsonformatter.curiousconcept.com/](https://jsonformatter.curiousconcept.com/)
+
+- [https://jsoneditoronline.org/](https://jsoneditoronline.org/)
+- [https://jsonlint.com](https://jsonlint.com/)
+- [https://jsonformatter.curiousconcept.com/](https://jsonformatter.curiousconcept.com/)
 
 JSON schema 在线验证
-[https://www.jsonschema.net/](https://www.jsonschema.net/)(可以自动生成JSON schema)
-[https://jsonschemalint.com/](https://jsonschemalint.com/)
-[https://www.jsonschemavalidator.net/](https://www.jsonschemavalidator.net/)
+
+- [https://www.jsonschema.net/](https://www.jsonschema.net/)(可以自动生成JSON schema)
+- [https://jsonschemalint.com/](https://jsonschemalint.com/)
+- [https://www.jsonschemavalidator.net/](https://www.jsonschemavalidator.net/)
 
 JSON在线搜索
-[http://jsonpath.com/](http://jsonpath.com/)
-[https://jqplay.org/](https://jqplay.org/)
+
+- [http://jsonpath.com/](http://jsonpath.com/)
+- [https://jqplay.org/](https://jqplay.org/)
 
 
 将JSON转换为HTML
-[http://tryhandlebarsjs.com/](http://tryhandlebarsjs.com/)
+
+- [http://tryhandlebarsjs.com/](http://tryhandlebarsjs.com/)
 
 
 

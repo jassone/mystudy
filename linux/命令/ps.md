@@ -3,7 +3,21 @@ Linux中的ps命令是Process Status的缩写。ps命令用来列出系统中当
 
 就是执行ps命令的那个时刻的那些进程，如果想要动态的显示进程信息，就可以使用top命令。
 
-### 查看服务情况
+### 1、查看服务情况
+
 ```sh
 ps -ef |grep httpd 
+ps aux |grep httpd 
+```
+
+### 2、查看具体进程
+
+```sh
+ps {pid}
+```
+
+### 3、查看进程的线程
+
+```sh
+ps -M  {pid}
 ```

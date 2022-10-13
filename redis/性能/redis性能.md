@@ -30,3 +30,10 @@ redis 瓶颈在于机器的内存、网络IO操作。
 * List~100万~1000ms
 * Set~100万~1000ms
 * Sorted Set~100万~1000ms
+
+## 三、其他
+
+### 1、redis为什么比mencached快？
+
+- redis是纯内存操作,没有太多的IO操作，耗时的只有recv。
+- memcached中有加锁操作，是一种负担。

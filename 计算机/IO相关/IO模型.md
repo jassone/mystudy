@@ -388,9 +388,22 @@ IO线程只负责read/write事件的注册和监听，执行了epoll里面的前
 
 ![56eafbf98002009e.jpeg](https://pic.imgdb.cn/item/62dd1c64f54cd3f937b0bb1e.jpg)
 
-### 4、伪异步IO模型
+同步阻塞(blocking-IO)，简称BIO。
 
-伪异步IO模型采用线程池方式，但是底层仍然使用同步阻塞方式，限制了最大连接数。
+- 阻塞IO模型。
+- 经典的应用：**阻塞socket、Java BIO**。
+
+同步非阻塞(non-blocking-IO)，简称NIO。
+
+- 非阻塞IO模型。
+- 经典的应用：java nio包(select模型)。
+
+异步非阻塞(asynchronous-non-blocking-IO)，简称AIO。
+
+### 4、几点说明
+
+- 伪异步IO模型采用线程池方式，但是底层仍然使用同步阻塞方式，限制了最大连接数。
+- select低效是因为每次它都需要轮询。但低效也是相对的，视情况而定，也可通过良好的设计改善。
 
 ## 七、相关wiki
 
