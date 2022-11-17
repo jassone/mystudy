@@ -19,7 +19,7 @@ vi ~/.bash_profile  添加
 source  ~/.bash_profile     刷新环境变量
 
 //环境变量
-vi /etc/profile  // 所有用户的
+vi /etc/profile  // 所有用户的, 目前本人go env配置在这里
 ```
 
 ## 二、其他配置
@@ -27,8 +27,6 @@ vi /etc/profile  // 所有用户的
 ### 1、设置module
 
 ```sh
-go env -w GO111MODULE=on
-go env -w GOPROXY=https://goproxy.cn,direct // 使用七牛云的
+
 ```
 
-注意：go env -w会将配置写到 `GOENV="/Users/bian/Library/Application Support/go/env"`

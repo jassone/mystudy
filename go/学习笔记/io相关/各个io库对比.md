@@ -236,3 +236,4 @@ s := buf.String()) // s == "Size: 85 MB."
 ## 三、总结
 
 关于 io.Reader 和 io.Writer 接口，可以简单理解为读源和写源。也就是说，只要实现了 Reader 中的 Read 方法，这个东西就可以作为读源，里面可以包含数据，被我们读取。 Writer 也是如此。
+
