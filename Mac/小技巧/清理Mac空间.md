@@ -15,6 +15,7 @@ App Store下载的应用：
 
 ### 3、其他
 *  ~/Library/Group Containers/UBF8T346G9.Office/  office报错信息
+*  ~/Library/Containers/
 *  ~/Library/Application Support/dinglive
 *  ~/Library/Application Support/DingTalkMac
-*  *  ~/Library/Application Support/google
+*  ~/Library/Application Support/google
