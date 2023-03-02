@@ -53,7 +53,6 @@ WHERE
 * limit y 分句表示: 读取 y 条数据
 * limit x, y 分句表示: 跳过 x 条数据，读取 y 条数据
 * limit y offset x 分句表示: 跳过 x 条数据，读取 y 条数据
-                       
 
 ### 2、where和having
 
@@ -89,8 +88,6 @@ select * from emp where EXISTS (select id from dept where dept.id=emp.dep_id);
 
 exists后面的子查询不返回任何实际数据，只返回真或假，当返回真时 where条件成立，该条记录保留。
 
-
-
 ### 4、强制使用索引
 
 要想强制MySQL使用或忽视possible_keys列中的索引，在查询中使用FORCE INDEX、USE INDEX或者IGNORE INDEX。
@@ -114,7 +111,5 @@ select * from t1 where m1 > any(select m2 from t2)
 ```sql
 select * from t1 where m1 > all(select m2 from t2)
 ```
-
-
 
 ## 三、其他

@@ -1,8 +1,5 @@
 ## map底层原理
-todo
-
-扩容规则
-等量扩容：  让key value排列更加紧凑(因为某些key被删除导致不紧凑)
+map 是一种key-value的键值对存储结构，其中key不能重复，底层用hash表存储。
 
 ## wiki
 * https://www.topgoer.com/go基础/Map实现原理.html

@@ -31,7 +31,7 @@ func modifyMap() {
 **输出结果次数>=3**
 
 ##### 原因分析
-对于map的迭代来说，map中内容的迭代顺序没有指定，迭代map的时候将以随机的顺序返回里面的内容。
+对于**map的迭代来说，map中内容的迭代顺序没有指定，迭代map的时候将以随机的顺序返回里面的内容**。
 
 * 如果一个map的key在还没有被迭代到的时候就被delete掉了，那么它所对应的迭代值就不会被产生了。
 * 对于在迭代过程中新增加的key，则它可能会被迭代到也可能不会。
@@ -40,7 +40,7 @@ func modifyMap() {
 使用range迭代字符串时，**range迭代的是Unicode而不是字节。**返回的两个值：
 * 第一个是被迭代的字符的UTF-8编码的第一个字节在字符串中的索引。所以索引值可能并不是连续的。
 
-* 第二个值的为对应的字符且类型为rune(实际就是表示unicode值的整形数据）。不是string类型的，如果要使用该值需要格式化。
+* 第二个值为对应的字符且类型为rune(实际就是表示unicode值的整形数据）。不是string类型的，如果要使用该值需要格式化。
 
 ```go
 //string
@@ -77,6 +77,6 @@ for k, d := range datas {
     fmt.Printf("k_addr:%p, k_value:%v\nd_addr:%p, d_value:%v\n----\n", &k, k, &d, d)
 }
 ```
- 
+
 ## 二、wiki 
 * https://www.jianshu.com/p/4205659ca419

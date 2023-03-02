@@ -16,4 +16,3 @@ Reactor模型还可以与多进程、多线程结合起来用，既实现异步�
 * Nginx+Lua：多进程Reactor+协程
 * Golang：单线程Reactor+多线程协程
 * Swoole：多线程Reactor+多进程Worker 
- 

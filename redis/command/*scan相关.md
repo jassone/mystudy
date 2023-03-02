@@ -1,8 +1,4 @@
-# http://doc.redisfans.com/key/scan.html#scan
-
-
-
-##### SCAN 命令及其相关的 SSCAN 命令、 HSCAN 命令和 ZSCAN 命令都用于增量地迭代（incrementally iterate）一集元素（a collection of elements）：
+### SCAN 命令及其相关的 SSCAN 命令、 HSCAN 命令和 ZSCAN 命令都用于增量地迭代（incrementally iterate）一集元素（a collection of elements）：
 
 * SCAN 命令用于迭代当前数据库中的数据库键。
 * SSCAN 命令用于迭代集合键中的元素。
@@ -10,9 +6,11 @@
 * ZSCAN 命令用于迭代有序集合中的元素（包括元素成员和元素分值）。
 
 ##### 以上列出的四个命令都支持<font color="red">增量式迭代</font>， 它们每次执行都只会返回少量元素,不会像keys个smenbers可能在大数据时会阻塞服务器达数秒之久
+
 ##### 但是增量式迭代命令来说， 因为在对键进行增量式迭代的过程中， 键可能会被修改， 所以增量式迭代命令只能对被返回的元素提供有限的保证 
 
 ### SCAN
+
 * SCAN cursor [MATCH pattern] [COUNT count]
 
 ##### 保证
@@ -80,3 +78,7 @@ SCAN 命令、 SSCAN 命令、 HSCAN 命令和 ZSCAN 命令都返回一个包含
 * HSCAN 命令返回的每个元素都是一个键值对，一个键值对由一个键和一个值组成。
 
 * ZSCAN 命令返回的每个元素都是一个有序集合元素，一个有序集合元素由一个成员（member）和一个分值（score）组成。
+
+## 相关wiki
+
+- http://doc.redisfans.com/key/scan.html#scan

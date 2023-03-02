@@ -1,4 +1,4 @@
-TODO
+## ulimit
 
 ## 一 概述            
 ulimit 是一种 linux 系统的内键功能，它具有一套参数集，用于为由它生成的 shell 进程及其子进程的资源使用设置限制。
@@ -14,7 +14,7 @@ ulimit 是一种 linux 系统的内键功能，它具有一套参数集，用于
 
 ## 三 ulimit的功能
 limit 用于限制 shell 启动进程所占用的资源（**同时支持硬资源和软资源的限制**），支持以下各种类型的限制：
- 
+
 作为临时限制，ulimit 可以作用于通过使用其命令登录的 shell 会话，在会话终止时便结束限制，并不影响于其他 shell 会话。而对于长期的固定限制，ulimit 命令语句又可以被添加到由登录 shell 读取的文件中，作用于特定的 shell 用户。
 
 
@@ -49,7 +49,7 @@ ulimit 命令的格式为：ulimit [options] [limit]
 ```
 
 ## 四 ulimit 参数说明
-  
+
 | 选项 [options] |含义  |	例子  |
 | --- | --- | --- |
 | -H | 设置硬资源限制，一旦设置不能增加。 |  ulimit – Hs 64；限制硬资源，线程栈大小为 64K。 |  
@@ -67,7 +67,7 @@ ulimit 命令的格式为：ulimit [options] [limit]
 | -u | 用户最大可用的进程数。 |  ulimit – u 64；限制用户最多可以使用 64 个进程。| 
 |  -v|  进程最大可用的虚拟内存，以 Kbytes 为单位。|ulimit – v 200000；限制最大可用的虚拟内存为 200000 Kbytes。
   | 
-   
+
 
 ## 五 使用 ulimit
 我们可以通过以下几种方式来使用 ulimit
@@ -87,7 +87,7 @@ myapp
 以后只要通过脚本 startmyapp 来启动应用程序，就可以限制应用程序 myapp 的线程栈大小为 512K。
 
 ### 3、直接在控制台输入 
- 
+
 ```sh
 ulimit – p 256 
 ```
@@ -96,19 +96,19 @@ ulimit – p 256
 ### 4、修改所有 linux 用户的环境变量文件：
 
     vi /etc/profile
-
+    
     ulimit -u 10000
-
+    
     ulimit -n 4096
-
+    
     ulimit -d unlimited
-
+    
     ulimit -m unlimited
-
+    
     ulimit -s unlimited
-
+    
     ulimit -t unlimited
-
+    
     ulimit -v unlimited
 
  保存后运行#source /etc/profile 使其生效
@@ -134,7 +134,7 @@ File size limit exceeded
 cat testFile > newFile
 ls –s newFile
 323669 newFile
- 
+
 
 ##### 针对用户永久生效
 通过修改系统的 /etc/security/limits.conf配置文件。该文件不仅能限制指定用户的资源使用，还能限制指定组的资源使用。该文件的每一行都是对限定的一个描述。
@@ -168,7 +168,7 @@ resource：
 查看 /etc/pam.d/login 文件中有：
 session required /lib/security/pam_limits.so
 
- 
+
 例如：解除 Linux 系统的最大进程数和最大文件打开数限制：  
 
 ```sh
@@ -178,12 +178,12 @@ vi /etc/security/limits.conf
 * hard noproc 20000  #硬连接  
 * soft nofile 4096    
 * hard nofile 4096  
-```       
+```
 说明：* 代表针对所有用户，noproc 是代表最大进程数，nofile 是代表最大文件打开数
 
 需要注意一点：/etc/security/limits.d下也有noproc最大进程参数的限制。
 即 /etc/security/limits.d/下的文件覆盖了/etc/security/limits.conf设置的值 
- 
+
 现在已经可以对进程和用户分别做资源限制了，看似已经足够了，其实不然。很多应用需要对整个系统的资源使用做一个总的限制，这时候我们需要修改 /proc 下的配置文件。/proc 目录下包含了很多系统当前状态的参数。
 例如 /proc/sys/kernel/pid_max，/proc/sys/net/ipv4/ip_local_port_range 等等，从文件的名字大致可以猜出所限制的资源种类。
 
@@ -219,7 +219,7 @@ cpu time               (seconds, -t) unlimited
 max user processes              (-u) 4096
 virtual memory          (kbytes, -v) unlimited
 file locks                      (-x) unlimited
-``` 
+```
 
 在上面这些参数中，通常我们关注得比较多:
 

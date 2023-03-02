@@ -20,7 +20,7 @@ TCP的特点有：
 3. Sequence Number（顺序号码，Seq）：用于在数据通信中解决网络包乱序（reordering）问题，以保证应用层接收到的数据不会因为网络上的传输问题而乱序（TCP会用这个顺序号码来拼接数据），32bit。
 4. Acknowledgment Number（确认号码，ack）：是数据接收方期望收到发送方在下一个报文段的顺序号码（Seq），因此确认号码应当是上次已成功收到顺序号码（Seq）加1，32bit。
 5. Offset（TCP报文头长度)：用于存储报文头中有多少个32bit(上图的一行)，存储长度为4bit，最大可表示
-```（2^3+2^2+2^1+1）
+```
 ```*32bit=60bytes的报文头。最小取值5，5*32bit=20bytes。
 1. Reserved（保留）：6bit, 均为0
 
@@ -40,11 +40,13 @@ FIN：终止，0x01。当FIN=1时，表明此报文段的发送端的数据已�
 
 备注：ISN（Inital Sequence Number）：初始化Sequence Number，发生在建立连接时。
 
+```
+
 ### 2、三次挥手
 ##### 三次挥手过程描述
 
 ![0a58409c043b42f9b20c9e07b60f346.png](https://pic.imgdb.cn/item/617578a92ab3f51d915994ae.png)
- 
+
 1. 第一次握手: 客户端发送syn标志位和seq num，向服务器申请建立连接，客户端状态由closed变为syn_send
 
 2. 第二次握手: 服务端返回 syn和ack标志位，ack num以及seq num，确认第一次握手的报文段，返回ack num=seq num(第一次握手发送的)+1，同意建立连接，服务器状态由listen变为syn_received

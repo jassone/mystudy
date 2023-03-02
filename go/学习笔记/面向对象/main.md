@@ -5,7 +5,7 @@
 * 给结构体所在包提供一个工厂模式的函数，首字母大写
 * 提供一个首字母大写的Set方法，用于对属性判断并赋值
 * 提供一个首字母大写的Get方法，用于获取属性的值
- 
+
 ### 2、继承
 如果一个结构体struct嵌套了另一个匿名结构体，那么这个结构体可以直接使用匿名结构体的字段和方法，从而体现继承。
 
@@ -49,8 +49,7 @@ func main() {
 	// 这里就体现出多态数组
 	var usbArr [3]Usb
 	usbArr[0] = Phone{"vivo"}
-	usbArr[1] = Phone{"小米"}
-	usbArr[2] = Camera{"尼康"}
+	usbArr[1] = Camera{"尼康"}
 	fmt.Println(usbArr)
 }
 ```

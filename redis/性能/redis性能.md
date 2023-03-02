@@ -7,7 +7,7 @@ redis 瓶颈在于机器的内存、网络IO操作。
 1. 操作bigkey写入一个bigkey在分配内存时需要消耗更多的时间，同样，删除bigkey释放内存同样会产生耗时；
 2. 使用复杂度过高的命令例如SORT/SUNION/ZUNIONSTORE，或者O(N)命令，但是N很大，例如lrange key 0 -1一次查询全量数据；
 3. **大量key集中过期Redis的过期机制也是在主线程中执行的，大量key集中过期会导致处理一个请求时，耗时都在删除过期key，耗时变长；**
-4. 淘汰策略淘汰策略也是在主线程执行的，当内存超过Redis内存上限后，每次写入都需要淘汰一些key，也会造成耗时变长；
+4. 淘汰策略也是在主线程执行的，当内存超过Redis内存上限后，每次写入都需要淘汰一些key，也会造成耗时变长；
 5. AOF刷盘开启always机制每次写入都需要把这个操作刷到磁盘，写磁盘的速度远比写内存慢，会拖慢Redis的性能；
 6. 主从全量同步生成RDB虽然采用fork子进程生成数据快照，但fork这一瞬间也是会阻塞整个线程的，实例越大，阻塞时间越久；
 
@@ -37,3 +37,11 @@ redis 瓶颈在于机器的内存、网络IO操作。
 
 - redis是纯内存操作,没有太多的IO操作，耗时的只有recv。
 - memcached中有加锁操作，是一种负担。
+
+
+
+todo 性能调优
+
+https://baijiahao.baidu.com/s?id=1662145032514162432&wfr=spider&for=pc
+
+https://blog.csdn.net/weixin_40918067/article/details/116572412

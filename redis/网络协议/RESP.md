@@ -28,7 +28,7 @@ Redis客户端和服务端之间使用一种名为RESP(REdis Serialization Proto
  1. redis发送一个命令到服务端, 然后阻塞在socket.read()方法, 等待服务端的返回
  2. 服务端收到一个命令, 处理完成后将数据发送回去给客户端
 
- 
+
 这个就被称为request/reponse模型. redis的大部分命令都是使用这种模型进行通讯, 除了两种情况:
 
   1. pipeline模式. 在pipeline模式下, 客户端可能会把多个命令收集在一起, 然后一并发送给服务端, 最后等待服务端把所有命令的执行响应一并发送回来
@@ -76,8 +76,7 @@ $-1\r\n  Null， 在这种特殊格式中，长度为-1，并且没有数据
 *0\r\n 空数组
 *-1\r\n null数组，比如当BLPOP命令超时时
 *2\r\n$3\r\nfoo\r\n$3\r\nbar\r\n  散列字符串“ foo”和“ bar”的数组
-*3\r\n:1\r\n:2\r\n:3\r\n 三个整数的数
-组
+*3\r\n:1\r\n:2\r\n:3\r\n 三个整数的数组
 
 给key增加过期时间(原始命令 expire name 10)
 *3
@@ -121,4 +120,4 @@ redis是基于tcp通讯的, 所以简单使用socket就好, 发送如下字符�
 ```
 "*2\r\n$3\r\nget\r\n$5\r\ntest1\r\n"
 ```
- 
+

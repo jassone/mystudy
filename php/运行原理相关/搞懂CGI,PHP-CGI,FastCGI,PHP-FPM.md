@@ -23,14 +23,6 @@ CGI可以用任何一种语言编写，只要这种语言具有标准输入、�
 
 **一般说的CGI指的是用各种语言编写的能实现该功能的程序(如php-cgi程序)。**
 
-### CGI的历史
-
-早期的webserver只处理html等静态文件，但是随着技术的发展，出现了像php等动态语言。webserver处理不了了，怎么办呢？那就交给php解释器来处理吧！
-
-但是php解释器如何与webserver进行通信呢？
-
-为了解决不同的语言解释器(如php、python解释器)与webserver的通信，于是出现了cgi协议。CGI 独立于任何语言的，只要你按照cgi协议去编写程序，CGI 程序可以用任何脚本语言或者是完全独立编程语言实现，只要这个语言可以在这个系统上运行，就能实现语言解释器与webwerver的通信。如**php-cgi程序**。
-
 ### CGI程序的工作原理
 
 1. web 服务器收到客户端（浏览器）的请求Http Request，启动CGI程序(**php-cgi程序**)，并通过环境变量、标准输入传递数据
@@ -76,7 +68,7 @@ GET请求，它将数据打包放置在环境变量QUERY_STRING中，CGI从环�
 当我们指定用这种方法传递请求的数据时，web 服务器收到数据后会先放在一块输入缓冲区中，并且将数据的大小记录在CONTENT_LENGTH这个环境变数，然后调用CGI程式并将CGI程序的STDIN指向这块缓冲区，于是我们就可以很顺利的通过STDIN和环境变数CONTENT_LENGTH得到所有的资料，再没有资料大小的限制了。
 
 ### CGI优点：
-1 CGI的好处就是完全独立于任何服务器，仅仅是做为中间分子。提供接口给web服务器和web应用(如nginx和php)。他们通过cgi搭线来完成数据传递。这样做的好处了尽量减少2个的关联，使他们2个变得更独立。
+1 CGI的好处就是完全独立于任何服务器，仅仅是做为中间分子。提供接口给web服务器和web应用(如nginx和php)。他们通过cgi搭线来完成数据传递。这样做的好处是尽量减少他们2个的关联，使他们2个变得更独立。
 
 2 CGI对php.ini的配置很敏感，在开发和调试的时候相当方便
 
@@ -84,7 +76,7 @@ GET请求，它将数据打包放置在环境变量QUERY_STRING中，CGI从环�
 1 <font color="red">高并发时的性能较差</font>
 webserver每收到一个请求，都会去fork一个cgi进程，请求结束再kill掉这个进程。，也就是最为人诟病的**fork-and-execute**模式，这样一在大规模并发下，几乎是不可用的。 
 
- [PHP运行模式.md](PHP运行模式.md) 2 传统的CGI接口方式安全性较差
+ 2 传统的CGI接口方式安全性较差
 
 ## 三、FastCGI
 ### FastCGI是什么
@@ -187,8 +179,6 @@ php-fpm会开启多个php-cgi程序，并且php-fpm常驻内存，每次web serv
 * win不支持php-fpm，因为php-fpm是使用Linux的fork()来做的，所以win下面基本上还是使用php-cgi。
 
 **1）PHP-FPM使用PHP编写的PHP-FastCGI管理器，管理对象是PHP-CGI程序。**
-
-在配置时使用--enable-fpm参数即可开启PHP-FPM
 
 2）修改php.ini之后，php-cgi进程的确是没办法平滑重启的。php-fpm对此的处理机制是新的worker用新的配置，已经存在的worker处理完手上的活就可以歇着了，通过这种机制来平滑过度。
 

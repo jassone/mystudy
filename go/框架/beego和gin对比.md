@@ -58,8 +58,6 @@ beego支持session，gin不支持
 
 需要另外安装包，如github.com/astaxie/session
 
-
-
 ## 四、两个框架如何选择
 
 ### 1、beego在业务方面较gin支持的更多

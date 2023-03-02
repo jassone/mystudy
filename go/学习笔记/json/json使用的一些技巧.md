@@ -2,8 +2,6 @@
 
 todo
 
-
-
 ```go
 // playload不一定是map或者struct,其他简单类型也可以
 resp,_ := json.Marshal(playload)

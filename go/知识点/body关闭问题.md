@@ -96,8 +96,7 @@ if err != nil {
     fmt.Println(err)
     return
 }
-defer resp.Body.Close()//ok, most of the
-time :-)
+defer resp.Body.Close()//ok, most of the time :-)
 body, err := ioutil.ReadAll(resp.Body)
 if err != nil {
     fmt.Println(err)

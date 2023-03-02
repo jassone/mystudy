@@ -11,10 +11,8 @@ go install 用于编译并安装它指定的代码包以及代码包依赖的其
 
 其实 go build 的绝大多数命令都可以用于 go install 命令
 
-- go install比 go build 多做了一件事，就是生成目标库文件(.a文件)。 
+- **go install比 go build 多做了一件事，就是生成目标库文件(.a文件)**。 
 - go build生成的可执行文件在当前目录下，而go install生成的可执行文件放在GOPATH/bin目录下。
-
-
 
 ### 2、扩展：什么是归档文件
 

@@ -1,5 +1,11 @@
 ## gRPC
+
+gRPC由google开发，是一款语言中立、平台中立、开源的远程过程调用系统。
+
+gRPC可以实现微服务，默认使用protocol buffers，这是google开源的一套成熟的结构数据序列化机制（当然也可以使用其他数据格式如JSON）。
+
 ## 一、基础知识
+
 ### 1、gRPC 四种数据交互模式
 * **简单模式（Simple RPC），也叫一元调用**，客户端向服务器发送单个请求并返回单个响应，就像普通的函数调用一样，也就是最常见的客户端请求、服务端响应实现方式；
 * **服务端流式 RPC（Server-side streaming RPC）**，客户端向服务器发送请求，并获取多个响应消息。客户端从返回的流中读取，直到没有更多消息。gRPC 保证单个 RPC 调用中的消息排序；
@@ -14,14 +20,15 @@
 
 ### 2、为什么能支持流模式，双向流模式
 
-因为是建立在http2基础上的，http2天生支持。
+因为是建立在http2.0基础上的，http2.0天生支持。
 
 ## 二、安装protoc
 protoc是Protobuf编译器。
 ### 1、官网下载
-下载地址：https://github.com/protocolbuffers/protobuf/releases。
+- 下载地址：https://github.com/protocolbuffers/protobuf/releases。
 
-wiki:https://www.cnblogs.com/niuben/p/14212878.html
+- wiki:https://www.cnblogs.com/niuben/p/14212878.html
+
 
 ### 2、brew安装
 ```sh
@@ -56,7 +63,7 @@ go get -u github.com/golang/protobuf/protoc-gen-go 便可以在$GOPATH/bin目录
 
 前提是必须首先将$GOPATH/bin路径添加到环境变量$PATH中。
 
-懒人做法：上述可能会出现找不到某些依赖文件，直接从一台能访问网络且安装完成的服务器上打包github.com，然后sz、rz到无网络服务器，解压到$GOPATH/src目录下，go build、go install即可。
+懒人做法：上述可能会出现找不到某些依赖文件，可以直接从一台能访问网络且安装完成的服务器上打包github.com，然后sz、rz到无网络服务器，解压到$GOPATH/src目录下，go build、go install即可。
 
 ### 2、安装中遇到的问题
 ##### a）google.golang.org/protobuf如果比较慢，下载可以找其他资源，比如

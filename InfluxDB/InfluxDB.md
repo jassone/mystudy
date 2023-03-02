@@ -28,8 +28,6 @@ InfluxDB使用Go语言编写，适用于各类时间序列数据的高效存储�
 
   fields：各种记录的值
 
-
-
 ## 相关命令
 
 ### 1、基本命令
@@ -76,8 +74,6 @@ auth
 # 修改密码
 influx user password -n 'username'
 ```
-
-
 
 ## 相关wiki
 

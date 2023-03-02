@@ -11,7 +11,7 @@ for i, v := range m {
         fmt.Println(i, v)
     }()
 }
-// 输出5个  4 5
+// 输出5个    4 5
 ```
 各个goroutine中输出的i,v值都是for range循环结束后的i, v最终值，而不是各个goroutine启动时的i, v值。
 
@@ -31,7 +31,7 @@ range后面接受的表达式的类型包括：**array, pointer to array, slice,
 ```go
 var a = [5]int{1, 2, 3, 4, 5}
 var r [5]int
-for i, v := range a { //a'
+for i, v := range a { //相当于复制了个a'
     if i == 0 {
         a[1] = 12
         a[2] = 13
@@ -46,7 +46,7 @@ fmt.Println("a = ", a)
 ```
 可以看出range expression副本参与循环。也就是说在上面这个例子里，真正参与循环的是a的副本，而不是真正的a。
 
-**Go中的数组在内部表示为连续的字节序列，虽然长度是Go数组类型的一部分，但长度并不包含的数组的内部表示中，而是由编译器在编译期计算出来。**这个例子中，对range表达式的拷贝，即对一个数组的拷贝，新拷贝的a'则是Go临时分配的连续字节序列，与a完全不是一块内存。因此无论a被 如何修改，其副本a'依旧保持原值，并且参与循环的是a'，因此v从a'中取出的仍旧是a的原值，而非修改后的值。
+**Go中的数组在内部表示为连续的字节序列，虽然长度是Go数组类型的一部分，但长度并不包含在数组的内部表示中，而是由编译器在编译期计算出来。**这个例子中，对range表达式的拷贝，即对一个数组的拷贝，新拷贝的a'则是Go临时分配的连续字节序列，与a完全不是一块内存。因此无论a被 如何修改，其副本a'依旧保持原值，并且参与循环的是a'，因此v从a'中取出的仍旧是a的原值，而非修改后的值。
 
 ## 三、看下pointer to array的情况
 
@@ -88,7 +88,7 @@ fmt.Println("a = ", a)
 
 显然用slice也能实现预期要求。我们可以分析一下slice是如何做到的。
 
-slice在go的内部表示为一个struct，由(\*T, len, cap)组成，其中\*T指向slice对应的underlying array的指针，len是slice当前长度，cap为slice的最大容量。当range进行expression复制时，它实际上复制的是一个 slice，也就是那个struct。**副本struct中的\*T依旧指向原slice对应的array**，为此对slice的修改都反映到 underlying array a上去了，v从副本struct中*T指向的underlying array中获取数组元素，也就得到了被修改后的元素值。
+slice在go的内部表示为一个struct，由(\*T, len, cap)组成，其中\*T指向slice对应的underlying array的指针，len是slice当前长度，cap为slice的最大容量。**当range进行expression复制时，它实际上复制的是一个 slice，也就是那个struct。副本struct中的\*T依旧指向原slice对应的array**，为此对slice的修改都反映到 underlying array a上去了，v从副本struct中*T指向的underlying array中获取数组元素，也就得到了被修改后的元素值。
 
 slice与array还有一个不同点，就是其len在运行时可以被改变，而array的len是一个常量，不可改变。那么len变化的 slice对for range有何影响呢？我们继续看一个例子：
 
@@ -107,11 +107,12 @@ fmt.Println("a = ", a)
 // a =  [1 2 3 4 5 6 7]
 ```
 
-在这个例子中，原slice a在for range过程中被附加了两个元素6和7，其len由5增加到7，但这对于r却没有产生影响。这里的原因就在于a的副本a'的内部表示struct中的 len字段并没有改变，依旧是5，因此for range只会循环5次，也就只获取a对应的underlying数组的前5个元素。
+在这个例子中，原slice a在for range过程中被附加了两个元素6和7，其len由5增加到7，但这对于r却没有产生影响。这里的原因就在于**a的副本a'的内部表示struct中的 len字段并没有改变**，依旧是5。
 
-range的副本行为会带来一些性能上的消耗，尤其是当range expression的类型为数组时，range需要复制整个数组；而当range expression类型为pointer to array或slice时，这个消耗将小得多。
+**range的副本行为会带来一些性能上的消耗，尤其是当range expression的类型为数组时，range需要复制整个数组；而当range expression类型为pointer to array或slice时，这个消耗将小得多。**
 
 ## 五、看下string的情况
+
 对string来说，由于string的内部表示为struct {*byte, len)，并且string本身是immutable的，因此其行为和消耗和slice expression类似。不过for range对于string来说，每次循环的单位是rune(code point的值)，而不是byte，index为迭代字符码点的第一个字节的position：
 
 ```go
@@ -204,22 +205,35 @@ for v := range c {
 如果channel变量为nil，则for range将永远阻塞。
 
 ## 八、注意点
-### 1、slice、array、map使用range的不同
+### 1、range中获取k,v的区别
 
 ```go
+// 1、range中:=左边一个key的情况，为获取的下标
 x := map[string]string{"a":"b"}
-for v: = range x {
+for v:= range x {
 	fmt.Print(v) // a
 }
 
 x := []string{"a", "b", "c"}
-for v: = range x {
+for v:= range x {
 	fmt.Print(v) // 0 1 2
 }
 
 x := [3]int{2,3,4}
-for v: = range x {
+for v:= range x {
 	fmt.Print(v) // 0 1 2
+}
+
+// 2、通道中的情况
+var c = make(chan int)
+for v := range c { // 获取值
+	fmt.Println(v)
+}
+for v,ok := range c { // 获取值和通道是否已经关闭
+  if ok == false{
+    break
+  }
+	fmt.Println(v)
 }
 ```
 
@@ -242,5 +256,5 @@ range 中改变会影响源变量的情况有
 * pointer to array
 * slice
 * map
-
+* channel
 

@@ -2,6 +2,8 @@
 
 ## 一、汇总
 
+- Redis：异步IO+单线程
+
 ![20220227103619.jpg](https://pic.imgdb.cn/item/621ae3da2ab3f51d91ec811e.jpg)
 
 ## 二、二种高性能IO设计应用

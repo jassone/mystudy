@@ -1,7 +1,22 @@
+## Opcache
+
 
 > PHP7即使不启用Opcache速度也比PHP-5.6启用了Opcache快
 
 ### 那么什么是Opcache呢？
+
+OPCache 是Zend官方出品的，开放自由的 opcode 缓存扩展，还具有代码优化功能，省去了每次加载和解析 PHP 脚本的开销。PHP 5.5.0 及后续版本中已经绑定了 OPcache 扩展。
+
+它将PHP编译产生的字节码以及数据缓存到共享内存中, 在每次请求，从缓存中直接读取编译后的opcode，进行执行。通过节省脚本的编译过程，提高PHP的运行效率。
+
+缓存两类内容:
+
+- OPCode
+- Interned String：如注释、变量名等
+
+## 一、OPCache 原理
+
+OPCache缓存的机制主要是：**将编译好的操作码放入共享内存，提供给其他进程访问**。
 
 OPcache 通过将 PHP 脚本预编译的字节码存储到共享内存中来提升 PHP 的性能， 存储预编译字节码的好处就是 省去了每次加载和解析 PHP 脚本的开销。
 
@@ -112,7 +127,8 @@ opcache.max_wasted_percentage=20
 opcache.use_cwd=1
 ```
 
-##### 更多配置
+##### 更多配置 
+
 https://www.php.net/manual/zh/opcache.configuration.php
 
 ### 更新缓存
@@ -153,6 +169,11 @@ Route::any('cache-update', function () {
 ##### 注意
 1 如果代码发布是覆盖更新旧目录，则可以重启php-fpm及在脚本中或代码文件中使用opcache_reset函数来清理所有缓存。
 2 如果代码发布是全量发布，切换软链接的方式，可以设置opcache.validate_timestamps=1和opcache.revalidate_freq=X来定时自动更新缓存。
+
+### 相关wiki
+
+- PHP中的opcache是什么 https://blog.csdn.net/TCMvines/article/details/124317376
+- PHP中的OPCode和OPCache https://www.cnblogs.com/hld123/p/15114852.html
 
 
 

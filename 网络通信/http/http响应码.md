@@ -1,4 +1,5 @@
 ## HTTP响应码
+
 ## 一、总览
 |  | 类型 |说明|
 | --- | --- |--- |
@@ -49,8 +50,6 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
     echo "<p>Hello {$_SERVER['PHP_AUTH_USER']}.</p>";
     echo "<p>You entered {$_SERVER['PHP_AUTH_PW']} as your password.</p>";
 }
-```
-
 * 403:Forbidden,表明对请求资源的访问被服务器拒绝了。未获得文件系统的访问权限，访问权限出现某些问题都可能触发403。
 
 * 404:Not Found。
@@ -84,4 +83,3 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
     1，客户发送的请求在限定的时间内没有得到相应，过多的请求导致“504 Gateway Time-out”。
     2，也有可能是服务器带宽问题。
     3，nginx方面，504错误一般是与nginx.conf配置有关了。主要与以下几个参数有关：fastcgi_connect_timeout、fastcgi_send_timeout、fastcgi_read_timeout、fastcgi_buffer_size、fastcgi_buffers、fastcgi_busy_buffers_size、fastcgi_temp_file_write_size、fastcgi_intercept_errors。特别是前三个超时时间。如果fastcgi缓冲区太小会导致fastcgi进程被挂起从而演变为504错误。
-

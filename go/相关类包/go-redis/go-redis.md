@@ -2,8 +2,6 @@
 
 如果当前服务是只写模式，则当写入时，写入同时就抛出panic，不会返回err
 
-
-
 ```go
 rdb := redis.NewClient(&redis.Options{
    Addr:     "localhost:6379",

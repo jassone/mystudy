@@ -39,9 +39,7 @@ Golang 依赖管理机制发展到现在，主要经历了 GOPATH、govendor、g
 
 - 解决了GOPATH项目的两个问题
 
-
-
-
+## 四、其他
 
 go mod 的核心原理主要包含三部分内容：
 

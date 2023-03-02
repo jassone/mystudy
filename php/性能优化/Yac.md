@@ -11,4 +11,3 @@
 ## 二、相关wiki
 
 - Yac (Yet Another Cache) - 无锁共享内存Cach https://www.laruence.com/2013/03/18/2846.html
-- [PHP无锁内存nosql---*Yac*的实战 http://t.zoukankan.com/sunsky303-p-6554888.html

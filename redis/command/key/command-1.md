@@ -58,7 +58,6 @@
 
 ### PERSIST
 * 移除给定 key 的生存时间，设置为永久有效
-* 
 
 
 ### KEYS
@@ -101,7 +100,7 @@ MIGRATE 命令需要在给定的时间规定内完成 IO 操作。如果在传�
 ### OBJECT
 * OBJECT subcommand [arguments [arguments]]
 * OBJECT 命令允许从内部察看给定 key 的 Redis 对象
- 
+
 ##### 用途
 * 它通常用在除错(debugging)或者了解为了节省空间而对 key 使用特殊编码的情况。
 * 当将Redis用作缓存程序时，你也可以通过 OBJECT 命令中的信息，决定 key 的驱逐策略(eviction policies)。
@@ -119,7 +118,7 @@ MIGRATE 命令需要在给定的时间规定内完成 IO 操作。如果在传�
 * 哈希表可以编码为 zipmap 或者 hashtable 。 zipmap 是小哈希表的特殊表示。
 * * 有序集合可以被编码为 ziplist 或者 skiplist 格式。 ziplist 用于表示小的有序集合，而 skiplist 则用于表示任何大小的有序集合。
 * 假如你做了什么让 Redis 没办法再使用节省空间的编码时(比如将一个只有 1 个元素的集合扩展为一个有 100 万个元素的集合)，特殊编码类型(specially encoded types)会自动转换成通用类型(general type)。
- 
+
 
 ### TTL
 * 以秒为单位，返回给定 key 的剩余生存时间(TTL, time to live)
@@ -162,7 +161,6 @@ MIGRATE 命令需要在给定的时间规定内完成 IO 操作。如果在传�
 * 返回 key 所储存的值的类型
 
 ### SCAN
-
 
 
 

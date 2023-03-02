@@ -1,6 +1,6 @@
 ## BLOB
 ### 一、概念
-BLOB (binary large object)二进制大对象，是一个可以存储`二进制数据`的容器。
+BLOB (binary large object)二进制大对象，是一个可以存储**二进制数据**的容器。
 
 在计算机中，BLOB常常是数据库中用来存储二进制文件的字段类型。
 

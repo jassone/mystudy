@@ -26,7 +26,5 @@ vi /etc/profile  // 所有用户的, 目前本人go env配置在这里
 
 ### 1、设置module
 
-```sh
 
-```
 

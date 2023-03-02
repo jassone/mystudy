@@ -33,6 +33,7 @@ io.Reader/Writer 常用的几种实现
     panic(err)
   }
   defer conn.Close()
+  
   reader := bufio.NewReader(conn)
   var buf [1024]byte
   for {
@@ -63,7 +64,7 @@ io.Reader/Writer 常用的几种实现
   }
   ```
 
-- os.File: 网络,标准输入输出,文件的流读取。
+- os.File: 文件的流读取。
 
 - strings.Reader: 字符串抽象成 io.Reader 的实现。
 
@@ -73,9 +74,7 @@ io.Reader/Writer 常用的几种实现
 
 - bufio.Reader/Writer: 抽带缓冲的流读取和写入（比如按行读写）。
 
-除了这几种实现外常用的还有 ioutil 工具库包含了很多IO工具函数，编码相关的内置库 encoding/base64 、 encoding/binary 等也是通过 io.Reader 和 io.Writer 实现各自的编码功能的。
-
-这些常用实现和工具库与io.Reader和io.Writer间的关系可以用下图表示。
+除了这几种实现外常用的还有 ioutil 工具库包含了很多IO工具函数，编码相关的内置库 encoding/base64、encoding/binary 等也是通过 io.Reader 和 io.Writer 实现各自的编码功能的。
 
 ## 二、每种I/O库的使用场景
 
@@ -129,8 +128,6 @@ func (f *File) WriteString(s string) (ret int, err error)
 func (f *File) Close() error
 ```
 
-
-
 ### 3、ioutil库
 
 ioutil 库是一个有工具包，它提供了很多使用的 IO 工具函数，例如 ReadAll、ReadFile、WriteFile、ReadDir。**唯一需要注意的是它们都是一次性读取和一次性写入**，所以使用时，**尤其是把数据从文件里一次性读到内存中时需要注意文件的大小**。
@@ -169,8 +166,6 @@ func ReadFile(filename string) ([]byte, error)
 func WriteFile(filename string, data []byte, perm os.FileMode) error
 ```
 
-
-
 ### 4、bufio库-按行读取
 
 bufio，**可以理解为在 io 库的基础上额外封装加了一个缓存层**，它提供了很多按行进行读写的函数，**从io库的按字节读写变为按行读写对写代码来说还是方便了不少。**
@@ -205,8 +200,6 @@ func (b *Writer) Flush() error
 //传入写的句柄和读的句柄，并返回一个写和都都具有的句柄，并将读写分配到读写句柄中
 func NewReadWriter(r *Reader, w *Writer) *ReadWriter
 ```
-
-
 
 ### 5、bytes 和 strings 库
 

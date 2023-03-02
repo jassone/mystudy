@@ -6,8 +6,6 @@
 
 ![28efa.webp](https://pic1.imgdb.cn/item/63316c3816f2c2beb1b48f4c.png)
 
-
-
 ## 细节
 
 ### 1、Flush()

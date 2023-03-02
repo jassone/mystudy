@@ -5,16 +5,17 @@ Golang 没有结构化异常，使用 panic 抛出错误，recover 捕获错误�
 
 ## 一、基础知识
 ### 1、panic：
-* 内置函数
+
 * 假如函数F中书写了panic语句，会终止其后要执行的代码，在panic所在函数F内如果存在要执行的defer函数列表，按照defer的逆序执行
 * **返回函数F的调用者G，在G中，调用函数F语句之后的代码不会执行，假如函数G中存在要执行的defer函数列表，按照defer的逆序执行**
 * **直到goroutine整个退出，并报告错误**
-  
+
+
 ### 2、recover：
-* 内置函数
-* 用来控制一个goroutine的**panicking**行为，捕获panic，从而影响应用的行为
+
+* 用来控制一个goroutine的**panic**行为，捕获panic，从而影响应用的行为
 * 一般的调用建议
-    a) 在defer函数中，通过recever来终止一个goroutine的panicking过程，从而恢复正常代码的执行
+    a) 在defer函数中，通过recever来终止一个goroutine的panic过程，从而恢复正常代码的执行
     b) 可以获取通过panic传递的error
 
 ## 二、示例
@@ -56,7 +57,7 @@ panic(12)
 
 ## 三、其他
 ### 1、注意
-* 利用recover处理panic指令，**defer 必须放在 panic 之前定义，另外 recover 只有在 defer 调用的函数中才有效。**否则当panic时，recover无法捕获到panic，无法防止panic扩散。
+* 利用recover处理panic指令，**defer 必须放在 panic 之前定义，另外 recover 只有在 defer 调用的函数中才有效。**否则无法捕获到panic。
 * **recover 处理异常后，逻辑并不会恢复到 panic 那个点去，函数跑到 defer 之后的那个点。**
 
 ### 2、如何区别使用 panic 和 error 两种方式

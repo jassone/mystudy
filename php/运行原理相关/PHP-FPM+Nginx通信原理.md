@@ -49,7 +49,7 @@ fastcgi_pass  unix:/tmp/php-cgi.sock;
 
 3、Nginx将请求采用socket的方式转给FastCGI主进程
 
-4、FastCGI主进程选择一个空闲的worker进程连接，然后Nginx将CGI环境变量和标准输入发送该worker进程（php-cgi）
+4、FastCGI主进程选择一个空闲的worker进程连接，然后Nginx将CGI环境变量和标准输入发送给该worker进程（php-cgi）
 
 5、worker进程完成处理后将标准输出和错误信息从同一socket连接返回给Nginx。
 
@@ -145,28 +145,16 @@ php-fpm.conf中默认配置了一个进程池，我们可以打开我们的php-f
 
 ```
 www.example.com        |
-
        |
-
      Nginx        |
-
        |路由到www.example.com/index.php        |
-
        |加载nginx的fast-cgi模块        |
-
        |fast-cgi监听127.0.0.1:9000地址        |
-
        |www.example.com/index.php请求到达127.0.0.1:9000
-
        |
-
        |php-fpm 监听127.0.0.1:9000
-
        |
-
        |php-fpm 接收到请求，启用worker进程处理请求        |
-
        |php-fpm 处理完请求，返回给nginx        |
-
        |nginx将结果通过http返回给浏览器
 ```

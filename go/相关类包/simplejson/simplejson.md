@@ -2,10 +2,6 @@
 
 golang标准库的json需要预先定义好结构体，然后才能将json字符串转化为golang的结构体；simplejson这个开源的库可以在不知道json字符串具体结构的情况下进行编码和解码
 
-
-
-
-
 ## 使用
 
 ```go
@@ -36,8 +32,6 @@ func case2() {
 ```
 
 todo
-
-
 
 https://studygolang.com/articles/25789
 

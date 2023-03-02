@@ -1,6 +1,5 @@
 ## optimizer trace
-设计 MySQL 的大叔贴心的为这部分小伙伴提出了一个 optimizer trace 的功
-能，这个功能可以让我们方便的查看优化器生成执行计划的整个过程。
+设计 MySQL 的大叔贴心的为这部分小伙伴提出了一个 optimizer trace 的功能，这个功能可以让我们方便的查看优化器生成执行计划的整个过程。
 
 ```sql
 SET optimizer_trace="enabled=on";

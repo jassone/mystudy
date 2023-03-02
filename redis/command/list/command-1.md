@@ -51,8 +51,6 @@
 * 对头元素或尾元素进行 LSET 操作，复杂度为 O(1)。其他情况下，为 O(N)， N 为列表的长度。
 * <font color="red">当 index 参数超出范围，或对一个空列表( key 不存在)进行 LSET 时，返回一个错误</font>
 
-
-
 ### LTRIM
 * LTRIM key start stop
 * O(N)， N 为被移除的元素的数量。
