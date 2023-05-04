@@ -1,6 +1,6 @@
 ## Mysql事务
 ## 一、四大属性
- 事务具有四个特征：原子性（ Atomicity ）、隔离性（ Isolation ）和持续性（ Durability ）、一致性（ Consistency ）。这四个特性简称为 ACID 特性。
+事务具有四个特征：原子性（ Atomicity ）、隔离性（ Isolation ）和持续性（ Durability ）、一致性（ Consistency ）。这四个特性简称为 ACID 特性。
 
 ## 二、原子性
 事务是数据库的逻辑工作单位，事务中包含的各操作要么都做，要么都不做，也就是说事务是一个不可分割的整体，就像化学元素原子一样，最小的单位

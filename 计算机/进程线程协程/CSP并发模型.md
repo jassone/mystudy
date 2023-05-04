@@ -7,7 +7,7 @@ CSP（Communicating Sequential Process）并发模型，随着Go语言的逐渐�
 
 管道与共享内存之间有很大的区别，内存共享是通过内存来共享内存，而管道是通过通信来共享内存。所以管道通信比内存共享效率要高很多。
 
-Go语言借鉴了CSP模型的理论，使用goroutine（一种运行在用户态的协程）和在goroutine之间收发消息的channel实现了高效并发。
+**Go中的CSP并发模型即是通过goroutine和channel实现的**。
 
 ## 一、几种并发编程模型
 ### 1、多线程

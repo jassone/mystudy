@@ -33,10 +33,5 @@ unixsocketperm 700
 然后运行redis,创建redis连接时用redis.new (:path =>"/tmp/redis.sock")，即可
 
 ## 五、其他
-todo
-redis大Key一般达到多少，性能就下降了？
 
-redis不怕key多，就怕大key
-
-1. 因为redis用的动态字符串(string类型)的库在每次分配空间的时候会增加一倍的可用空闲空间，存储大的字符时占空间
-2. **redis各个命令在不同版本使用情况不同，请务必要知晓当前使用的redis版本，按照手册使用.**
+1. **redis各个命令在不同版本使用情况不同，请务必要知晓当前使用的redis版本，按照手册使用.**

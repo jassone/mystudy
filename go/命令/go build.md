@@ -20,6 +20,7 @@
      完全编译，不理会-i产生的.a文件(文件会比不带-a的编译出来要大？)
 * -race
      同时检测数据竞争状态，只支持 linux/amd64, freebsd/amd64, darwin/amd64 和 windows/amd64.
+* go build -gcflags '-m -m -l' 查看逃逸情况等
 
 ## 四、go build 命令一些可选项的用途和用法
 
