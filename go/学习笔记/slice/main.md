@@ -150,7 +150,14 @@ if len(data) >= cap(data) {
 }
 ```
 
+\>=1.8以后
+
+* 如果切片的容量小于256 个元素，于是扩容的时候就翻倍增加容量。
+
+* 一旦元素个数超过 256 个元素，那么增长因子会从2逐渐变为1.25。
+
 ### 4、切片扩容后是新的还是旧的
+
 a) 未超过cap
 ![slice-10.png](https://pic.imgdb.cn/item/6231c3d95baa1a80ab095924.png)
 
@@ -271,6 +278,12 @@ c := b[0:3]         // 极限，没有超过b的cap，可以超过b 的 len
 fmt.Println(cap(c),c) // 3 [3 4 5]， 注意这里不是[3]
 ```
 
+### 9、简写
+
+```go
+data := strings.Split(user, "-")[0]
+```
 
 ## 四、相关wiki
+
 * https://www.jianshu.com/p/030aba2bff41

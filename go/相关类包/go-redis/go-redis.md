@@ -14,3 +14,9 @@ if err == redis.Nil{
 } else if err != nil {
 } 
 ```
+
+
+
+## 相关文档
+
+- go-redis 中文 https://redis.uptrace.dev/zh

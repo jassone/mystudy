@@ -123,10 +123,11 @@ val := <- a
 
 - 先获取channel全局锁。（比如对buf加锁，然后将buf中的**数据copy到task变量对应的内存里**，然后recvx++,并释放锁）
 - 尝试sendq等待队列中获取等待的goroutine
-- 如果有等待的goroutine，没有缓冲区，取出goroutine并读取数据，然后唤醒这个goroutine，结束读取释放锁
-- 如果有等待goroutine，且有缓冲区(缓冲区满了)，从缓冲区队列首取数据，再从sendq取出一个goroutine，将goroutine中的数据存放到buf队列尾，结束读取释放锁。
-- 如果没有等待的goroutine，且缓冲区有数据，直接读取缓冲区数据，结束释放锁。
-- 如果没有等待的goroutine，且没有缓冲区或者缓冲区为空，将当前goroutine加入到sendq队列，进入睡眠，等待被写入goroutine唤醒，结束读取释放锁。
+- 如果有等待的goroutine，没有缓冲区，取出goroutine并读取数据，然后唤醒这个goroutine。
+- 如果有等待goroutine，且有缓冲区(缓冲区满了)，从缓冲区队列首取数据，再从sendq取出一个goroutine，将goroutine中的数据存放到buf队列尾。
+- 如果没有等待的goroutine，且缓冲区有数据，直接读取缓冲区数据。
+- 如果没有等待的goroutine，且没有缓冲区或者缓冲区为空，将当前goroutine加入到recveq队列，进入睡眠，等待被写入goroutine唤醒。
+- 结束读取释放锁。
 
 ### 3、等待队列
 - 从channel 读数据时如果channel缓冲区为空，当前goroutine 会被阻塞；

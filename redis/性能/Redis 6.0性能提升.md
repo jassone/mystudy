@@ -1,6 +1,8 @@
 ## Redis 6.0性能提升
 
-**Redis 6.0采用多个IO线程来处理网络请求，网络请求的解析可以由其他线程完成，然后把解析后的请求交由主线程进行实际的内存读写。提升网络请求处理的并行度，进而提升整体性能。**
+
+
+**Redis 6.0采用多个IO线程来处理网络请求，网络请求的解析可以由其他线程完成，然后把解析后的请求交由主线程进行实际的内存读写。提升网络请求处理的并行度，进而提升整体性能（提升qps）。**
 
 ![85be37f7f8_1440w.jpeg](https://pic.imgdb.cn/item/625bc676239250f7c5b1715c.jpg)
 
@@ -44,7 +46,7 @@ io-threads-do-reads yes
 io-threads 6
 ```
 
- 
+
 ## 相关wiki
 * 正式支持多线程！Redis 6.0与老版性能对比评测 https://zhuanlan.zhihu.com/p/76788470
 * Redis 6.0 新特性 https://blog.csdn.net/qq_18298439/article/details/106019983

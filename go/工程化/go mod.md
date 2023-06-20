@@ -119,7 +119,7 @@ go mod why 查看为什么需要依赖某模块
   | @master  | 分支的最近一次commit                                         |
 
   - 若major版本>1,go get 需要加版本后缀：go get example.com/pkg/v2
-  - **go get -u(=patch)  : 升级所有依赖，会同时更新该依赖中所有参与编译的依赖到minor(path)版本。所以如无必要，不要使用-u。**
+  - **go get -u(=patch)  : 升级所有依赖，会同时更新该依赖中所有参与编译的依赖到最新版本。所以如无必要，不要使用-u。**
   -  go get -u(=patch)  将会升级到最新的次要版本或者修订版本号(x.y.z, z是修订版本号， y是次要版本号,即它将从1.0.0更新到例如1.0.1，或者，如果可用，则更新为1.1.0）
   - go < 1.18时，若go get 的目标package为main,还会同时编译安装二进制到GOPATH/bin下。而高版本则用go install代替，go get仅用于依赖管理。
 
@@ -188,9 +188,10 @@ require (
 
 ### 1、设置go module
 
-```
+```sh
 go env -w GO111MODULE=on
-go env -w GOPROXY=https://goproxy.cn,direct // 使用七牛云的
+go env -w GOPROXY=https://goproxy.cn,direct # 使用七牛云的
+go env -u GOPROXY #取消代理
 ```
 
 注意：go env -w会将配置写到 `GOENV="/Users/bian/Library/Application Support/go/env"`

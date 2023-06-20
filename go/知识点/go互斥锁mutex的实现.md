@@ -4,7 +4,7 @@ Mutex(Mutual exclusion):互斥体，互斥锁。
 ## 一、mutex的数据结构
 ### 1、mutex结构体
 ```go
-go type Mutex struce{
+type Mutex struct{
     state int32 
     sema uint32 
 }

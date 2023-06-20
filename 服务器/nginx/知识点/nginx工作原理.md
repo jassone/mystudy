@@ -8,7 +8,7 @@ nginx的主要着眼点就是其高性能以及对物理计算资源的高密度
 
 ### 1、nginx采用异步非阻塞的工作方式
 
-**Nginx采用了Linux的epoll模型，epoll模型基于事件驱动机制，它可以监控多个事件是否准备完毕，如果OK，那么放入epoll队列中，这个过程是异步的。worker只需要从epoll队列循环处理即可。**
+**Nginx采用了Linux的epoll模型，epoll模型基于事件驱动机制，它可以监控多个事件是否准备完毕，如果ok，那么放入epoll队列中，这个过程是异步的。worker只需要从epoll队列循环处理即可。**
 
 **nginx配置use epoll后，以异步非阻塞方式工作，这就是nignx的高并发的原理。**
 

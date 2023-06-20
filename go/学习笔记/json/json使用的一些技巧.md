@@ -2,6 +2,18 @@
 
 todo
 
+
+
+```go
+type Person struct {
+    Name string
+    Age  int `json:",omitempty"`
+}
+// omitempty的使用  https://www.jianshu.com/p/b826e7f297ea
+```
+
+
+
 ```go
 // playload不一定是map或者struct,其他简单类型也可以
 resp,_ := json.Marshal(playload)

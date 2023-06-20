@@ -226,13 +226,7 @@ for v:= range x {
 
 // 2、通道中的情况
 var c = make(chan int)
-for v := range c { // 获取值
-	fmt.Println(v)
-}
-for v,ok := range c { // 获取值和通道是否已经关闭
-  if ok == false{
-    break
-  }
+for v := range c { // 获取值,未关闭则一直阻塞，如果关闭了，则退出循环
 	fmt.Println(v)
 }
 ```

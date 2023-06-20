@@ -10,8 +10,6 @@ OpenResty 的目标是让你的 Web 服务直接跑在 Nginx 服务内部,充分
 
 所以对于一些高性能的服务来说，**可以直接使用 OpenResty 访问 Mysql或Redis等，而不需要通过第三方语言（PHP、Python、Ruby）等来访问数据库再返回，这大大提高了应用的性能。**
 
-
-
 ## 相关wiki
 
 - OpenResty 中文官网：http://openresty.org/cn/

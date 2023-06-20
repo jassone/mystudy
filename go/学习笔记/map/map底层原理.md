@@ -257,7 +257,7 @@ loadFactor:=count / (2^B) 即 装载因子 = map中元素的个数 / map中当�
 
 ## 四、注意点
 
-### 1、map是线程并发问题
+### 1、map线程并发问题
 
 在同一时间点，两个 goroutine 对同一个map进行读写操作是不安全的(会panic)。这是由于golang的设计者考虑到使用map的场景都不是并发访问，如果map并发读写会产生什么呢？如果并发时写入，则会产生panic。runtime.map 代码判断：
 

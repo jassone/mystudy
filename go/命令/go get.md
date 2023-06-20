@@ -16,3 +16,12 @@ go get 会把相应代码安装到环境变量`GOPATH`包含的第 1 工作区�
 ## 二、其他
 
 Go 语言官方提供的`go get`命令是比较基础的，其中并没有提供依赖管理的功能。目前 GitHub 上有很多提供这类功能的第三方工具，比如`glide`、`gb`以及官方出品的`dep`、`vgo`等等，它们在内部大都会直接使用`go get`。
+
+## 三、相关问题
+
+### 1、如何拉取私有仓库
+
+一般会出现404问题，go get 不支持代码支持之外的仓库。并且git 调用链过程采取了https。下载过程如果机器设置了GOPROXY，会导致下载失败，编译过程会导致CHECKSUM失败。
+
+解决：export GOPRIVATE=xxx.xxxxxxx.com   go build的时候系统就不会用GOPROXY以及不再校验SUM
+

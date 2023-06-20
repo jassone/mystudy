@@ -66,7 +66,9 @@ go get -u github.com/golang/protobuf/protoc-gen-go 便可以在$GOPATH/bin目录
 懒人做法：上述可能会出现找不到某些依赖文件，可以直接从一台能访问网络且安装完成的服务器上打包github.com，然后sz、rz到无网络服务器，解压到$GOPATH/src目录下，go build、go install即可。
 
 ### 2、安装中遇到的问题
+
 ##### a）google.golang.org/protobuf如果比较慢，下载可以找其他资源，比如
+
 地址：https://robinqiwei.coding.net/p/googleprotobuf/git
 
 ```sh
@@ -74,5 +76,7 @@ git clone https://e.coding.net/robinqiwei/googleprotobuf.git
 ```
 
 ### 四、相关wiki
-* https://zhuanlan.zhihu.com/p/161473581
+
+* 如何使用grpc https://zhuanlan.zhihu.com/p/161473581
 * https://studygolang.com/articles/14336
+* grpc安装教程 注意不同版本 https://www.jianshu.com/p/154ea6c13618
