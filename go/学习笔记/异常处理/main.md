@@ -59,6 +59,7 @@ panic(12)
 ### 1、注意
 * 利用recover处理panic指令，**defer 必须放在 panic 之前定义，另外 recover 只有在 defer 调用的函数中才有效。**否则无法捕获到panic。
 * **recover 处理异常后，逻辑并不会恢复到 panic 那个点去，函数跑到 defer 之后的那个点。**
+* **在go routinue中的panic，外部的recover捕获不到，必须在go routinue中去捕获**
 
 ### 2、如何区别使用 panic 和 error 两种方式
 惯例是导致关键流程出现不可修复性错误的使用 panic，其他使用 error。

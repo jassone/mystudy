@@ -1,6 +1,6 @@
 ## pipeline
 
-
+### 1、demo1
 
 ```go
 pipeline = [
@@ -27,14 +27,14 @@ pipeline = [
 ⑧保留trans_count字段,_id重命名为ret_code
 ⑨根据trans_count降序，ret_code升序排列
 
-
+### 2、demo2
 
 ```go
 ##获取发布时间为2020.03.21，且次数为3次
 ##对 price 字段进行分组并统计次数
 pipeline = [
   {"$match":{"$and":[{"pub_time":"2020.03.21"},{"time":3}]}},
-  {"$group":{"_id":$price,"counts":{"$sum":1}}},
+  {"$group":{"_id":"$price","counts":{"$sum":1}}},
   {"$sort":{"counts":-1}},
   {"$limit":3},
 ]
@@ -63,4 +63,16 @@ db.colliction.group({
   initial: { count:0}  //初始值为0
 })
 ```
+
+### 2、demo3
+
+将时间戳格式化后再按照日期分组
+
+https://blog.csdn.net/qq_45366447/article/details/128617142
+
+### 4、计数
+
+https://www.coder.work/article/38424
+
+
 

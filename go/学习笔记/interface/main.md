@@ -189,8 +189,32 @@ v := x.(string) // 仅接口类型支持
 
 调用未来可能就是接口的最大意义所在吧，这也是为什么架构师那么值钱，因为良好的架构师是可以针对interface设计一套框架，在未来许多年却依然适用。
 
-## 五、wiki 
-* Go interface 的 5 个关键点
-https://sanyuesha.com/2017/07/22/how-to-understand-go-interface/
+## 五、其他
+
+### 1、显示赋值时，和对变量的赋值不一样
+
+```go
+func NewUser() UserModel {
+   return User{
+      defaultUser: &defaultUser{},
+   }
+}
+func NewUser() UserModel {
+   return &User{
+      defaultUser: &defaultUser{},
+   }
+}
+
+// 下面是错误的
+func NewUser() *UserModel {
+   return &User{
+      defaultUser: &defaultUser{},
+   }
+}
+```
+
+## 六、wiki
+
+* Go interface 的 5 个关键点 https://sanyuesha.com/2017/07/22/how-to-understand-go-interface/
 * https://www.kancloud.cn/aceld/golang/1958309 todo
 

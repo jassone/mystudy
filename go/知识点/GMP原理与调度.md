@@ -3,7 +3,7 @@
 
 https://www.yuque.com/aceld/golang/srxd6d
 
-## 简单总结
+## 一、简单总结
 
 G代表Goroutine协程、M代表内核线程、P代表上下文处理器，调度器
 P的数量由GOMAXPROCS决定，程序运行就创建好了这么多个P。
@@ -17,7 +17,16 @@ P的数量由GOMAXPROCS决定，程序运行就创建好了这么多个P。
 **抢占式调度（公平性）**
 
 - MP执行G是通过轮询的方式，每个G只能执行10ms，防止其他G饥饿。
+- 抢占式调度只会在垃圾回收扫描任务时触发？？？ 高版本是基于信号的抢占调度？？？ Todo
+
+![](https://pic.imgdb.cn/item/64b79af11ddac507cc77fad3.png)
+
+
 
 **利用多核并行**
 
 - 所以，同一时间，只能有GOMAXPROCS的Goroutine在同时运行，因为只有这么多个P。
+
+## 二、其他
+
+- 认识Golang中的sysmon监控线程 https://blog.haohtml.com/archives/22745  todo

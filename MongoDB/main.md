@@ -13,8 +13,14 @@
 ```sh
 mongod -version // 查看版本
 
-mongod --fork -dbpath /usr/local/mongodb/data --logpath /usr/local/mongodb/log/mongo.log --logappend // 启动
+#启动
+mongod --fork -dbpath /usr/local/mongodb/data --logpath /usr/local/mongodb/log/mongo.log --logappend 
 
+## 连接mongodb
+mongo 
+
+## 数据库增删改查常用命令
+db.study.find().pretty() #格式化结果
 
 ```
 
@@ -26,6 +32,7 @@ mongod --fork -dbpath /usr/local/mongodb/data --logpath /usr/local/mongodb/log/m
 
 - 官网 https://www.mongodb.com/
 - 官网中文 https://www.mongodb.org.cn/
-- 中文文档 https://docs.mongoing.com/
+- 中文文档 https://docs.mongoing.com/ 这里比较全
 - 中文社区 https://mongoing.com/
 - 教程 https://www.runoob.com/mongodb
+- 极客时间课程 https://gitee.com/geektime-geekbang/geektime-mongodb-course

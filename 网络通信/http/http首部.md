@@ -1,5 +1,7 @@
 ## http首部
 
+首部不能用下划线连接，如aaa_bbb是错误的。
+
 ## 一、http请求/响应报文总览
 http请求报文
 ![54DE7988-E11D-4988-AB29-C632F16F07EB.pn](https://pic.imgdb.cn/item/6187893a2ab3f51d91763722.png)
@@ -37,7 +39,7 @@ Http首部字段将定义成缓存代理和非缓存代理的行为，分为2种
     个人理解：就是这个首部会一直被转发到终点。
 
 2. 逐跳首部(Hop-by-hop Header)
-分在此类别中的首部只对单次转发有效，会因通过缓存或代理而不再转发。HTTP/1.1和之后的版本中，如果要使用逐跳首部首部，而需要提供Connection首部字段。
+   分在此类别中的首部只对单次转发有效，会因通过缓存或代理而不再转发。HTTP/1.1和之后的版本中，如果要使用逐跳首部首部，而需要提供Connection首部字段。
 
     个人理解：一次性的转发，之后失效。
 
@@ -95,7 +97,7 @@ Cache-Control：s-maxage=604800(单位：秒)
 s-maxage指令和max-age指令功能基本相同，不同点在于前者只适用于供多位用户使用的公共缓存服务器（一般指代理），也就是说，对同一用户重复返回响应的服务器来说，这个指令是没有意义的。
 
 另外当使用s-maxage时，则直接忽略对Expires首部字段和max-age指令的处理。
- 
+
 ##### max-age指令
 Cache-Control：max-age=604800(单位：秒)
 
@@ -252,7 +254,7 @@ From:xxx.jp
 
 If-Match 用于指定想要获取的资源的ETag值，只有在资源的ETag值与之相同时，服务器才会执行请求，否则会返回状态码412 Precondition Failed。
 若使用*号指定If-Match，那么服务器就不会对ETag进行比对，直接返回资源。
- 
+
 ### 10 If-Modified-Since 
 ![17108100-c44f0643fa0dcecc.png](https://pic.imgdb.cn/item/6187d7352ab3f51d91099a34.png)
 
@@ -262,7 +264,7 @@ If-Match 用于指定想要获取的资源的ETag值，只有在资源的ETag值
 与If-Match相反
 
 ![17108100-5e14b4a5eec34b7.png](https://pic.imgdb.cn/item/6187d8032ab3f51d910b6c96.png)
- 
+
 和If-Modified-Since类似，可以获取最新的资源。
 
 ### 12 If-Range
@@ -293,7 +295,7 @@ If-Range指定所请求的资源的ETag值或者时间，当对应资源的ETag�
 
 ### 17 Rerferer
  ![17108100-f54f0a016b0d7c6a.png](https://pic.imgdb.cn/item/6187e00f2ab3f51d91169d6a.png)
- 
+
 ### 18 TE
 ![17108100-baac024616f11320.png](https://pic.imgdb.cn/item/6187e0b82ab3f51d911702fb.png)
 
@@ -392,7 +394,7 @@ Content-Location:http://baidu.com/index.html
 Content-Type:text/html;charset=UTF-8
 
 指出实体主体内对象的媒体类型，还可以说明采用的字符集。
- 
+
 ### 9 Expires
 ![17108100-550b9fc9dfffe370.png](https://pic.imgdb.cn/item/61889c682ab3f51d919fc334.png)
 
@@ -407,10 +409,10 @@ max-age存在时，会忽略Expires。
 ## 八、为Cookie服务的首部字段
 ### 1 Set-Cookie
  ![17108100-ff098a83dd07ca9e.png](https://pic.imgdb.cn/item/6188d9602ab3f51d91103461.png)
- 
+
 * expires字段指明Cookie的有效期，省略expires时，有效期一般仅限于浏览器程序被关闭之前。可以通过覆盖Cookie来实现Cookie的删除操作，不存在显式的删除操作；
 * 使用HttpOnly时，JavaScript的document.cookie就无法读取Cookie的内容了。主要是放在跨站脚本攻击(XSS)。
- 
+
 ### 2 Cookie
 传递给服务端的cookie。
 
@@ -427,7 +429,6 @@ Http首部字段是可以自行扩展的，因此会出现一些非标准首部�
 
 ### 4 P3P
 ![17108100-1afa8d0b3e4a0f8c.png](https://pic.imgdb.cn/item/6188e3ee2ab3f51d91359192.png)
-
 
 
 

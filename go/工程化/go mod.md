@@ -77,11 +77,12 @@ go mod download
 // 校验一个模块是否被篡改过,如果将GOPATH/pkg/mod下的相应文件手动改了，这里会验证不通过
 go mod verify 
 
-// 编辑 go.mod 文件, 有很9个子命令，可以用go help mod edit查看
+// 编辑 go.mod 文件, 有很个子命令，可以用go help mod edit查看
 go mod edit 
 1. go mod edit -fmt  格式化
 
 // 导出项目所有的依赖到vendor目录(当前项目下会生成vendor目录)，默认是忽略vendor的。
+// 可以解决项目导入文件飘红的情况
 go mod vendor
 1. 好处：比如devops中将所有依赖打包，就可以不用到OGPATH中去找，这样就和GOPATH脱钩了，方便打包部署
 2. 缺点：会产生冗余依赖包。

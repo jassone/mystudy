@@ -71,3 +71,10 @@ func changeString() {
 	fmt.Println(string(runeS2))
 }
 ```
+
+### 6、string转换为[]byte是否会拷贝内存
+
+会的，因为string和[]byte在内存布局上是不同的
+
+- string是不可变的字节序列，内部包含字节数组指针和长度信息
+- []byte是可变自己序列，保存了底层字节数组指针和容量信息

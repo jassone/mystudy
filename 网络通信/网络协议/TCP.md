@@ -6,6 +6,10 @@ TCP（Transmission Control Protocol，传输控制协议）
 
 TCP的特点有：
 
+
+
+
+
 * **TCP是面向连接的运输层协议**
 * 每一条TCP连接只能有两个端点，每一条TCP连接只能是点对点的
 * **TCP提供可靠的服务**
