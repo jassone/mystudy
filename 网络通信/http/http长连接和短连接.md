@@ -34,7 +34,7 @@ ConnectionID即为tcp连接id，相同表示用的是同一个tcp连接。
 ##### 表现
 * TCP keep alive的表现：当一个连接“一段时间”没有数据通讯时，一方会发出一个心跳包（Keep Alive包），如果对方有回包则表明当前连接有效，继续监控。
 * HTTP的Keep-alive中的Keep-alive：timeout =20就是TCP通道保持20秒。
- 
+
 ## 三、HTTP长连接的优点和缺点
 ### 优点
 长连接好处：比如你请求了一个网页，这个网页里还包含了CSS、JS等一系列资源，如果你是短连接，基本要建立几个甚至几十个TCP连接。但如果是长连接的话，客户端**再次访问这个服务器上的资源**，这么多次HTTP请求其实使用的都是一个TCP连接，很显然是可以节省很多消耗的。
@@ -49,6 +49,5 @@ ConnectionID即为tcp连接id，相同表示用的是同一个tcp连接。
 1. 客户端和服务端都需要设置Connection为keep-alive。
 2. 服务端配置
     keepAliveTimeout(连接存活时间，超过这个时间那么需要再新建另一个连接)
-    connection time-outMaxKeepAliveRequests表示一个连接最大支持的请求数。超过该请求数的连接也将被关闭（此时就会返回一个Connection: close头给客户端）
+    MaxKeepAliveRequests表示一个连接最大支持的请求数。超过该请求数的连接也将被关闭（此时就会返回一个Connection: close头给客户端）
      timeout(浏览器和服务器连接的超时时间，超过这个时间服务器就会和浏览器断开)。
-     

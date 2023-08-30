@@ -29,16 +29,12 @@ s := struct {
     // 匿名结构体字段定义
     Field1 Field1Type
     Field2 Field2Type
-    …
 }{
     // 字段值初始化
     Field1: Value1,
     Field2: Value2,
-    …
 }
 ```
-
-
 
 ### 3、创建指针类型结构体
 

@@ -34,8 +34,8 @@
 
 两个操作
 
-- IO调用：应用程序进程向操作系统**内核**发起调用。
-- IO执行：操作系统内核完成IO操作。
+- **IO调用**：应用程序进程向操作系统**内核**发起调用。
+- **IO执行**：操作系统内核完成IO操作。
 
 ##### b) 操作系统内核完成IO操作，包括两个过程：
 
@@ -69,7 +69,7 @@
 ![20220227095546.jpg](https://pic.imgdb.cn/item/621ada2a2ab3f51d91d8fd17.jpg)
 
 ### 3、同步和异步
-**同步和异步的概念描述的是用户线程与内核的交互方式。**也可理解为被被调用者(操作系统)的角度来说。
+**同步和异步的概念描述的是用户线程与内核的交互方式。**也可理解为被调用者(操作系统)的角度来说。
 
 **同步和异步是针对应用程序来说的，关注的是程序中间的协作关系。**
 
@@ -91,13 +91,13 @@
 非阻塞-忙轮询：比如while(1){},占用cpu、系统资源。
 
 * 区分阻塞和非阻塞：看read/write函数调用是否立即返回，是则是非阻塞(然后可以轮询检测)。
-* 区分同步和异步IO:看read/write操作是应用程序完成，还是操作系统完成，再通知应用程序。若是操作系统完成则是异步IO.
+* 区分同步和异步IO:  看read/write操作是应用程序完成，还是操作系统完成，再通知应用程序。若是操作系统完成则是异步IO.
 
 ### 5、IO模型分类
 
 - 内存IO。
 - 网络I/O，也就是通过网络进行数据的拉取和输出。
-- 磁盘I/O,主要是对磁盘进行读写工作。
+- 磁盘I/O，主要是对磁盘进行读写工作。
 
 ## 二、五种IO模型
 
@@ -115,7 +115,7 @@ linux系统的read和write函数，在调用的时候会被阻塞，直到数据
 
 非阻塞IO模型，简称**NIO**，Non-Blocking IO。
 
-默认创建的socket都是阻塞的，**非阻塞IO要求socket被设置为NONBLOCK**。即和同步阻塞IO的API是一样的，只是打开fd的时候带有O_NONBLOCK参数，于是当调用read和write函数的时候，如果没有准备好数据，会立即返回-1，**不会阻塞，这种情况下需要不断轮询查看状态。**
+**默认创建的socket都是阻塞的，非阻塞IO要求socket被设置为NONBLOCK**。即和同步阻塞IO的API是一样的，只是打开fd的时候带有O_NONBLOCK参数，于是当调用read和write函数的时候，如果没有准备好数据，会立即返回-1，**不会阻塞，这种情况下需要不断轮询查看状态。**
 
 ![cead812adf54759c.png](https://pic.imgdb.cn/item/62dd1275f54cd3f937747771.png)
 
@@ -129,7 +129,7 @@ linux系统的read和write函数，在调用的时候会被阻塞，直到数据
 
 ### 3、同步阻塞IO-IO多路复用(IO Multiplexing)---同步IO
 
-**经典的Reactor设计模式。**多路复用一般都是用于网络IO。
+**经典的Reactor设计模式。多路复用一般都是用于网络IO。**
 
 前面两种IO都只能用于简单的客户端开发，但对于服务器来说，需要处理很多的fd（连接数可以达到几十万或者百万）。如果使用同步阻塞IO，要处理那么多的fd需要开非常多的线程，每个线程处理一个fd；如果使用同步非阻塞IO，就需要用应用程序轮询这么大规模的fd。
 
@@ -236,8 +236,8 @@ while(true) {
 
 ##### IO多路复用阻塞在哪，复用在哪？
 
-- IO多路复用是阻塞在select/poll/epoll这类系统调用上的，实际上read时也是阻塞的。
-- IO多路复用复用的是执行select/poll/epoll的线程。
+- **IO多路复用是阻塞在select/poll/epoll这类系统调用上的，实际上read时也是阻塞的**。
+- **IO多路复用复用的是执行select/poll/epoll的线程**。
 
 ##### select/poll/epoll区别
 
@@ -256,7 +256,7 @@ Linux使用SIGIO信号(signalIO)来实现**异步IO**通知机制。
 
 ![20200605193656805.png](https://pic.imgdb.cn/item/62dc909bf54cd3f937b27b98.png)
 
-
+![71cf3bc79f3df8dc46e8fa82451028ea.png](https://pic.imgdb.cn/item/62dd1892f54cd3f9379978f0.png)
 
 - 优势：进程没有收到SIGIO信号之前，不被阻塞，可以做其他事情。
 
@@ -295,8 +295,6 @@ signal(SIGIO,func);
 
 大白话描述的话，**就是用户进程发起系统调用后，立刻就可以开始去做其他的事情，然后直到I/O数据准备好并复制完成后，内核会给用户进程发送通知，告诉用户进程操作已经完成了。**
 
-![71cf3bc79f3df8dc46e8fa82451028ea.png](https://pic.imgdb.cn/item/62dd1892f54cd3f9379978f0.png)
-
 ![d16a887ba0d2408b1.png](https://pic.imgdb.cn/item/62dd1acff54cd3f937a73614.png)
 
 ![b1e2bcf5c0.png](https://pic.imgdb.cn/item/62dce2b8f54cd3f93754963d.png)
@@ -310,7 +308,7 @@ signal(SIGIO,func);
 
 特点：
 
-- 异步I/O执行的两个阶段都不会阻塞读写操作，由内核完成。
+- **异步I/O执行的两个阶段都不会阻塞读写操作，由内核完成**。
 - 完成后内核将数据放到指定的缓冲区，通知应用程序来取。
 
 ## 三、上层网络框架封装的网络IO模型
@@ -320,13 +318,14 @@ signal(SIGIO,func);
 - 等待网络数据到达网卡→把数据读取到内核缓冲区。
 - 从内核缓冲区复制数据到进程空间。
 
-### 1、C++跨平台的网络库:asio,异步IO
+### 1、C++跨平台的网络库: asio,异步IO
 
 AISO的‘异步’，是‘真异步’，还是‘假异步’？
 * 在linux系统上封装的是epoll，不算真异步，只是IO多路复用
 * 在windows系统上封装的是IOCP,是真异步
 
-### 2、linux下java:NIO，Netty，epoll
+### 2、linux下java: NIO，Netty，epoll
+
 java NIO和Linux epoll API对比：几乎一样
 
 |  | java NIO| epoll |
@@ -353,11 +352,11 @@ java NIO和Linux epoll API对比：几乎一样
 * worker线程:纯碎的业务线程，没有socket读写操作。对request队列进行处理，生成response队列，然后写入response队列，由IO线程再回复给客户端。
 
 ##### a) 为什么叫做半同步半异步？
-1-n是多路io复用 （epoll），异步 (包括请求接受，处理，解码，返回) 。worker是同步的（比如同步掉用数据库，等）。
+1-n是多路io复用 （epoll），异步 (包括请求接受，处理，解码，返回) 。worker是同步的（比如同步调用数据库等）。
 
 ##### b) 上面模型的N、M取值分别多大合适？
 N：cpu的核数
-M:M=cpu核数/(cpu时间/(cpu时间+IO时间))
+N:M=cpu核数/(cpu时间/(cpu时间+IO时间))
 比如cpu时间和IO时间为1:1，则线程为2*cpu核数
 
 ### 2、tomact 6的网络IO模型

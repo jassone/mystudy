@@ -4,7 +4,7 @@
 
 ```go
    type hchan struct {
-       qcount   uint           // total data in the queue 当前队列里还剩余元素个数
+       qcount   uint           // total data in the queue 当前环形队列里还剩余元素个数
        dataqsiz uint           // size of the circular queue 环形队列长度，即缓冲区的大小，即make(chan T,N) 中的N
        buf      unsafe.Pointer // points to an array of dataqsiz elements 环形队列指针，循环队列是大小固定的用来存放chan接收的数据的队列；
        elemsize uint16 //每个元素的大小，用于在 buf 中定位元素的位置
@@ -12,8 +12,8 @@
        closed   uint32 //标识当前通道是否处于关闭状态，创建通道后，该字段设置0，即打开通道；通道调用close将其设置为1，通道关闭
        sendx    uint   // send index 环形缓冲区的状态字段，待发送的数据在循环队列buffer中的位置索引；
        recvx    uint   // receive index 环形缓冲区的状态字段，待接收的数据在循环队列buffer中的位置索引
-       recvq    waitq  // list of recv waiters 等待接受的goroutine队列
-       sendq    waitq  // list of send waiters 等待发送的goroutine队列
+       recvq    waitq  // list of recv waiters 等待接收的goroutine队列-双向链表
+       sendq    waitq  // list of send waiters 等待发送的goroutine队列-双向链表
     
        // lock protects all fields in hchan, as well as several
        // fields in sudogs blocked on this channel.
@@ -164,7 +164,7 @@ sudog代表着等待队列中的一个goroutine，G与同步对象（指chan）�
 这里其实主要需要明确两点：
 
 - channel中的数据遵循队列**先进先出原则**。
-- 每一个goroutine抢到处理器的时间点不一致，gorouine的执行本身不能保证顺序。
+- **每一个goroutine抢到处理器的时间点不一致，gorouine的执行本身不能保证顺序**。
 
 即代码中先写的gorouine并不能保证先从channel中获取数据，或者发送数据。但是先执行的gorouine与后执行的goroutine在channel中获取的数据肯定是有序的。
 

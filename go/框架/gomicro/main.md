@@ -10,10 +10,6 @@
 
   设置namespace命名空间可将各个环境隔离开
 
-
-
-
-
 ## 杂
 
 - 默认命名空间是  mcbeam user namespace set micro

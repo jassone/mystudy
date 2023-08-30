@@ -39,7 +39,7 @@ func f11() {
 func main11() {
    var whatever [5]struct{}
    for i := range whatever {
-      defer func() { 
+      defer func() {  // 注意这里是闭包
         fmt.Println(i)   // 4 4 4 4 4
       }()
    }
@@ -60,9 +60,7 @@ func main() {
    defer func() {
       fmt.Println(f()) //3  8
    }()
-   defer fmt.Println(f()) //2 6
-   // defer() 后面的函数如果带参数，会优先计算参数，并将结果存储在栈中，
-   // 到真正执行 defer() 的时候取出。
+  defer fmt.Println(f()) //2 6  f()这里运到的时候就执行了。defer() 后面的函数如果带参数，会优先计算参数，并将结果存储在栈中，到真正执行 defer() 的时候取出。
 
    i := f()
    fmt.Println(i) //1 7

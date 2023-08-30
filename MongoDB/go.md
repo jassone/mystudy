@@ -1,7 +1,5 @@
 
 
-
-
 在GO中使用BSON对象
 MongoDB中的JSON文档以称为BSON（二进制编码的JSON）的二进制表示形式存储。与其他将JSON数据存储为简单字符串和数字的数据库不同，BSON编码扩展了JSON表示形式，例如int，long，date，float point和decimal128。这使应用程序更容易可靠地处理，排序和比较数据。Go Driver有两种系列用于表示BSON数据：D系列类型和Raw系列类型。
 D系列包括四种类型：

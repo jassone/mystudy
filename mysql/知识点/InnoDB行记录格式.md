@@ -1,6 +1,6 @@
 ## InnoDB行记录格式
 数据记录在磁盘上的存放方式也被称为 行格式 或者 记录格式 。
-设计 InnoDB 存储引擎的大叔们到现在为止设计了4种不同类型的 行格式 ，分别是 Compact 、 Redundant 、Dynamic 和 Compressed 行格式。
+4种不同类型的 行格式 ，分别是 Compact 、 Redundant 、Dynamic 和 Compressed 行格式。
 
 ![e974699f12da4e9193b18a6690155255.png](https://pic.imgdb.cn/item/61ea33722ab3f51d914e1165.png)
 
@@ -12,13 +12,13 @@
 | COMPACT | 768字节 | 	不支持 |	支持|
 |  REDUNDANT| 	768字节 | 	不支持 |	支持|
 
- 
+
 在 msyql 5.7.9 及以后版本，默认行格式由innodb_default_row_format变量决定，它的默认值是`DYNAMIC`，也可以在 create table的时候指定ROW_FORMAT=DYNAMIC。
 
 用户可以通过命令 
 SHOW TABLE STATUS LIKE ‘table_name’ 
 来查看当前表使用的行格式。
- 
+
 ## 一、InnoDB行存储
 InnoDB存储引擎记录是以行的形式存储的。这意味着页中保存着表中一行行的数据。这些页以树形结构组织，这颗树称为B树索引。表中数据和辅助索引都是使用B树结构。维护表中所有数据的这颗B树索引称为聚簇索引，通过主键来组织的。聚簇索引的叶子节点包含行中所有字段的值，辅助索引的叶子节点包含索引列和主键列。
 

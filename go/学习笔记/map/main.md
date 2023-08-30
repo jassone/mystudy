@@ -65,7 +65,7 @@ func main() {
     m := map[string]data{
         "x": {"Tom"},
     }
-    m["x"].name = "Jerry"// panic
+    m["x"].name = "Jerry" //panic: runtime error: invalid memory address or nil pointer dereference
 }
 
 // slice可以
@@ -108,25 +108,15 @@ func main() {
 }
 ```
 
-但是要注意下边这种误用：
-```go
-func main() {
-    m := map[string]*data{
-        "x": {"Tom"},
-    }
-    m["z"].name = "what???"    //panic: runtime error: invalid memory address or nil pointer dereference
-// 因为压根就找不到z 
-    fmt.Println(m["x"])
-}
-```
-
 ## 三、相关问题
 
 ### 1、字典的键类型不能是哪些类型
 
+**键值判断需要进过建值的哈希值判等，键值判等两步骤。**
+
 Go 语言字典的键类型不可以是函数类型、字典类型和切片类型。
 
-Go 语言规范规定，在键类型的值之间必须可以施加操作符`==`和`!=`。换句话说，键类型的值必须要支持判等操作。**由于函数类型、字典类型和切片类型的值并不支持判等操作，所以字典的键类型不能是这些类型**。
+Go 语言规范规定，在键类型的值之间必须可以施加操作符`==`和`!=`。换句话说，**键类型的值必须要支持判等操作**。**由于函数类型、字典类型和切片类型的值并不支持判等操作，所以字典的键类型不能是这些类型**。
 
 另外，如果键的类型是接口类型的，那么键值的实际类型也不能是上述三种类型，否则在程序运行过程中会引发 panic。
 

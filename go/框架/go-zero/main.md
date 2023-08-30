@@ -1,17 +1,11 @@
 ## main
 
-
-
 ## 一、安装
 
 ```sh
 go get -u github.com/zeromicro/go-zero
 go install github.com/zeromicro/go-zero/tools/goctl@latest
 ```
-
-
-
-
 
 ## 二、快速运行
 
@@ -90,7 +84,7 @@ $ touch server.go
 func main() {
   var clientConf zrpc.RpcClientConf
 
-	// 这里不能用相对路径，很奇怪？？？？
+	// 这里不能用相对路径，很奇怪？？？？ 因为需要在上几层目录中执行才行
 	conf.MustLoad("/Users/bian/workdata/go/go-zero/rpcdemo/etc/rpcdemo.yaml", &clientConf)
 	conn := zrpc.MustNewClient(clientConf)
 
@@ -110,8 +104,6 @@ func main() {
 mongo 带缓存的代码???
 
 Sqlc 的带缓冲的，里面包含了sqlx，既执行完sqlc再执行sqlx
-
-
 
 
 

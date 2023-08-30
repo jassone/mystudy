@@ -25,8 +25,7 @@ WebSocket 协议在2008年诞生，2011年成为国际标准。所有浏览器�
 
 WebSocket同样是HTML 5规范的组成部分之一，现标准版本为 RFC 6455。WebSocket 相较于上述几种连接方式，实现原理较为复杂，用一句话概括就是：客户端向 WebSocket 服务器通知（notify）一个带有所有 接收者ID（recipients IDs） 的事件（event），服务器接收后立即通知所有活跃的（active）客户端，只有ID在接收者ID序列中的客户端才会处理这个事件。由于 **WebSocket 本身是基于TCP协议的**，所以在服务器端我们可以采用构建 TCP Socket 服务器的方式来构建WebSocket 服务器。
 
-**WebSocket 是一种全新的协议。它将 TCP 的 Socket（套接字）应用在了web page上，从而使通信双方建立起一个保持在活动状态连接通道，是全双工协议
-（双方同时进行双向通信）**。
+**WebSocket 是一种全新的协议。它将 TCP 的 Socket（套接字）应用在了web page上，从而使通信双方建立起一个保持在活动状态连接通道，是全双工协议（双方同时进行双向通信）**。
 
 其实是这样的，WebSocket 协议是借用 HTTP协议 的 101 switch protocol 来达到协议转换的，**从HTTP协议切换成WebSocket通信协议（即websocke是通过http upgrade而来的）**。
 
@@ -100,7 +99,7 @@ WebSocket 为了保持客户端、服务端的实时双向通信，需要确保�
 * 接收方 ->发送方：pong
 
 ### 4、关闭连接
-一旦发送或接收到一个Close控制帧，这就是说，_WebSocket 关闭阶段握手已启动，且 WebSocket 连接处于 CLOSING 状态。
+一旦发送或接收到一个Close控制帧，这就是说，WebSocket 关闭阶段握手已启动，且 WebSocket 连接处于 CLOSING 状态。
 
 当底层TCP连接已关闭，这就是说 WebSocket连接已关闭 且 WebSocket 连接处于 CLOSED 状态。 如果 TCP 连接在 WebSocket 关闭阶段已经完成后被关闭，WebSocket连接被说成已经 完全地 关闭了。
 

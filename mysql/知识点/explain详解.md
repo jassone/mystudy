@@ -9,7 +9,7 @@ SQL执行的成功的标识，SQL从大到小的执行。
 
 * id相同时，执行顺序由上至下，内存会认为三个表，乘积小的先执行
 * 如果是子查询，id的序号会递增，id值越大优先级越高，越先被执行
- 
+
 ### 2、select_type
 表示当前的小查询在整个大查询中扮演了一个什么角色，有如下一些值：
 
@@ -28,7 +28,7 @@ SQL执行的成功的标识，SQL从大到小的执行。
 ```sql
 EXPLAIN SELECT * FROM s1 WHERE key1 IN (SELECT key1 FROM s2 WHERE key1 = 'a'
 UNION SELECT key1 FROM s1 WHERE key1 = 'b');
-```  
+```
 ![20220123155007.jpg](https://pic.imgdb.cn/item/61ed08b72ab3f51d9111d04d.jpg) 
 
 SELECT key1 FROM s1 WHERE key1 = 'b' 这个查询的。select_type 就是 DEPENDENT UNION
@@ -92,14 +92,14 @@ EXPLAIN SELECT * FROM s1 WHERE key1 = 'a';
 ##### 4-8、index_subquery
 
 ##### 4-9、range
-如果使用索引获取某些 范围区间 的记录，那么就可能使用到 range 访问方法。
+**如果使用索引获取某些 范围区间 的记录，那么就可能使用到 range 访问方法。**
 
 ##### 4-10、index
-全索引扫描。index与ALL区别为index类型只遍历索引树。
+全索引扫描。**index与ALL区别为index类型只遍历索引树**。
 
 ##### 4-11、ALL
 MySQL进行全表扫描。
- 
+
 ### 5、possible_keys
 列表示在某个查询语句中，对某个表执行单表查询时可能用到的索引有哪些。
 
@@ -211,5 +211,4 @@ EXPLAIN FORMAT=JSON SELECT * FROM s1 INNER JOIN s2 ON s1.key1 = s2.key2 WHERE s1
 
 
  
-
 

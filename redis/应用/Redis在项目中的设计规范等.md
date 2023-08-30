@@ -37,6 +37,3 @@ redis内存统计
 
 内存空间配置
 ![20220420203743.jpg](https://pic.imgdb.cn/item/625ffee4239250f7c54668c9.jpg)
-
-内存回收配置
-![20220420204009.jpg](https://pic.imgdb.cn/item/625ffff0239250f7c5486d4f.jpg)

@@ -8,8 +8,6 @@
 grpcui -plaintext 127.0.0.1:8080 // 打开管理页面
 
 
-
-
 启动go-zero rpc服务后，执行 grpcui -plaintext localhost:9080报如下错误：
 Failed to compute set of methods to expose: server does not support the reflection API
 解决方法：

@@ -1,7 +1,7 @@
 ## range
 
 ## 一、iteration variable(迭代变量)重用
-用for range的hort variable declaration（:=）形式在for expression中声明iteration variable时，需要注意的是这些variable在每次循环体中都会被重用，而不是重新声明。
+用for range的hort variable declaration（:=）形式在for expression中声明iteration variable时，需要注意的是这些variable在**每次循环体中都会被重用，而不是重新声明**。
 
 ```go
 var m = [...]int{1, 2, 3, 4, 5}
@@ -13,7 +13,7 @@ for i, v := range m {
 }
 // 输出5个    4 5
 ```
-各个goroutine中输出的i,v值都是for range循环结束后的i, v最终值，而不是各个goroutine启动时的i, v值。
+各个goroutine中输出的i,v值都是for range**循环结束后的i, v最终值**，而不是各个goroutine启动时的i, v值。
 
 修正一下
 ```go

@@ -1,7 +1,7 @@
 ## MHA
 MHA（Master HA）是一款开源的 MySQL 的高可用程序，它为 MySQL主从复制架构提供了 automating master failover （自动化主故障转移）功能。MHA 在监控到 master 节点故障时，会提升其中拥有最新数据的 slave 节点成为新的master 节点，在此期间，MHA 会通过于其它从节点获取额外信息来避免一致性方面的问题。MHA 还提供了 master 节点的在线切换功能，即按需切换 master/slave 节点。MHA 能够在30秒内实现故障切换，并能在故障切换中，最大可能的保证数据一致性。目前淘宝也正在开发相似产品 TMHA， 目前已支持一主一从。
 　　
-当前最成熟的mysql高可用方案。(很好的兼容性)。
+当前最成熟的mysql高可用方案(很好的兼容性)。
 
 ### 1、MHA故障发现与转移
 ![345676543.png](https://pic.imgdb.cn/item/61d97fe02ab3f51d911a4438.png)

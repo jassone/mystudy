@@ -58,9 +58,6 @@ func main() {
 
 ### 3、降低加锁/解锁的频率
 
-##  三、其他
+## 三、相关wiki
 
-* 互斥锁，读写锁
-* map 不是并发安全的，即不支持并发写。Go语言的sync包中提供了一个开箱即用的并发安全版map–sync.Map。开箱即用表示不用像内置的map一样使用make函数初始化就能直接使用。同时sync.Map内置了诸如Store、Load、LoadOrStore、Delete、Range等操作方法。 todo
-
- 
+- 相关底层原理，总共3集 https://www.bilibili.com/video/BV1Ky4y1r78H 

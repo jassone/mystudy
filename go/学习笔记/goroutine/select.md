@@ -38,7 +38,61 @@ select {
 ### 2、其他知识点
 * 对于空的select{}，一直阻塞，有时候可以替代waitgroup的wait操作，更简洁。
 * 对于for中的select{}, 也有可能会引起cpu占用过高的问题。
-* **如果case中的通道被关闭，读取会立即返回，将导致死循环。可以将通道置为nil来让select 忽略掉这个case**，继续评估其它case。但是有可能误判(写入方是写入了一个零值而不是关闭channel，比如整数0)
 ## 三、典型用法
 ### 1、超时判断
+
+## 四、相关问题
+
+### 1、如果保证ch1优先ch2执行
+
+k8s源码中有处理
+
+```go
+func (tc *NoExecuteTaintManager) worker(worker int, done func(), stopCh <-chan struct{}) {
+  defer done()
+  for {
+      select {
+      case <-stopCh:
+          return
+      case nodeUpdate := <-tc.nodeUpdateChannels[worker]:
+          tc.handleNodeUpdate(nodeUpdate)
+          tc.nodeUpdateQueue.Done(nodeUpdate)
+      case podUpdate := <-tc.podUpdateChannels[worker]:
+          // If we found a Pod update we need to empty Node queue first.
+      priority:
+          for {
+              select {
+              case nodeUpdate := <-tc.nodeUpdateChannels[worker]:
+                  tc.handleNodeUpdate(nodeUpdate)
+                  tc.nodeUpdateQueue.Done(nodeUpdate)
+              default:
+                  break priority
+              }
+          }
+          // After Node queue is emptied we process podUpdate.
+          tc.handlePodUpdate(podUpdate)
+          tc.podUpdateQueue.Done(podUpdate)
+      }
+  }
+}
+```
+### 2、select中如何判断channel是关闭了
+
+**如果case中的通道被关闭，读取会立即返回，将导致死循环。可以将通道置为nil来让select 忽略掉这个case**，继续评估其它case。但是有可能误判(写入方是写入了一个零值而不是关闭channel，比如整数0)
+
+```go
+for {
+		select {
+		case x, ok := <-chan1:
+			fmt.Printf("%v,通道读取到：x=%v,ok=%v\n", time.Now().Format(timestamp), x, ok)
+			time.Sleep(500 * time.Millisecond)
+			if !ok {
+				chan1 = nil
+			}
+		default:
+			fmt.Printf("%v,通道未读取到，进入到default\n", time.Now().Format(timestamp))
+			time.Sleep(500 * time.Millisecond)
+		}
+	}
+```
 

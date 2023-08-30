@@ -13,10 +13,6 @@ Kubernetes 可以说是一个集群级别的操作系统。
 - 无缝对接新的应用功能
 - 节省资源，优化硬件资源的使用
 
-
-
-
-
 ## 相关文档
 
 - 学习资源 https://github.com/guangzhengli/k8s-tutorials
