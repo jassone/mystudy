@@ -112,7 +112,7 @@ func main() {
         close(ch2)
     }()
     // 在主goroutine中从ch2中接收值打印
-    for i := range ch2 { // 通道关闭后会退出for range循环
+    for i := range ch2 { // 通道关闭后会读出内容，再退出for range循环
         fmt.Println(i)
     }
 }

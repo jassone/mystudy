@@ -71,11 +71,15 @@ func main() {
 
 ### 1、1.12版本底层实现
 
-defer信息会注册到一个链表，而当前执行的goroutine持有这个链表的头指针，每个goroutine在运行时都有一个对应的结构体g，其中一个字段指向defer链表头。
+- defer信息会注册到一个链表，而**当前执行的goroutine持有这个链表的头指针**，每个goroutine在运行时都有一个对应的结构体g，其中一个字段指向defer链表头。
 
-defer链表链起来的是一个一个_defer结构体，新注册的defer会添加到链表头，执行时也是从头开始，所以defer才会表现为倒序执行。
+  **既链表是挂靠在当前G上的，所以在一个G里捕获不到其创建的G中的panic。**
+
+- defer链表链起来的是一个一个_defer结构体，**新注册的defer会添加到链表头**，执行时也是从头开始，所以defer才会表现为倒序执行。
+
 
 ##### a) defer流程
+
 ![20220325192914.jpg](https://pic.imgdb.cn/item/623db41d27f86abb2a57bd21.jpg)
 
 ##### b) 编译后伪指令

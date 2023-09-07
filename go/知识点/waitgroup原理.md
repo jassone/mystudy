@@ -10,4 +10,26 @@ WaitGroup的实现原理比较简单。它有一个计数器，初始值为零�
 
 
 
+```go
+wg = sync.WaitGroup{}
+
+wg.Add(1)
+go func() {
+   time.Sleep(time.Second * 3)
+   wg.Done()
+}()
+
+go func(wg *sync.WaitGroup) {
+   wg.Wait()
+   fmt.Println(2222)
+}(&wg)
+
+wg.Wait()
+
+fmt.Println(1111)
+
+time.Sleep(time.Second)
+// 1111 2222 随机先后打印出
+```
+
 https://zhuanlan.zhihu.com/p/344973865

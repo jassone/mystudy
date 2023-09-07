@@ -12,8 +12,6 @@ https://www.jianshu.com/p/ec59beec138b
 
 只适用于单实例或者单进程的场景。
 
-
-
 ## 实现分布式singleflight
 
 借助redis

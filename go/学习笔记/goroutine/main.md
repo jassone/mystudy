@@ -58,6 +58,17 @@ func main() {
 
 ### 3、降低加锁/解锁的频率
 
-## 三、相关wiki
+## 三、细节
+
+```go
+type g struct {
+    // ...
+    _panic         *_panic // panic 链表，这是最里的一个
+    _defer         *_defer // defer 链表，这是最里的一个；
+    // ...
+}
+```
+
+## 四、相关wiki
 
 - 相关底层原理，总共3集 https://www.bilibili.com/video/BV1Ky4y1r78H 

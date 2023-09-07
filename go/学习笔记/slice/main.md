@@ -1,4 +1,5 @@
 ## slice
+
 ## 一、基础知识
 切片是 Go 中的一种基本的数据结构，**值是可变的**。使用这种结构可以用来管理数据集合。**切片的设计想法是由动态数组概念而来**，为了开发者可以更加方便的使一个数据结构可以自动增加和减少。
 
@@ -282,6 +283,31 @@ fmt.Println(cap(c),c) // 3 [3 4 5]， 注意这里不是[3]
 data := strings.Split(user, "-")[0]
 ```
 
-## 四、相关wiki
+## 四、其他
+
+### 1、易错点
+
+```go
+num := 2
+chArr := make([]chan bool, num)
+for i := 0; i < num; i++ {
+   chArr = append(chArr, make(chan bool))
+}
+// 上面这样会写入四个数据进去，要记住make([]chan bool, num)会默认生成零值的数据
+// 修改
+num := 2
+chArr := make([]chan bool, num)
+for i := 0; i < num; i++ {
+   chArr[i] = make(chan bool)
+}
+// 或者
+num := 2
+chArr := make([]chan bool, 0)
+for i := 0; i < num; i++ {
+  chArr = append(chArr,make(chan bool))
+}
+```
+
+## 五、相关wiki
 
 * https://www.jianshu.com/p/030aba2bff41

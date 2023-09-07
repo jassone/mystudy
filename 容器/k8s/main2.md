@@ -173,7 +173,7 @@ StorageClass 的作用有点像第 21 讲里的 IngressClass，它抽象了特�
 
 StatefulSet有了启动的先后顺序，应用该怎么知道自己的身份，进而确定互相之间的依赖关系呢？
 
-Kubernetes 给出的方法是**使用 hostname**，也就是每个 Pod 里的主机名。
+Kubernetes 给出的方法是**使用 hostname**，**也就是每个 Pod 里的主机名**。
 
 在 Pod 里查看环境变量 $HOSTNAME 或者是执行命令 hostname，都可以得到这个 Pod 的名字 redis-sts-0。
 
