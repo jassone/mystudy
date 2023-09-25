@@ -1,5 +1,13 @@
 ## gin
 
+
+
+
+
+?自定义模板渲染器
+
+
+
 ## 路由
 
 Gin框架中的路由使用的是[httprouter](https://github.com/julienschmidt/httprouter)这个库。其基本原理就是构造一个路由地址的**前缀树**。

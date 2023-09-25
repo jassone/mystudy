@@ -54,6 +54,8 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 
 * 404:Not Found。
 
+* 499: todo？？
+
 ### 4、5XX
 * 500：Server Error。
 * 502: Bad Gateway	作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应。

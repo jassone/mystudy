@@ -38,4 +38,18 @@ OS线程（操作系统线程）一般都有固定的栈内存（通常为2MB）
 
 ## 二、其他
 
-- 认识Golang中的sysmon监控线程 https://blog.haohtml.com/archives/22745  todo
+### 1、认识Golang中的sysmon监控线程
+
+ https://blog.haohtml.com/archives/22745  todo
+
+### 2、一、P和M的数量问题：
+
+##### P
+
+- 在程序中通过runtime.GOMAXPROCS() 来设置
+
+##### M
+
+-  Go语⾔本身是限定M的最⼤量是10000
+- runtime/debug包中的SetMaxThreads函数来设置
+

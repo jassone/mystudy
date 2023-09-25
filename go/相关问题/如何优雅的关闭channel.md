@@ -40,29 +40,83 @@
 ### 情况2：单生产者，多消费者
 同样直接让生产者关闭channel即可
 
-### 情况三：多生产者，单消费者
-##### 1.生产者会主动退出情况
-**主动退出：生产者执行完循环，主动退出goroutine**
-
-- 等生产者都发送完后在另外一个goroutine中关闭channel，**可利用sync.WaitGroup通知关闭**，**也可利用额外的channle通知另外goroutine关闭channel**。
-- 不可以直接在生产者中关闭channle，因为生产者有多个，贸然关闭会导致某个生产者向channle中发送数据，导致panic
-
-##### 2.生产者不会主动退出情况
-**消费者通过一个额外的channle来通知生产者停止生产数据，当数据channel没有被任何goroutine持有时，GC会帮我们关闭channel并回收**
-
-### 情况四，多生产者，多消费者
+### 情况三：多生产者，单消费者/多消费者
 
 ##### 1.生产者会主动退出情况
-同上
-##### 2.生产者不会主动退出情况，消费者会主动退出情况
-同上
+```go
+// 两个写，写10条数据，3个读，保证能读完
 
-##### 3.生产者不会主动退出情况，消费者不会主动退出情况
-针对这种生产者和消费者都不主动退出的情况，我们应该想办法让消费者退出，比如说让消费者监听一个退出信号，有退出信号时就退出，然后就可以演变成消费者会退出的情况进行处理了
+func main() {
+   log.SetFlags(0)
+
+   const NumReceivers = 3
+   const NumSenders = 2
+   const NumTotal = 10
+
+   wg := sync.WaitGroup{}
+   wg.Add(NumReceivers)
+
+   dataCh := make(chan int)   // 将被关闭
+   middleCh := make(chan int) // 不会被关闭
+   closed := make(chan int)   //会被关闭
+
+   // 中间层
+   go func() {
+      num := 0
+      for {
+         num++
+         select {
+         case v := <-middleCh:
+            if num == NumTotal {
+               close(closed) // 不再写
+               dataCh <- v   // 将最后数据发生到通道
+               close(dataCh) // 关闭数据通道
+               return
+            } else {
+               dataCh <- v
+            }
+         }
+      }
+   }()
+
+   // 发送者
+   for i := 0; i < NumSenders; i++ {
+      go func(i int) {
+         for j := i * 5; j < i*5+50; j++ {
+            select {
+            case <-closed:
+               return
+            default:
+            }
+
+            select {
+            case <-closed:
+               return
+            case middleCh <- j:
+            }
+         }
+      }(i)
+   }
+
+   // 接收者
+   for i := 0; i < NumReceivers; i++ {
+      go func() {
+         defer wg.Done()
+
+         for value := range dataCh {
+            log.Println(value)
+         }
+      }()
+   }
+
+   wg.Wait()
+
+}
+```
 
 ## 四、总结
 
-- 让生产者关闭
+- 要转换为关闭一个channel时，只能有一个写
 - 增加一个channel控制另外一个channel关闭
 - 让生产者和消费者的协程退出，因为没有对channel进行引用，channel会被GC回收
 

@@ -47,11 +47,11 @@ s3 := string(b) // s3 = "Hello World"
 ### 5、bytes.Buffer写入
 
 ```go
- var res bytes.Buffer
-    for i := 0; i < n; i++ {
-        res.WriteString("string")
-     }
- return res.String()
+var res bytes.Buffer
+for i := 0; i < n; i++ {
+  res.WriteString("string")
+}
+return res.String()
 ```
 
 ### 4、strings.Builder写入

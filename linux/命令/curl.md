@@ -6,7 +6,7 @@
 
 ```sh
 curl -v https://www.baidu.com
-``` 
+```
 
 demo
 ```sh
@@ -37,3 +37,15 @@ demo
 curl --trace - https://www.baidu.com
 ```
 
+### 其他
+
+```sh
+#拷贝网络文件
+curl https://raw.githubusercontent.com/gin-gonic/examples/master/basic/main.go > main.go
+```
+
+
+
+## 相关wiki
+
+详解 https://www.cnblogs.com/duhuo/p/5695256.html
