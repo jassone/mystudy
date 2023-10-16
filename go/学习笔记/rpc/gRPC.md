@@ -75,7 +75,24 @@ go get -u github.com/golang/protobuf/protoc-gen-go 便可以在$GOPATH/bin目录
 git clone https://e.coding.net/robinqiwei/googleprotobuf.git
 ```
 
-### 四、相关wiki
+##### b) 如何下载不同版本的proto
+
+
+
+```sh
+protoc --version
+libprotoc 23.4
+```
+
+
+
+### 四、使用
+
+```sh
+protoc --go_out=. --go-grpc_out=. demo.proto // 生成pb文件，进入proto文件目录
+```
+
+### 五、相关wiki
 
 * 如何使用grpc https://zhuanlan.zhihu.com/p/161473581
 * https://studygolang.com/articles/14336

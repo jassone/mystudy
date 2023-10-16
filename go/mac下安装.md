@@ -8,6 +8,7 @@ export GOPATH=$HOME/webdata/go  （workspace，工作空间）
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:/usr/local/go/bin:$GOBIN
 
+
 //GOROOT    默认  /usr/local/go，可不设置
 
 source /etc/profile ##刷新环境变量
@@ -20,6 +21,10 @@ source  ~/.bash_profile     刷新环境变量
 
 //环境变量
 vi /etc/profile  // 所有用户的, 目前本人go env配置在这里
+
+// 设置环境变量
+$ go env -w GO111MODULE=on
+$ go env -w GOPROXY=https://goproxy.cn,direct
 ```
 
 ## 二、其他配置
