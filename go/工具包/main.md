@@ -24,5 +24,7 @@
 
 ### 6、校验
 
-- 比如参数校验  https://github.com/go-playground/validator
+- 比如参数校验  https://github.com/go-playground/validator 
+
+  （示例 https://blog.csdn.net/weixin_42427946/article/details/131465613, https://darjun.github.io/2020/04/04/godailylib/validator/）
 

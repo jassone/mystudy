@@ -46,6 +46,18 @@ WHERE
 
 和使用普通where条件判断对比，使用case时都会去执行，但使用where时如果不符合条件，就不去执行了。
 
+### 4、update exists
+
+```sql
+UPDATE parent_table pt SET pt.data = 'new data' WHERE EXISTS (  SELECT 1 FROM child_table ct WHERE ct.parent_id = pt.id );
+```
+
+### 5、复制表数据
+
+```sql
+INSERT INTO table_name (column1, column2, ...) SELECT column1, 'new_value', ... FROM Temp_table WHERE condition;
+```
+
 ## 二、查询
 
 ### 1、limit和offset
@@ -111,5 +123,3 @@ select * from t1 where m1 > any(select m2 from t2)
 ```sql
 select * from t1 where m1 > all(select m2 from t2)
 ```
-
-## 三、其他

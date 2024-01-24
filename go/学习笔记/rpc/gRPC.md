@@ -77,14 +77,10 @@ git clone https://e.coding.net/robinqiwei/googleprotobuf.git
 
 ##### b) 如何下载不同版本的proto
 
-
-
 ```sh
 protoc --version
 libprotoc 23.4
 ```
-
-
 
 ### 四、使用
 

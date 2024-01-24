@@ -62,6 +62,9 @@ delete(map, key)
 ## 二、map值
 
 ### 1、map 中的元素是不可寻址的
+
+在 Go 语言中，"map 中的元素是不可寻址的"的意思是你无法获取 Map 中元素的地址。因为随着map元素的增长，map底层重新分配空间会导致之前的地址无效。
+
 比如 map 一个字段的值是 struct 类型，则无法直接更新该 struct 的单个字段。
 ```go
 type data struct {
@@ -72,8 +75,13 @@ func main() {
     m := map[string]data{
         "x": {"Tom"},
     }
-    m["x"].name = "Jerry" //panic: runtime error: invalid memory address or nil pointer dereference
+    m["x"].name = "Jerry" //编译错误: cannot assign to struct field m["x"].name in map
 }
+
+// 或者
+m := make(map[string]int)
+m["hello"] = 5
+_ = &m["hello"] // 编译错误: invalid operation: cannot take address of m["hello"] (map index expression of type int)
 
 // slice可以
 func main2() {
@@ -82,6 +90,10 @@ func main2() {
     fmt.Println(s)    // [{Jerry}]
 }
 ```
+
+在 Go 语言中使用 `make` 或 `map` 关键字创建的 Map 是一种引用类型，指向一个哈希表的引用。但是你不能直接获取 map 元素的地址。
+
+这是因为，map 的元素在内存中是不连续的，也就是说元素在内存中的位置可能会因为哈希操作而改变。如果你试图获取一个 map 元素的地址，并尝试通过该地址来修改元素的值，那么当这个元素被移动到其他位置时，你的修改将无法生效，这可能会引发一些坏的副作用。所以为了避免这种情况，Go 语言禁止获取 map 元素的地址。
 
 ### 2、更新 map 中 struct 元素的字段值，有 2 个方法
 
@@ -105,14 +117,14 @@ func main() {
 ##### b) 使用指向元素的 map 指针
 
 ```go
-func main() {
-    m := map[string]*data{
-        "x": {"Tom"},
-    }
-
-    m["x"].name = "Jerry"    // 直接修改 m["x"] 中的字段
-    fmt.Println(m["x"])
+type data struct {
+    name string
 }
+m := map[string]*data{
+    "x": {"Tom"},
+}
+m["x"].name = "Jerry"    // 直接修改 m["x"] 中的字段
+fmt.Println(m["x"])
 ```
 
 ##### c) map变量问题

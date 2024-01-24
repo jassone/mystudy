@@ -69,6 +69,14 @@ type g struct {
 }
 ```
 
-## 四、相关wiki
+## 四、相关问题
+
+### 1、go语言中若其中一个协程panic ,其他协程会怎么样
+
+多个goroutine, 一个panic，调用该routine的defer，没有捕捉panic进行recover的话，该routine的所有defer完成后，整个进程退出。
+
+如果想不影响到其他goroutine，则需要在本goroutine中进行recover。
+
+## 五、相关wiki
 
 - 相关底层原理，总共3集 https://www.bilibili.com/video/BV1Ky4y1r78H 

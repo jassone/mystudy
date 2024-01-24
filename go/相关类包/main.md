@@ -18,14 +18,22 @@
 
 - redis  https://github.com/redis/go-redis (https://redis.uptrace.dev/zh) 貌似功能很强大
 
-  
-
-### 二、表格
+## 二、表格
 
 - 读取excel：  github.com/tealeg/xlsx
-
-
 
 ## 三、转换类
 
 - 各种类型之间转换 https://github.com/spf13/cast
+
+## 四、命令行
+
+- github.com/spf13/cobra
+
+## 五、精度
+
+- 精度计算 https://github.com/shopspring/decimal
+
+## 六、协程
+
+- 协程池 https://github.com/panjf2000/ants/

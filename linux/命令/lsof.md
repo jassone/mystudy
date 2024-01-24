@@ -4,18 +4,24 @@ lsof是系统管理/安全的尤伯工具。将这个工具称之为lsof真实�
 
 lsof可以替代netstat和ps的全部工作。**lsof需要root用户的权限来执行(否则显示不全,比如80端口是被root用户使有，普通用户查看不了)。**
 
-### 来显示与指定端口相关的网络信息
 ```sh
+ #来显示与指定端口相关的网络信息
  # sudo losf -i:port
+ sudo lsof -i :8081
+ 
+ // 同时显示pid
+ sudo lsof -i :80 -P
 ```
 
-### 仅显示TCP连接
 ```sh
- #  sudo lsof  -iTCP
+# 显示所有端口
+sudo lsof  -i
+# 仅显示TCP连接
+sudo lsof  -iTCP
 ```
 
-### 找出监听端口
 ```sh
+## 找出监听端口
 #  sudo lsof  -i -sTCP:LISTEN
 ```
 

@@ -42,7 +42,55 @@
 
 ### 情况三：多生产者，单消费者/多消费者
 
-##### 1.生产者会主动退出情况
+### 1、增加关闭开关
+
+一种常见的策略是使用一个额外的通道（如 quit 或 done）来通知所有的写协程应该停止写入，然后由最后一个goroutine来关闭主通道。
+
+```go
+func worker(id int, ch chan int, quit chan struct{}, wg *sync.WaitGroup) {
+	defer wg.Done()
+	for {
+		select {
+		case ch <- id:
+			fmt.Printf("Worker %d sent data\n", id)
+			// 模拟工作
+			time.Sleep(time.Second)
+		case <-quit:
+			fmt.Printf("Worker %d quitting\n", id)
+			return
+		}
+	}
+}
+
+func main() {
+	ch := make(chan int)
+	quit := make(chan struct{})
+	var wg sync.WaitGroup
+
+	for i := 1; i <= 5; i++ {
+		wg.Add(1)
+		go worker(i, ch, quit, &wg)
+	}
+
+	go func() {
+		// 模拟接收数据
+		for v := range ch {
+			fmt.Printf("Received %d\n", v)
+		}
+	}()
+
+	// 模拟其他操作
+	time.Sleep(5 * time.Second)
+	close(quit)
+	wg.Wait()
+
+	close(ch)
+	fmt.Println("All done!")
+}
+```
+
+##### 2、增加关闭开关+统一关闭转换后的唯一写
+
 ```go
 // 两个写，写10条数据，3个读，保证能读完
 
@@ -110,7 +158,6 @@ func main() {
    }
 
    wg.Wait()
-
 }
 ```
 

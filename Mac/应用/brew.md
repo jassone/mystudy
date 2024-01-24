@@ -15,6 +15,13 @@ brew info nginx
 
 ##安装软件
 brew install nginx
+
+## brew tap
+brew tap XXXX // 可以为brew的软件的 跟踪,更新,安装添加更多的的tap formulae
+// 如果你在核心仓库没有找到你需要的软件,那么你就需要安装第三方的仓库去安装你需要的软件
+
+brew tap // 没有参数会自动更新已经存在的tap并列出当前已经tapped的仓库
+// https://segmentfault.com/a/1190000012826983
 ```
 
 

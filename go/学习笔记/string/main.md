@@ -75,3 +75,10 @@ func changeString() {
 
 - string是不可变的字节序列，内部包含字节数组指针和长度信息
 - []byte是可变字节序列，保存了底层字节数组指针和容量信息
+
+### 6、字符串转义 ？？？
+
+```
+strconv.Quote(str)
+strconv.Unquote(str)
+```

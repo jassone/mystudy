@@ -14,6 +14,7 @@ App Store下载的应用：
 可以使用命令：“sudo du -sh * ”查看当前文件夹下各个文件和文件夹占用的空间大小，进而一步步找到占用磁盘空间较多的文件。
 
 ### 3、其他
+
 *  ~/Library/Group Containers/UBF8T346G9.Office/  office报错信息
 *  ~/Library/Containers/
 *  ~/Library/Application Support/dinglive

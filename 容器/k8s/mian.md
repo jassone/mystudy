@@ -1,4 +1,6 @@
-## main
+## 
+
+main
 
 ## 一、基础知识
 
@@ -20,6 +22,9 @@ Kubernetes 可以说是一个集群级别的操作系统。
 - ApiServer接口文档 https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/
 - 名词对比 https://cloud.tencent.com/document/product/457/45612
 - https://www.apiref.com/kubernetes-zh/index.html
+
+- k8s容器云解决方案 https://kubesphere.io/zh/ 
+- k8s容器云解决方案 https://docs.daocloud.io/trial/
 
 
 

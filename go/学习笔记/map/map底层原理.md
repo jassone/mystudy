@@ -322,21 +322,7 @@ Go map不是线程安全的，在使用过程中如果需要保证线程安全�
  }
 ```
 
-### 2、对map数据进行操作时不可取地址
-
-因为随着map元素的增长，map底层重新分配空间会导致之前的地址无效。**所以不允许取地址**。也正因为如此，下面代码是错误的。
-
-```go
-type Student struct {
-     name string
-} 
-func main() { 
-    m := map[string]Student{"people": {"zhoujielun"}} 
-    m["people"].name = "wuyanzu"
-}
-```
-
-### 3、Go map遍历为什么是无序的
+### 2、Go map遍历为什么是无序的
 
 使用 range 多次遍历 map 时输出的 key 和 value 的顺序可能不同。**这是 Go 语言的设计者们有意为之**，旨在提示开发者们，Go 底层实现并不保证 map 遍历顺序稳定，不要依赖 range 遍历结果顺序。
 主要原因有2点：

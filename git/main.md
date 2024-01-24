@@ -2,6 +2,10 @@
 
 todo
 
+
+
+clone github的代码太慢，只需要把https改为http即可
+
 ## 一、基础知识
 
 * .gitignore  文件控制提交哪些文件

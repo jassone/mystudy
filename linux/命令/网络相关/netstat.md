@@ -7,12 +7,14 @@ netstat 是一个告诉我们系统中所有 tcp/udp/unix socket 连接状态的
 
 如果是mac
 * netstat -tunlp tcp
- 
+
 ### 查看某个端口号
 * netstat -tunlp | grep 8000
 
 如果是mac
-* 查询inet：netstat -navf inet | grep 80
+* 查询所有端口  sudo netstat -an
+* 查询所有端口 并带上pid sudo netstat -an -P | grep 80 ??????
+* 查询inet：（有pid）netstat -navf inet | grep 80    / (无pid) netstat -an | grep 80
 * 查询TCP：netstat -navp tcp | grep 80
 * 查询UDP：netstat -navp udp | grep 80
 

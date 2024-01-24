@@ -31,9 +31,8 @@ res = fmt.Sprint(res, "string")
 s1 := "Hello"
 s2 := "World"
 b := []byte(s1)
-b = append(b, ' ')
 b = append(b, s2...)
-s3 := string(b) // s3 = "Hello World"
+s3 := string(b) // s3 = "HelloWorld"
 ```
 
 如果长度是可预知的，那么创建 `[]byte` 时，我们还可以预分配切片的容量(cap)。
@@ -42,9 +41,12 @@ s3 := string(b) // s3 = "Hello World"
 
 ### 5、strings.Join
 
+```go
+str:= []string{"Geeks", "For", "Geeks"} 
+fmt.Println(strings.Join(str, "-"))  // Geeks-For-Geeks
+```
 
-
-### 5、bytes.Buffer写入
+### 6、bytes.Buffer写入
 
 ```go
 var res bytes.Buffer
@@ -54,21 +56,20 @@ for i := 0; i < n; i++ {
 return res.String()
 ```
 
-### 4、strings.Builder写入
+### 7、strings.Builder写入
 
 生成器用于使用Write方法高效地生成字符串。它最大限度地减少了内存复制。
 
 ```go
 var b strings.Builder
 b.WriteString("Hello")
-b.WriteString(" ")
 b.WriteString("World")
 s := b.String() // s = "Hello World"
 ```
 
 同时该包也提供两个方法，来控制缓冲区的大小。
 
-- Grow()：用来预分配内存空间大小，如果实现知道所需内存大小，使用该函数来申请空间大小，这样减少后期的缓冲区大小操作，效率更高。
+- Grow()：用来预分配内存空间大小，如果知道所需内存大小，使用该函数来申请空间大小，这样减少后期的缓冲区大小操作，效率更高。
 - Reset()：用于清空缓冲区。
 
 ## 二、性能分析

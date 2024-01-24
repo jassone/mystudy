@@ -6,7 +6,7 @@ Golang 没有结构化异常，使用 panic 抛出错误，recover 捕获错误�
 ## 一、基础知识
 ### 1、panic：
 
-**和defer一样，每个G的结构体上也有一个panic的的单向链表，越新的panic放在链表头，但打印时，却是从尾部开始打印。**
+**和defer一样，每个G的结构体上也有一个panic的单向链表，越新的panic放在链表头，但打印时，却是从尾部开始打印。**
 
 ```go
 // runtime/runtime2.go

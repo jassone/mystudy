@@ -77,7 +77,7 @@ func (tc *NoExecuteTaintManager) worker(worker int, done func(), stopCh <-chan s
   }
 }
 ```
-### 2、select中如何判断channel是关闭了
+### 2、select中如何判断channel是关闭了并且不再读取
 
 **如果case中的通道被关闭，读取会立即返回，将导致死循环。可以将通道置为nil来让select 忽略掉这个case**，继续评估其它case。但是有可能误判(写入方是写入了一个零值而不是关闭channel，比如整数0)
 

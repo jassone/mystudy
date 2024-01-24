@@ -127,3 +127,40 @@ func main() {
 ##### c) defer结构体
 在上一版本基础上增加几个字段
 ![20220325210705.jpg](https://pic.imgdb.cn/item/623dbe9a27f86abb2aa2bcba.jpg)
+
+## 三、相关问题
+
+### 1、如何捕获其他子协程中的panic
+
+##### 自己封装下
+
+```go
+
+func safeGoRoutine(f func()) {
+   go func() {
+      defer func() {
+         if r := recover(); r != nil {
+            fmt.Print("Recovered in f", r)
+         }
+      }()
+      f()
+   }()
+}
+
+func main() {
+   safeGoRoutine(func() {
+      fmt.Println("Goroutine 1")
+      panic("Panic in Goroutine 1")
+   })
+
+   safeGoRoutine(func() {
+      fmt.Println("Goroutine 2")
+      time.Sleep(2 * time.Second)
+   })
+
+   // Wait for goroutines to finish
+   time.Sleep(3 * time.Second)
+}
+```
+
+##### todo
