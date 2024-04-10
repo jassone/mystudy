@@ -49,7 +49,7 @@ git push --tags
 
 ### 4、go mod版本选择算法
 
-使用Minimal version selection (MVS)算法：**对每个依赖，选择其所有被依赖版本中最高的那个版本**。
+使用Minimal version selection (MVS)算法：**对每个依赖，选择其所有被依赖版本中最高的那个版本**。**注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意注意**
 
 ![20221117134852.jpg](https://pic.imgdb.cn/item/6375cbfc16f2c2beb1da2fc0.jpg)
 
@@ -136,7 +136,11 @@ go mod why 查看为什么需要依赖某模块
 
 ##### a) **使用replace替换无法直接获取的package**
 
+相关文档：Go module replace详解 https://www.manongdao.com/article-1885810.html
+
 比如在 go.mod 文件中使用 replace 指令替换成github上对应的库。
+
+注意: **替换的类库必须有版本号**
 
 ```text
 replace golang.org/x/crypto v0.0.0-20190313024323-a1f597ede03a => github.com/golang/crypto v0.0.0-20190313024323-a1f597ede03a
@@ -250,13 +254,19 @@ github.com/dgrijalva/jwt-go v3.2.0+incompatible
 
 ### 6、 循环依赖
 
-公共库直接应明确分工，避免大杂烩，避免循环依赖
+公共库之间应明确分工，避免大杂烩，避免循环依赖
 
 ### 7、如何把一个库从v1.1升级到v2.0
 
 在新的commit中在根目录新建v2目录，将v1文件都复制到v2中，go.mod中path修改为v2，打上v2.0tag
 
 wiki：https://go.dev/blog/v2-go-modules
+
+### 8、如何把gomod提交版本号升级
+
+go get XX.XX.com/XXX/XXX@f0b928  // f0b928为提交代码的版本的前缀
+
+然后gomod文件中即可更新为最新的
 
 ## 五、相关wiki
 

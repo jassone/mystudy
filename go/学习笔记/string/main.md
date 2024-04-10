@@ -78,7 +78,18 @@ func changeString() {
 
 ### 6、字符串转义 ？？？
 
-```
+```go
 strconv.Quote(str)
 strconv.Unquote(str)
+
+escapedString := "\"HelloWorld\""
+escapedString,_:= strconv.Unquote(str)
+
+escapedString := "\"Hello\"World\""
+escapedString,_:= strconv.Unquote(str) // 报错
+
+// 对于前端提交上来的json字符串，比如
+// {\"extAppid\":\"wx8f268909830e94a4\",\"extEnable\":true}
+// 也可尝试用strconv.Unquote()转换下
+
 ```

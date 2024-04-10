@@ -239,11 +239,48 @@ func (p Person) SetAge(newAge int8) {
 * golang仍然有面向对象三大特性，只是实现和面向对象方法有所不同，没有extends关键字
 * 结构体是非常灵活的，耦合度低
 
-### 3、其他
+### 2、其他
+
 * 结构体是值类型
 * 字段类型也可以是结构体，甚至是字段所在结构体的类型(比如递归循环)
 * 名字一般使用CamelCase(驼峰命名法)
 * 结构创建在堆上还是栈上？ 不需要知道，解析器自己决定
 * 一致性：如果指针接受者，最好都是指针接受者
 * struct 的变量字段不能使用 := 来赋值。
+
+### 3、比较
+
+如果没有复杂字段，则可以直接比较
+
+```
+	var p1 user
+	p2 := user{Name: "Alice", Age: 20}
+
+	p1.Age = 23
+	if p1 == (user{}) {
+		fmt.Println("p1未赋值")
+	} else {
+		fmt.Println("p1已赋值")
+	}
+
+	if p2 == (user{}) {
+		fmt.Println("p2未赋值")
+	} else {
+		fmt.Println("p2已赋值")
+	}
+```
+
+### 4、多个指针问题
+
+比如下面的response，Body，Success都是指针类型，但是前面两个可以不用转换为值类型，因为可以自动转换
+
+```
+// 解析返回结果
+if !*response.Body.Success {
+    logger.ErrorJSON("avatar", "AliYun Avatar CreateVideoTask", response.Body)
+    return "", errors.New(*response.Body.Message)
+}
+```
+
+
 

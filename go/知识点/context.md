@@ -11,4 +11,5 @@ todo***
 * 三种context实例可互为父节点，从而可以组合成不同的应用形式；
 
 ## 相关wiki
+* 最具研读价值的 Go 源码之一：context 包  https://zhuanlan.zhihu.com/p/669704937
 * https://www.topgoer.cn/docs/gozhuanjia/chapter055.3-context
