@@ -8,6 +8,7 @@ Linux中的ps命令是Process Status的缩写。ps命令用来列出系统中当
 ```sh
 ps -ef |grep httpd 
 ps aux |grep httpd 
+ps -x | grep funasr-wss-server
 ```
 
 ### 2、查看具体进程

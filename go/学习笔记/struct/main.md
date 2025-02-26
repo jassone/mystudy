@@ -152,6 +152,7 @@ type Student struct{
 }
 type Student2 struct{
     name string
+    age int
 }
 type Person struct {
     string
@@ -166,6 +167,11 @@ func main() {
         Student{"name1"},
         &Student2{"name2"},
     }
+  
+    // 两种访问方式
+    p1.Student2.nam=""
+    p1.age=1
+  
 }
 ```
 

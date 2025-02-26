@@ -50,6 +50,7 @@ cAdvisor是一款强大的 Docker Container 监控工具
 ### 2、其他
 
 - 使用教程-赞 https://docker.easydoc.net/doc/81170005/cCewZWoN/lTKfePfP
+- https://yeasy.gitbook.io/  非常详细，赞
 - 教程2 https://blog.csdn.net/weixin_45043334/category_11863858.html
 - 卸载docker https://blog.csdn.net/qq_44028724/article/details/123806192
 - Docker 和 Kubernetes 从听过到略懂：给程序员的旋风教程 https://juejin.cn/post/6844903650611953677

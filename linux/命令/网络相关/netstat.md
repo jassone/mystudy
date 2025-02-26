@@ -1,9 +1,10 @@
 ## netstat
 netstat 是一个告诉我们系统中所有 tcp/udp/unix socket 连接状态的命令行工具。它会列出所有已经连接或者等待连接状态的连接。 该工具在识别某个应用监听哪个端口时特别有用，我们也能用它来判断某个应用是否正常的在监听某个端口。
 
+### 查看tcp连接/ 端口监听情况
 
-### 查看tcp连接
-* netstat -tunlp
+* netstat -tunlp 
+* netstat -tuln 
 
 如果是mac
 * netstat -tunlp tcp

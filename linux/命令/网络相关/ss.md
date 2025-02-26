@@ -4,6 +4,8 @@ ss是Socket Statistics的缩写。顾名思义，ss命令可以用来获取socke
 
 ```
 ss -ntlp | grep nginx //  查看某个服务的连接信息
+
+ss -tuln | grep 20001
 ```
 
 

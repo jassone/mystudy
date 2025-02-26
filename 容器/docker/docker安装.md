@@ -14,3 +14,6 @@ exit # 重新登陆
 
 
 
+## 相关文档
+
+- Ubuntu安装 https://cloud.tencent.com/developer/article/2322853?areaId=106005

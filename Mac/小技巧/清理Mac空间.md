@@ -20,3 +20,4 @@ App Store下载的应用：
 *  ~/Library/Application Support/dinglive
 *  ~/Library/Application Support/DingTalkMac
 *  ~/Library/Application Support/google
+*  /Users/bian/.cache    有时候有些程序把缓存放在这里

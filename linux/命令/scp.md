@@ -19,3 +19,9 @@ scp local_file remote_username@remote_ip:remote_folder
 scp /home/space/music/1.mp3 root@www.runoob.com:/home/root/others/music 
 ```
 
+### 2、从远程下载到本地
+
+```
+scp root@47.98.38.184:/root/.ssh/known_hosts  /Users/bian/aliy
+```
+

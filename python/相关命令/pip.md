@@ -20,6 +20,14 @@ pip install dashscope --upgrade // 更新
 
 python -m pip install --upgrade pip
 pip install --upgrade openai // 升级
+
+
+export PIP_DEFAULT_TIMEOUT=100  修改超时时间
+
+
+
+
+python3 -m site // 查看环境路径
 ```
 
 ### 1、另外一种安装
@@ -32,6 +40,8 @@ pip install --upgrade openai // 升级
 • 临时加速
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple package_name
 pip3 install -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+
+sudo pip3 install torch==2.1.2 --index-url=https://pypi.org/simple  切换源
 
 • 永久加速
 cat ~/pip.conf
@@ -55,4 +65,16 @@ trusted-host=mirrors.aliyun.com
 - https://zhuanlan.zhihu.com/p/647843635?utm_id=0  
 
   https://aliendao.cn/#/   用下载器 [model_donwload.py](https://e.aliendao.cn/model_download.py) 下载。已验证OK。
+
+### 2、手动下载
+
+```
+# Download the package
+wget https://files.pythonhosted.org/packages/{{path_to_downloaded_file}}
+
+# Install the downloaded package
+sudo pip3 install {{downloaded_file_name}}
+```
+
+
 
