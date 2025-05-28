@@ -36,7 +36,7 @@ SHOW COLLATION [LIKE 匹配的模式];
 
 ```sql
 SELECT * FROM INFORMATION_SCHEMA.INNODB_TRX WHERE trx_state = 'RUNNING';
-COMMIT 84978073 # 终止事务  好像不行
+kill  84978073 # 终止事务  好像不行
 
 在 MySQL 中，你不能直接提交其他会话中的事务。事务是由启动它的会话来管理的。如果你在 INFORMATION_SCHEMA.INNODB_TRX 表中看到一个运行中的事务，那么这个事务必须由启动它的会话来提交或回滚。
 

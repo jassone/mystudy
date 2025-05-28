@@ -60,4 +60,5 @@ deactivate // 离开虚拟环境
 
 ## 其他
 
-命令行：help(list)  : 查看list的相关文档
+- 命令行：help(list)  : 查看list的相关文档
+- 文件名不能和导入的包名一样

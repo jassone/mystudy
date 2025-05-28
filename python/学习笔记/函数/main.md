@@ -2,21 +2,79 @@
 
 ## 一、基础
 
-### 1、匿名函数
+### 特点
+
+- 定义的形参，**不用指定数据类型**，会根据传入的实参决定
+
+  
+
+### 1、匿名函数 - lambda
 
 ```
-add_1 = lambda x:x+1
+add_1 = lambda x:x+1   // 只能是一行代码
 print(add_1(10))
 ```
 
 ### 2、不定长函数
 
 ```
-def address(name,*telphone,alias_name=None,**custom)
+接收参数是一个元祖
+def sum(*args):
+	for ele in args:
+	  total += ele
+
+关键字可变参数,接收关键字参数字典格式
+def address(**args):
+	for arg_name in args:
+	  print(args[arg_name])
+address(name="jack",age=20)
+
+def address2(name,*telphone,alias_name=None,**custom)
 * 接收位置参数，格式是元祖
-** 接收关键字参数，未定义的参数会给到custom，字典格式
+** 接收关键字参数，未定义的参数会给到custom ???
 
 ```
+
+
+
+### 3. 关键字传参 - 不受参数位置影响
+
+```
+def book(name, age):
+    print(name, age)
+
+book(age=12, name="jackl")
+book(12, name="jackl")
+```
+
+### 4、默认参数
+
+- 默认参数需要放在最后
+
+```
+def book(addr,name="jack", age=12):
+    print(name, age)
+
+book("shanghai")
+book("shanghai",age=13)
+```
+
+### 5、参数为函数
+
+```
+def max_number(a, b):
+    if a > b:
+        return a
+    else:
+        return b
+
+def get_max(fun, a, b):
+    return fun(a, b)
+
+print(get_max(max_number, 5, 3))
+```
+
+
 
 ### 其他
 
@@ -99,3 +157,9 @@ run(1)
 
 - 常用的：lrucache 缓存，wraps 被装饰函数保持原对象不变（普通的装饰器会改变函数名）
 
+
+
+## 注意
+
+- 同一个文件，出现两个函数名相同的函数，则就近调用？？？
+- 

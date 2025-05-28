@@ -58,6 +58,18 @@ UPDATE parent_table pt SET pt.data = 'new data' WHERE EXISTS (  SELECT 1 FROM ch
 INSERT INTO table_name (column1, column2, ...) SELECT column1, 'new_value', ... FROM Temp_table WHERE condition;
 ```
 
+```
+INSERT INTO lanyan_xue.learning_exam_answers SELECT * FROM lanyan.learning_exam_answers;
+```
+
+快速导入
+
+```
+INSERT INTO lanyan_xue.learning_exam_answers SELECT * FROM lanyan.learning_exam_answers;
+```
+
+
+
 ## 二、查询
 
 ### 1、limit和offset

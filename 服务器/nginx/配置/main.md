@@ -183,3 +183,21 @@ http {
 }
 ```
 
+
+
+### 其他
+
+```
+    location / {
+        client_max_body_size 30M;  // 最大上传文件大小
+        proxy_pass http://192.168.2.81:8181;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       # proxy_http_version 1.1;              # 使用 HTTP/1.1 支持 chunked 传输
+        proxy_set_header Connection "";      # 防止 Nginx 添加 `Connection: close` 头
+        proxy_buffering off;                 # 禁用缓冲，直接将数据流发送到客户端
+        proxy_cache off;                     # 禁用缓存
+    }
+```
+
