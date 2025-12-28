@@ -109,7 +109,7 @@ func main() {
             }
             ch2 <- i * i
         }
-        close(ch2)
+        close(ch2) // 没有这行，后面会报死锁
     }()
     // 在主goroutine中从ch2中接收值打印
     for i := range ch2 { // 通道关闭后会读出内容，再退出for range循环

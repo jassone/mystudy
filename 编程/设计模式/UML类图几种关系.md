@@ -1,4 +1,5 @@
 ## UML类图几种关系
+
 ## 一、泛化(Generalization)
 ### 1、关系
 

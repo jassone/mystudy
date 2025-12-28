@@ -202,7 +202,7 @@ for v := range c {
 }
 ```
 
-如果channel变量为nil，则for range将永远阻塞。
+**如果channel变量为nil，则for range将永远阻塞。**
 
 ## 八、注意点
 ### 1、range中获取k,v的区别

@@ -49,8 +49,10 @@ func rangeString() {
 
     for k, d := range datas {
         fmt.Printf("k_addr:%p, k_value:%v\nd_addr:%p, d_value:%v\n----\n", &k, k, &d, d)
+        fmt.Println(string(rune(d))) // 转换为字符
     }
 }
+
 输出
 k_addr:0xc0000b2008, k_value:0 d_addr:0xc0000b2010, d_value:97
 ----
@@ -76,6 +78,7 @@ datas := &d
 for k, d := range datas {
     fmt.Printf("k_addr:%p, k_value:%v\nd_addr:%p, d_value:%v\n----\n", &k, k, &d, d)
 }
+
 ```
 
 ## 二、wiki 

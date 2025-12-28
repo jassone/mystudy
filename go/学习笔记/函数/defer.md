@@ -58,12 +58,12 @@ func F(n int) func() int {
 func main() {
    f := F(5)
    defer func() {
-      fmt.Println(f()) //3  8
+      fmt.Println(f()) //8
    }()
-  defer fmt.Println(f()) //2 6  f()这里运到的时候就执行了。defer() 后面的函数如果带参数，会优先计算参数，并将结果存储在栈中，到真正执行 defer() 的时候取出。
+  defer fmt.Println(f()) //6  f()这里运到的时候就执行了。defer() 后面的函数如果带参数，会优先计算参数，并将结果存储在栈中，到真正执行 defer() 的时候取出。
 
    i := f()
-   fmt.Println(i) //1 7
+   fmt.Println(i) //7
 }
 ```
 
@@ -73,7 +73,7 @@ func main() {
 
 - defer信息会注册到一个链表，而**当前执行的goroutine持有这个链表的头指针**，每个goroutine在运行时都有一个对应的结构体g，其中一个字段指向defer链表头。
 
-  **既链表是挂靠在当前G上的，所以在一个G里捕获不到其创建的G中的panic。**
+  **既链表是挂靠在当前G上的，所以在一个G里捕获不到其创建的其他G中的panic。**
 
 - defer链表链起来的是一个一个_defer结构体，**新注册的defer会添加到链表头**，执行时也是从头开始，所以defer才会表现为倒序执行。
 

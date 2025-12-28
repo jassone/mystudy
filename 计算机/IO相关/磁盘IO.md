@@ -1,9 +1,9 @@
 ## 磁盘IO
 
 ## 一、磁盘IO分类
-* 缓冲IO（buffered IO）
+* 缓存IO（buffered IO）
 
-* 无缓冲IO（unbuffered IO）
+* 无缓存IO（unbuffered IO）
 
 * 直接IO（Direct IO）
 
@@ -13,8 +13,8 @@
 
 |类型|对应API接口|
 |---|---|
-|缓冲IO|c语言的库函数(支持linux和win)：fopen,fclose,fseek,fread,fwrite,fprintf,fscanf...|
-|无缓冲IO|linux系统特有API:open,close,lseek,fsync,read,write,pread,pwrite|
+|缓存IO|c语言的库函数(支持linux和win)：fopen,fclose,fseek,fread,fwrite,fprintf,fscanf...|
+|无缓存IO|linux系统特有API:open,close,lseek,fsync,read,write,pread,pwrite|
 
 ### 1、有缓存IO和无缓存IO的对比
 

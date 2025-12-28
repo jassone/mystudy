@@ -14,9 +14,7 @@ TCP的特点有：
 
 ## 一、基础知识
 
-### 1、TCP头格式
-
-![731719-20160520221735216-981482756.png](https://pic.imgdb.cn/item/612f31de44eaada739a07aa5.png)
+### 1、TCP头格式![731719-20160520221735216-981482756.png](https://pic.imgdb.cn/item/612f31de44eaada739a07aa5.png)
 
 1. Source Port（源端口号）：数据发起者的端口号，16bit。
 
@@ -132,6 +130,14 @@ listening on en0, link-type EN10MB (Ethernet), capture size 262144 bytes
 
 **客户端经过两次最大的报文存活时间后，关闭连接，状态由time-wait变为closed**。因为如果服务端没有接收到 客户端跑路的 ACK 呢，就再也接收不到了，所以这时候客户端需要等待一段时间，因为如果服务端没接收到客户端的 ACK 的话会重新发送给客户端，所以等待时间需要足够长。
 
+```
+在TCP连接关闭后，端口在TIME_WAIT状态下通常会持续2倍的最大报文段生存时间（2MSL）。而最大报文段生存时间（MSL）是指一个TCP报文段在网络中最长的生存时间，它是一个估计值，通常设置为2分钟。
+
+因此，2MSL通常是4分钟左右，即使在这段时间内关闭的TCP连接所使用的端口将不可用，以避免在网络中产生混淆。在TCP连接关闭后，TIME_WAIT状态下的端口将不再接收或处理任何数据，直到这个时间段结束。在这段时间内，如果你需要重新使用之前的端口号，你应该使用SO_REUSEADDR选项或者等待2MSL时间段之后才能重用端口。
+
+需要注意的是，MSL的具体值可能会因网络环境和实现而有所不同。在实际应用中，你应该根据具体情况进行调整。
+```
+
 
 实例演示过程
 ```sh
@@ -232,13 +238,13 @@ todo  https://blog.csdn.net/Martin_chen2/article/details/123076397
 
 ### 1、为什么TIME_WAIT状态需要经过2MSL(最大报文段生存时间)才能返回到CLOSE状态？
 
-按道理，四个报文都发送完毕，我们可以直接进入CLOSE状态了，但是我们必须假象网络是不可靠的，有可以最后一个ACK丢失。所以TIME_WAIT状态就是用来重发可能丢失的ACK报文。在Client发送出最后的ACK回复，但该ACK可能丢失。Server如果没有收到ACK，将不断重复发送FIN片段。所以Client不能立即关闭，它必须确认Server接收到了该ACK。Client会在发送出ACK之后进入到TIME_WAIT状态。Client会设置一个计时器，等待2MSL的时间。如果在该时间内再次收到FIN，那么Client会重发ACK并再次等待2MSL。所谓的2MSL是两倍的MSL(Maximum Segment Lifetime)。MSL指一个片段在网络中最大的存活时间，2MSL就是一个发送和一个回复所需的最大时间。如果直到2MSL，Client都没有再次收到FIN，那么Client推断ACK已经被成功接收，则结束TCP连接。
+按道理，四个报文都发送完毕，我们可以直接进入CLOSE状态了，但是我们必须假象网络是不可靠的，有可能最后一个ACK丢失。所以TIME_WAIT状态就是用来重发可能丢失的ACK报文。在Client发送出最后的ACK回复，但该ACK可能丢失。Server如果没有收到ACK，将不断重复发送FIN片段。所以Client不能立即关闭，它必须确认Server接收到了该ACK。Client会在发送出ACK之后进入到TIME_WAIT状态。Client会设置一个计时器，等待2MSL的时间。如果在该时间内再次收到FIN，那么Client会重发ACK并再次等待2MSL。所谓的2MSL是两倍的MSL(Maximum Segment Lifetime)。MSL指一个片段在网络中最大的存活时间，2MSL就是一个发送和一个回复所需的最大时间。如果直到2MSL，Client都没有再次收到FIN，那么Client推断ACK已经被成功接收，则结束TCP连接。
 
 ### 2、为什么要有TIME_WAIT状态
 
 **1. 为了可靠地关闭TCP连接**
 
-举例：我们把主动断开连接的一方称为C端，被动断开连接的一方称为S端，由于网络不可靠，C端发送的最后一个ACK报文可能没成功发送到S端，那么S端就会重新发上一个报文即FIN，如果C端处于TIME_WAIT状态下，就可以重新发送报文ACK，然后重新计时2MSL时间才会进入CLOSED状态，S端收到ACK后就可以正常关闭TCP连接了。反之，如果这时C端处于 CLOSED 状态 ，就会响应 RST报文而不是ACK报文，那S端会认为这是一个错误，只能异常关闭TCP连接
+举例：我们把主动断开连接的一方称为C端，被动断开连接的一方称为S端，由于网络不可靠，C端发送的最后一个ACK报文可能没成功发送到S端，那么S端就会重新发上一个报文即FIN，如果C端处于TIME_WAIT状态下，就可以重新发送报文ACK，然后重新计时2MSL时间才会进入CLOSED状态，S端收到ACK后就可以正常关闭TCP连接了。反之，如果这时C端处于 CLOSED 状态 ，就会响应 RST报文而不是ACK报文，那S端会认为这是一个错误，只能异常关闭TCP连接。
 
 **2. 防止上一次连接中的包，迷路后重新出现，影响新连接**
 
@@ -252,7 +258,7 @@ todo  https://blog.csdn.net/Martin_chen2/article/details/123076397
 
 1. 业务上使用了持续且大量的短连接。
 
-   比如http请求中connection的值被设置成close，因为服务器处理完http请求后会主动断开连接，然后这个连接就处于TIME_WAIT状态了。持续时间长且量级较大的话，问题就显现出来了。http洗衣1.0中，connection默认为close，但在http1.1中connection默认行为是keep-alive，就是因为这个原因
+   比如http请求中connection的值被设置成close，因为服务器处理完http请求后会主动断开连接，然后这个连接就处于TIME_WAIT状态了。持续时间长且量级较大的话，问题就显现出来了。http协议1.0中，connection默认为close，但在http1.1中connection默认行为是keep-alive，就是因为这个原因
 
 3. HTTP 长连接超时
 

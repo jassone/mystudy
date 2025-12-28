@@ -6,7 +6,7 @@
 - 不能无脑关闭，如果一个channel已经关闭，重复关闭channel会导致panic
 - 往一个关闭的channel写数据，也会导致panic
 
-根据上面的三个不易，可以整理出三条channel的关闭原则：
+根据上面的三个不，可以整理出三条channel的关闭原则：
 
 - 不要在消费者端关闭channel
 - 不要在有多个并行的生产者时关闭channel
@@ -44,7 +44,7 @@
 
 ### 1、增加关闭开关
 
-一种常见的策略是使用一个额外的通道（如 quit 或 done）来通知所有的写协程应该停止写入，然后由最后一个goroutine来关闭主通道。
+一种常见的策略是使用一个额外的通道（如 quit 或 done）来通知**所有的写协程应该停止写入，然后由最后一个goroutine来关闭主通道。**
 
 ```go
 func worker(id int, ch chan int, quit chan struct{}, wg *sync.WaitGroup) {
@@ -104,8 +104,8 @@ func main() {
    wg := sync.WaitGroup{}
    wg.Add(NumReceivers)
 
-   dataCh := make(chan int)   // 将被关闭
    middleCh := make(chan int) // 不会被关闭
+   dataCh := make(chan int)   // 将被关闭
    closed := make(chan int)   //会被关闭
 
    // 中间层

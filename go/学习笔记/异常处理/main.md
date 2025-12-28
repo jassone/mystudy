@@ -109,7 +109,7 @@ func test() {
    panic("panic error111!")
 }
 //panic: panic error111!
-        panic: panic error2222
+ panic: panic error2222
 ```
 
 ### 2、例子2

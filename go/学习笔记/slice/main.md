@@ -87,7 +87,6 @@ fmt.Println(s2,len(s2),cap(s2)) // [] 0 10
 
 ## 二、特性
 * 切片（slice）是对数组一个连续片段的引用，所以切片是**引用类型**(占用资源很小)。
-* 切片是对数组的一个连续‘片段’的引用
 * 切片的长度可以改变，因此，切片是一个可变的数组。
 * 切片遍历方式和数组一样，可以用len()求长度。表示可用元素数量，**读写操作不能超过该限制。** 
 * cap可以求出slice最大扩张容量，不能超出数组限制。0 <= len(slice) <= len(array)，其中array是slice引用的数组。
@@ -164,6 +163,14 @@ a) 未超过cap
 
 并且 append() 操作也改变了原来数组里面的值。一个 append() 操作影响了这么多地方，如果原数组上有多个切片，那么这些切片都会被影响！无意间就产生了莫名的 bug！
 
+```
+	aaa := [5]int{1, 2, 3, 4, 5}
+	bbb := aaa[1:3]
+	ccc := aaa[1:3]
+	ccc[1] = 222
+	fmt.Println(aaa, bbb, ccc)  // [1 2 222 4 5] [2 222] [2 222]
+```
+
 这种情况也极容易出现在字面量创建切片时候，第三个参数 cap 传值的时候，如果用字面量创建切片，cap 并不等于指向数组的总容量，那么这种情况就会发生。
 
 ``` go
@@ -197,7 +204,7 @@ res3: 0xc00000c048
 res4: 0xc00000c030
 [2]
 ```
-因为切片传参是值拷贝，所以会新开参数，但是初始时底层数组是一样的，所以修改底层数组时，会影响到原来的。看起来像是引用传递。
+初始时底层数组是一样的，所以修改底层数组时，会影响到原来的。看起来像是引用传递。
 
 b) 超过cap
 ![slice-9.png](https://pic.imgdb.cn/item/6231c3b85baa1a80ab091b35.png)
@@ -250,18 +257,18 @@ copy 方法会把源切片值中的元素复制到目标切片中，**并返回�
 
 ```go
 func main() {
-  slice := []int{10, 20}
+	slice := []int{10, 20}
 	for index, value := range slice {
-		fmt.Printf("index = %d ,value = %d , value-addr = %x , slice-addr = %x\n", index,value, &value, &slice[index])
+		fmt.Printf("index-addr = %x,  value-addr = %x , slice-addr = %x\n", &index, &value, &slice[index])
 	}
 }
 输出
-index = 0 ,value = 10 , value-addr = c000018088 , slice-addr = c000018090
-index = 1 ,value = 20 , value-addr = c000018088 , slice-addr = c000018098
+index-addr = 14000122008,  value-addr = 14000122020 , slice-addr = 14000122010
+index-addr = 14000122008,  value-addr = 14000122020 , slice-addr = 14000122018
 ```
 ![slice-12.png](https://pic.imgdb.cn/item/6231cd0e5baa1a80ab1a8988.png)
 
-- 如果用 range 的方式去遍历一个切片，拿到的 Value 其实是**切片里面的值拷贝**。所以每次打印 Value 的地址都不变。
+- 如果用 range 的方式去遍历一个切片，拿到的 Value 其实是**切片里面的值拷贝**。所以每次打印 Value 的地址都不变。index同理。
 
 - 由于 Value 是值拷贝的，并非引用传递，所以直接改 Value 是达不到更改原切片值的目的的，需要通过 &slice[index] 获取真实的地址。
 

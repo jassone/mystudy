@@ -14,13 +14,20 @@ export PATH=$PATH:/usr/local/go/bin:$GOBIN
 source /etc/profile ##刷新环境变量
 
 //或者
-vi ~/.bash_profile  添加
+vi ~/.bash_profile  添加   // 当前在这下面
 
 //运行
 source  ~/.bash_profile     刷新环境变量
 
+//  macOS Catalina(10.15) 开始，默认 shell 从 bash 改为了 zsh
+只会加载 ~/.zshrc ，可以子啊该文件后添加：
+if [ -f ~/.bash_profile ]; then
+    source ~/.bash_profile
+fi
+
+
 //环境变量
-vi /etc/profile  // 所有用户的, 目前本人go env配置在这里
+vi /etc/profile  // 所有用户的
 
 // 设置环境变量
 $ go env -w GO111MODULE=on

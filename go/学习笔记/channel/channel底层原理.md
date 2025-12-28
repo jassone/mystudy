@@ -9,7 +9,7 @@
        buf      unsafe.Pointer // points to an array of dataqsiz elements 环形队列指针，循环队列是大小固定的用来存放chan接收的数据的队列；
        elemsize uint16 //每个元素的大小，用于在 buf 中定位元素的位置
        elemtype *_type // element type 元素类型，用于数据传递过程中的赋值
-       closed   uint32 //标识当前通道是否处于关闭状态，创建通道后，该字段设置0，即打开通道；通道调用close将其设置为1，通道关闭
+
        sendx    uint   // send index 环形缓冲区的状态字段，待发送的数据在循环队列buffer中的位置索引；
        recvx    uint   // receive index 环形缓冲区的状态字段，待接收的数据在循环队列buffer中的位置索引
        recvq    waitq  // list of recv waiters 等待接收的goroutine队列-双向链表
@@ -22,6 +22,7 @@
        // (in particular, do not ready a G), as this can deadlock
        // with stack shrinking.
        lock mutex //互斥锁，为每个读写操作锁定通道，因为发送和接受必须是互斥操作
+       closed   uint32 //标识当前通道是否处于关闭状态，创建通道后，该字段设置0，即打开通道；通道调用close将其设置为1，通道关闭
   }
   
   // sudog 代表goroutine
