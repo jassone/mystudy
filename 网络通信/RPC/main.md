@@ -14,6 +14,19 @@ RPC (Remote Procedure Call)即远程过程调用，是分布式系统常见的�
 
 [phprpc](http://www.phprpc.org/zh_CN/)，[yar](https://github.com/laruence/yar), [thrift](http://thrift.apache.org/), [gRPC](http://www.grpc.io/), [swoole](http://www.swoole.com/), [hprose](https://github.com/hprose/hprose-php)
 
-## 三、相关wiki
+
+
+## 三、概念区分
+
+- RPC是一种思想
+- gRPC是这个思想的一个具体实现产品
+- Protobuf是一种传输协议，还支持
+  - 文件存储
+  - Kafka 消息
+  - HTTP 接口（二进制），即 **HTTP + Protobuf 的“自定义 RPC”调用方式（伪 RPC）**，本质还是http，只是传输用的二进制的pb协议。 
+    - 业内叫法：**HTTP + Protobuf（或 HTTP RPC）**，“轻量 RPC”，
+
+## 四、相关wiki
 
 * https://zhuanlan.zhihu.com/p/280122318
+

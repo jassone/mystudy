@@ -27,9 +27,21 @@ scoreMap := map[string]int{}
 ### 2、基本使用
 map中的数据都是成对出现的。
 ```go
+// 使用make定义
 // 注意这里现在的长度8其实不起任何作用
 scoreMap := make(map[string]int, 8)
 scoreMap["张三"] = 90
+
+
+// 使用字面量声明并初始化
+// 空 map
+m := map[string]int{}
+// 带初始值
+m := map[string]int{
+    "apple":  5,
+    "banana": 3,
+    "orange": 2,
+}
 ```
 
 ### 3、判断某个键是否存在

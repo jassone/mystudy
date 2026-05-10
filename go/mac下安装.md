@@ -20,7 +20,7 @@ vi ~/.bash_profile  添加   // 当前在这下面
 source  ~/.bash_profile     刷新环境变量
 
 //  macOS Catalina(10.15) 开始，默认 shell 从 bash 改为了 zsh
-只会加载 ~/.zshrc ，可以子啊该文件后添加：
+只会加载 ~/.zshrc ，可以在该文件后添加：
 if [ -f ~/.bash_profile ]; then
     source ~/.bash_profile
 fi

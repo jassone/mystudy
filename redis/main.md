@@ -1,4 +1,30 @@
 ## Redis整理
+
+## 安装
+
+```
+# 1. 下载源码
+curl -O https://download.redis.io/releases/redis-7.0.0.tar.gz
+
+# 2. 解压
+tar -xzf redis-7.0.0.tar.gz
+cd redis-7.0.0
+
+# 3. 编译
+make
+
+# 4. 测试编译结果（可选）
+make test
+
+# 5. 安装到指定目录
+sudo make PREFIX=/usr/local/redis install
+
+# 6. 配置和启动
+mkdir /usr/local/redis/etc
+cp redis.conf /usr/local/redis/etc/
+/usr/local/redis/bin/redis-server /usr/local/redis/etc/redis.conf
+```
+
 ## 一、启动关闭
 ### 1、启动关闭
 ```sh
